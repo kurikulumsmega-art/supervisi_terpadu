@@ -68,6 +68,37 @@
                 color-adjust: exact !important;
             }
         }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .mobile-stack { flex-direction: column; }
+            .mobile-full { width: 100%; }
+        }
+        
+        /* Validation styles */
+        .input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Loading animation improvements */
+        .loading-dots:after {
+            content: '';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -77,7 +108,7 @@
         <div id="form-container" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content">
             <!-- Form Header -->
             <div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 mobile-stack">
                     <div class="bg-indigo-100 text-indigo-600 p-3 rounded-xl">
                         <i class="fas fa-clipboard-check fa-2x"></i>
                     </div>
@@ -96,42 +127,47 @@
                     <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Guru</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Guru <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <select id="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
+                                <select id="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
                                 <span id="teacherBadge" class="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">Database</span>
                             </div>
+                            <div id="teacherError" class="error-message"></div>
                         </div>
                         <div>
                             <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
                             <input type="text" id="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
-                            <input type="text" id="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran <span class="text-red-500">*</span></label>
+                            <input type="text" id="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan" required>
+                            <div id="subjectError" class="error-message"></div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester</label>
-                            <input type="text" id="class-semester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester <span class="text-red-500">*</span></label>
+                            <input type="text" id="class-semester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal" required>
+                            <div id="classError" class="error-message"></div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi</label>
-                            <input type="date" id="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi <span class="text-red-500">*</span></label>
+                            <input type="date" id="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                            <div id="dateError" class="error-message"></div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor</label>
-                            <select id="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor <span class="text-red-500">*</span></label>
+                            <select id="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
+                            <div id="supervisorError" class="error-message"></div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Tab Navigation -->
                 <nav class="border-b border-gray-200 tab-nav">
-                    <div class="flex space-x-6">
-                        <button class="tab-button py-3 px-1 text-lg active" onclick="switchTab('administrasi')">
+                    <div class="flex space-x-6 overflow-x-auto">
+                        <button class="tab-button py-3 px-1 text-lg active whitespace-nowrap" onclick="switchTab('administrasi')">
                            <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
                         </button>
-                        <button class="tab-button py-3 px-1 text-lg" onclick="switchTab('instrumen')">
+                        <button class="tab-button py-3 px-1 text-lg whitespace-nowrap" onclick="switchTab('instrumen')">
                             <i class="fas fa-chalkboard-teacher mr-2"></i> 2. Instrumen Modul Ajar
                         </button>
                     </div>
@@ -174,6 +210,7 @@
                                     </tfoot>
                                 </table>
                             </div>
+                            <div id="adminTableError" class="error-message mt-2"></div>
                         </section>
 
                         <section>
@@ -221,6 +258,7 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
+                            <div id="instrumentTableError" class="error-message mt-2"></div>
                         </section>
                         <section>
                             <div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
@@ -343,7 +381,7 @@
     
     <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-75 hidden justify-center items-center flex-col space-y-4 z-50 no-print">
         <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
-        <p class="text-lg font-semibold text-indigo-700">Menyimpan data...</p>
+        <p class="text-lg font-semibold text-indigo-700">Menyimpan data<span class="loading-dots"></span></p>
     </div>
 
     <div id="toast" class="fixed top-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out no-print">
@@ -362,10 +400,18 @@
              "Dra. Sri Mularsih": "196706201994122001", "Drs. Fiva Widiarto": "196510231996011002", "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", "Marwoto, S.Pd, S.Kom": "196904082000121001", "Sri Endah Swarastuti, S.Pd": "197407022003122004", "Dra. Cukat Budi Rahayu": "196901121994032010", "Dra. Diah Ayu Supriyanti": "196603261994122004", "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", "Sri Wahyuni, S.Pd": "197008022002122004", "Dwi Agus Tri M.M., S.Pd": "197102232002122004", "Sumardi, S.Pd., S.Kom": "197305272003121002", "Agung Pamuji, S.Pd": "197402132005011008", "Retnowati, S.Pd": "197303272005012009", "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", "Nur Romlah, S.Pd": "197509082008012008", "Deddy Suwito, S.Kom": "197209022006041013", "Agus Wuryanto, S.Pd": "197503222006041002", "Tri Puji Utami, S.Kom": "198304252009032009", "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", "Nur Fajriyahti, S.Pd.": "197005212007012014", "Srirahayu, S.Pd.": "197408042008012009", "Romidin, S.Pd": "197505052008011021", "Teguh Cahyono, S.Pd.": "198110232006041010", "Seto Eko Purwanto, S.Si": "197804232010011009", "Nelly Amaliyah, S.Psi": "197907032010012019", "Suratno, S.Pd": "198409032010011012", "Vektor Realita Aditopo, S.Pd": "198603312011011003", "Adi Setiawan, S.Pd.": "199012292014021001", "Galih Tyas Anjari, S.Pd.": "199201212014022001", "Deti Lestiyorini, S.Pd.": "198912142014022001", "Mahzun, S.Pd I": "197601072008011009", "Sugeng Pitoyo, S.Pd.": "197311032008011002", "Asriyatun, S.Pd": "199208262020122009", "Nur Laeli, S.Pd": "199704112020122011", "Sepudin Zupri, S.Kom": "197010222022211001", "Arif Nurokhman, S.Pd": "198010172022211002", "Elis Sugiarti, S.Pd.": "198503072022212028", "Sudiyarti, S.Pd": "198511182022212012", "Otiah, S.Pd.": "198802242022212013", "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", "Menik Yuni Hartini, S.Pd.": "198906292022212008", "Baiq Nur Aisyah, S.Pd.": "198909222022212005", "Sulistiono, S.Pd.": "199112202022211007", "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", "Hindun Fatmawati, S.Pd.": "199210042022212007", "Ana Nurlatifah, S.Pd.": "199304032022212014", "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", "Nining Setiani, S.Pd.": "199610102022212008", "Kukuh Pribadi, S.Pd.": "198610232022211006", "Yekti Apriyoni, S.Pd.": "197804272023212002", "Novita Adhimurti, S.Pd.": "197811142023212001", "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", "Lely Erawati, S.Pd.": "198708212023212018", "Septian Endro Laksono, S.Pd.": "199009052023211004", "Firmanika Rozaqi, S.Pd.": "199104242023212024", "Devi Artati, S.Pd.": "199210112023212020", "Soviatun Khasanah, S.Pd.": "199606302023212006", "Miftah Iskandar, S.Pd.": "198512112023211006", "Dista Puspitasari Adi, S.Pd.": "198603182024212004", "Rita Wijiarti, S.Pd.": "199410172024212021", "Safa Aulia Astri, S.Sos": "199607212024212021", "Slamet Suparman, S.Pd.": "-", "Devi Dwi Wahyuni, S.Pd.": "-", "Muhammad Idris Afandi, S.S., M.Pd.": "-"
         };
 
+        // Komponen Administrasi dengan urutan yang diperbarui
         const adminComponents = [
-            "Kalender Pendidikan", "Alur Tujuan Pembelajaran / Silabus", "RPM / Modul Ajar", "Program Tahunan", "Program Semester",
-            "Kriteria Ketercapaian Tujuan Pembelajaran (KKTP)", "Analisis Pembelajaran /Kompetensi", "Program Remedial dan Pengayaan",
-            "Daftar Nilai / Hasil Asesmen", "Absensi Siswa"
+            "Capaian Pembelajaran",
+            "Alur Tujuan Pembelajaran",
+            "Tujuan Pembelajaran",
+            "Program Tahunan",
+            "Program Semester",
+            "Analisis Minggu Efektif",
+            "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)",
+            "Kaldik",
+            "RPM/Modul Ajar",
+            "Daftar Nilai, Soal dan Analisis"
         ];
         
         const instrumentItems = [
@@ -620,26 +666,83 @@
             return isComplete;
         };
 
-        // --- SUBMISSION ---
+        // --- VALIDATION FUNCTIONS ---
 
-        const handleFormSubmit = () => {
-            const isIdentityValid = document.getElementById('teacherSelect').value && 
-                                  document.getElementById('supervisorSelect').value &&
-                                  document.getElementById('subject').value &&
-                                  document.getElementById('class-semester').value;
+        const validateForm = () => {
+            let isValid = true;
+            const errors = {};
 
-            if (!isIdentityValid) {
-                showToast('Harap lengkapi semua data identitas supervisi.', 'error');
-                return;
+            // Validate required fields
+            if (!document.getElementById('teacherSelect').value) {
+                errors.teacher = 'Pilih nama guru yang akan disupervisi';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('supervisorSelect').value) {
+                errors.supervisor = 'Pilih nama supervisor';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('subject').value.trim()) {
+                errors.subject = 'Masukkan mata pelajaran';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('class-semester').value.trim()) {
+                errors.class = 'Masukkan kelas dan semester';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('supervisionDate').value) {
+                errors.date = 'Pilih tanggal supervisi';
+                isValid = false;
             }
 
+            // Validate tables
             const isAdminComplete = calculateAdminResults();
             const isInstrumentComplete = calculateInstrumentResults();
             
-            if (!isAdminComplete || !isInstrumentComplete) {
-                showToast('Harap lengkapi semua item penilaian di kedua tab.', 'error');
-                if (!isAdminComplete) switchTab('administrasi');
-                else if (!isInstrumentComplete) switchTab('instrumen');
+            if (!isAdminComplete) {
+                errors.adminTable = 'Lengkapi semua item penilaian administrasi';
+                isValid = false;
+            }
+            
+            if (!isInstrumentComplete) {
+                errors.instrumentTable = 'Lengkapi semua item penilaian modul ajar';
+                isValid = false;
+            }
+
+            // Display errors
+            displayErrors(errors);
+            
+            return isValid;
+        };
+
+        const displayErrors = (errors) => {
+            // Clear all error messages
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            
+            // Set new error messages
+            for (const [field, message] of Object.entries(errors)) {
+                const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                }
+                
+                // Add error styling to input
+                const inputElement = document.getElementById(field);
+                if (inputElement) {
+                    inputElement.classList.add('input-error');
+                }
+            }
+        };
+
+        // --- SUBMISSION ---
+
+        const handleFormSubmit = () => {
+            if (!validateForm()) {
+                showToast('Harap perbaiki kesalahan pada form sebelum menyimpan.', 'error');
                 return;
             }
 
@@ -730,6 +833,9 @@
             switchTab('administrasi');
             document.getElementById('teacherBadge').textContent = "Database";
             document.getElementById('teacherBadge').className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
+            
+            // Clear error messages
+            displayErrors({});
         };
 
         // --- ATTACH LISTENERS ---
@@ -738,6 +844,42 @@
         document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addTeacherModal').classList.add('hidden'));
         document.getElementById('submitButton').addEventListener('click', handleFormSubmit);
         document.getElementById('resetButton').addEventListener('click', resetForm);
+
+        // Add real-time validation for required fields
+        document.getElementById('teacherSelect').addEventListener('change', () => {
+            if (document.getElementById('teacherSelect').value) {
+                document.getElementById('teacherSelect').classList.remove('input-error');
+                document.getElementById('teacherError').textContent = '';
+            }
+        });
+        
+        document.getElementById('supervisorSelect').addEventListener('change', () => {
+            if (document.getElementById('supervisorSelect').value) {
+                document.getElementById('supervisorSelect').classList.remove('input-error');
+                document.getElementById('supervisorError').textContent = '';
+            }
+        });
+        
+        document.getElementById('subject').addEventListener('input', () => {
+            if (document.getElementById('subject').value.trim()) {
+                document.getElementById('subject').classList.remove('input-error');
+                document.getElementById('subjectError').textContent = '';
+            }
+        });
+        
+        document.getElementById('class-semester').addEventListener('input', () => {
+            if (document.getElementById('class-semester').value.trim()) {
+                document.getElementById('class-semester').classList.remove('input-error');
+                document.getElementById('classError').textContent = '';
+            }
+        });
+        
+        document.getElementById('supervisionDate').addEventListener('change', () => {
+            if (document.getElementById('supervisionDate').value) {
+                document.getElementById('supervisionDate').classList.remove('input-error');
+                document.getElementById('dateError').textContent = '';
+            }
+        });
 
         // --- INITIAL EXECUTION ---
         loadTeacherData();
@@ -749,4 +891,3 @@
     </script>
 </body>
 </html>
-
