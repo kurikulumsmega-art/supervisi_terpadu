@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDu1mdwp8mDwToYmVlxsyeD7e9GvBc6iJs",
+            authDomain: "kurikulum-6c647.firebaseapp.com",
+            projectId: "kurikulum-6c647",
+            storageBucket: "kurikulum-6c647.firebasestorage.app",
+            messagingSenderId: "1014728471749",
+            appId: "1:1014728471749:web:00ed137226c6517b2becac",
+            measurementId: "G-63HVNRCTSQ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        console.log("Firebase initialized successfully");
+    </script>
     <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
@@ -362,10 +382,18 @@
              "Dra. Sri Mularsih": "196706201994122001", "Drs. Fiva Widiarto": "196510231996011002", "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", "Marwoto, S.Pd, S.Kom": "196904082000121001", "Sri Endah Swarastuti, S.Pd": "197407022003122004", "Dra. Cukat Budi Rahayu": "196901121994032010", "Dra. Diah Ayu Supriyanti": "196603261994122004", "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", "Sri Wahyuni, S.Pd": "197008022002122004", "Dwi Agus Tri M.M., S.Pd": "197102232002122004", "Sumardi, S.Pd., S.Kom": "197305272003121002", "Agung Pamuji, S.Pd": "197402132005011008", "Retnowati, S.Pd": "197303272005012009", "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", "Nur Romlah, S.Pd": "197509082008012008", "Deddy Suwito, S.Kom": "197209022006041013", "Agus Wuryanto, S.Pd": "197503222006041002", "Tri Puji Utami, S.Kom": "198304252009032009", "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", "Nur Fajriyahti, S.Pd.": "197005212007012014", "Srirahayu, S.Pd.": "197408042008012009", "Romidin, S.Pd": "197505052008011021", "Teguh Cahyono, S.Pd.": "198110232006041010", "Seto Eko Purwanto, S.Si": "197804232010011009", "Nelly Amaliyah, S.Psi": "197907032010012019", "Suratno, S.Pd": "198409032010011012", "Vektor Realita Aditopo, S.Pd": "198603312011011003", "Adi Setiawan, S.Pd.": "199012292014021001", "Galih Tyas Anjari, S.Pd.": "199201212014022001", "Deti Lestiyorini, S.Pd.": "198912142014022001", "Mahzun, S.Pd I": "197601072008011009", "Sugeng Pitoyo, S.Pd.": "197311032008011002", "Asriyatun, S.Pd": "199208262020122009", "Nur Laeli, S.Pd": "199704112020122011", "Sepudin Zupri, S.Kom": "197010222022211001", "Arif Nurokhman, S.Pd": "198010172022211002", "Elis Sugiarti, S.Pd.": "198503072022212028", "Sudiyarti, S.Pd": "198511182022212012", "Otiah, S.Pd.": "198802242022212013", "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", "Menik Yuni Hartini, S.Pd.": "198906292022212008", "Baiq Nur Aisyah, S.Pd.": "198909222022212005", "Sulistiono, S.Pd.": "199112202022211007", "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", "Hindun Fatmawati, S.Pd.": "199210042022212007", "Ana Nurlatifah, S.Pd.": "199304032022212014", "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", "Nining Setiani, S.Pd.": "199610102022212008", "Kukuh Pribadi, S.Pd.": "198610232022211006", "Yekti Apriyoni, S.Pd.": "197804272023212002", "Novita Adhimurti, S.Pd.": "197811142023212001", "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", "Lely Erawati, S.Pd.": "198708212023212018", "Septian Endro Laksono, S.Pd.": "199009052023211004", "Firmanika Rozaqi, S.Pd.": "199104242023212024", "Devi Artati, S.Pd.": "199210112023212020", "Soviatun Khasanah, S.Pd.": "199606302023212006", "Miftah Iskandar, S.Pd.": "198512112023211006", "Dista Puspitasari Adi, S.Pd.": "198603182024212004", "Rita Wijiarti, S.Pd.": "199410172024212021", "Safa Aulia Astri, S.Sos": "199607212024212021", "Slamet Suparman, S.Pd.": "-", "Devi Dwi Wahyuni, S.Pd.": "-", "Muhammad Idris Afandi, S.S., M.Pd.": "-"
         };
 
+        // Komponen Administrasi dengan urutan yang baru
         const adminComponents = [
-            "Kalender Pendidikan", "Alur Tujuan Pembelajaran / Silabus", "Modul Ajar / RPP+", "Program Tahunan", "Program Semester",
-            "Kriteria Ketercapaian Tujuan Pembelajaran (KKTP)", "Analisis Kompetensi", "Program Remedial dan Pengayaan",
-            "Daftar Nilai / Hasil Asesmen", "Absensi Siswa"
+            "Capaian Pembelajaran", 
+            "Alur Tujuan Pembelajaran", 
+            "Tujuan Pembelajaran",
+            "Program Tahunan", 
+            "Program Semester", 
+            "Analisis Minggu Efektif",
+            "KKTP", 
+            "Kaldik", 
+            "RPM/Modul Ajar", 
+            "Daftar Nilai, Soal dan Analisis"
         ];
         
         const instrumentItems = [
@@ -395,12 +423,23 @@
         // --- CORE FUNCTIONS ---
 
         const loadTeacherData = () => {
-            const storedData = localStorage.getItem('teacherSupervisionData');
-            teacherData = storedData ? { ...defaultTeacherData, ...JSON.parse(storedData) } : { ...defaultTeacherData };
+            try {
+                const storedData = localStorage.getItem('teacherSupervisionData');
+                teacherData = storedData ? { ...defaultTeacherData, ...JSON.parse(storedData) } : { ...defaultTeacherData };
+                console.log("Teacher data loaded successfully:", Object.keys(teacherData).length, "teachers");
+            } catch (error) {
+                console.error("Error loading teacher data:", error);
+                teacherData = { ...defaultTeacherData };
+            }
         };
 
         const saveTeacherData = () => {
-            localStorage.setItem('teacherSupervisionData', JSON.stringify(teacherData));
+            try {
+                localStorage.setItem('teacherSupervisionData', JSON.stringify(teacherData));
+                console.log("Teacher data saved successfully");
+            } catch (error) {
+                console.error("Error saving teacher data:", error);
+            }
         };
         
         const populateDropdowns = () => {
@@ -421,8 +460,10 @@
             addNewOption.className = "font-bold text-indigo-600";
             teacherSelect.add(addNewOption);
             
-            teacherSelect.value = currentTeacher;
-            supervisorSelect.value = currentSupervisor;
+            if (currentTeacher) teacherSelect.value = currentTeacher;
+            if (currentSupervisor) supervisorSelect.value = currentSupervisor;
+            
+            console.log("Dropdowns populated successfully");
         };
         
         // --- TABLE POPULATION ---
@@ -447,6 +488,7 @@
                 `;
                 tableBody.innerHTML += row;
             });
+            console.log("Admin table populated successfully");
         };
         
         const populateInstrumentTable = () => {
@@ -477,6 +519,7 @@
                     tableBody.innerHTML += row;
                 });
             });
+            console.log("Instrument table populated successfully");
         };
         
         // --- UI & EVENT HANDLERS ---
@@ -680,6 +723,9 @@
             formData.append('CatatanPerbaikan', document.getElementById('improvements').value);
             formData.append('CatatanTindakLanjut', document.getElementById('followup').value);
             
+            // Tanggal Validasi
+            formData.append('TanggalValidasi', document.getElementById('signatureDate').value);
+            
             fetch(SCRIPT_URL, { method: 'POST', body: formData })
                 .then(response => response.json())
                 .then(data => {
@@ -745,30 +791,19 @@
         populateAdminTable();
         populateInstrumentTable();
         setInitialDates();
+        
+        // Add event listeners for real-time calculation
+        document.addEventListener('change', function(e) {
+            if (e.target.name && e.target.name.startsWith('admin_comp_')) {
+                calculateAdminResults();
+            }
+            if (e.target.name && e.target.name.startsWith('instr_comp_')) {
+                calculateInstrumentResults();
+            }
+        });
+        
+        console.log("Application initialized successfully");
     });
     </script>
 </body>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDu1mdwp8mDwToYmVlxsyeD7e9GvBc6iJs",
-    authDomain: "kurikulum-6c647.firebaseapp.com",
-    projectId: "kurikulum-6c647",
-    storageBucket: "kurikulum-6c647.firebasestorage.app",
-    messagingSenderId: "1014728471749",
-    appId: "1:1014728471749:web:00ed137226c6517b2becac",
-    measurementId: "G-63HVNRCTSQ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
 </html>
