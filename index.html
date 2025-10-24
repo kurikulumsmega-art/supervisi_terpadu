@@ -1,893 +1,880 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
-    <!-- Tailwind CSS for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Custom styles for a polished look and specific components */
-        :root {
-            --primary-color: #4f46e5; /* indigo-600 */
-            --secondary-color: #10b981; /* emerald-500 */
-        }
-        
-        body {
-            background-color: #f3f4f6; /* gray-100 */
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for a polished look and specific components */
+        :root {
+            --primary-color: #4f46e5; /* indigo-600 */
+            --secondary-color: #10b981; /* emerald-500 */
+        }
+        
+        body {
+            background-color: #f3f4f6; /* gray-100 */
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        /* Custom styling for beautiful radio buttons */
-        .custom-radio input { display: none; }
-        .custom-radio .radio-checkmark {
-            height: 24px; width: 24px; background-color: #e5e7eb; /* gray-200 */
-            border-radius: 50%; display: inline-block; position: relative;
-            cursor: pointer; transition: all 0.3s ease;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .custom-radio input:checked + .radio-checkmark {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        .custom-radio input:checked + .radio-checkmark:after {
-            content: ''; position: absolute; display: block;
-            left: 9px; top: 5px; width: 6px; height: 12px;
-            border: solid white; border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-        }
-        .custom-radio:hover .radio-checkmark { background-color: #d1d5db; /* gray-300 */ }
+        /* Custom styling for beautiful radio buttons */
+        .custom-radio input { display: none; }
+        .custom-radio .radio-checkmark {
+            height: 24px; width: 24px; background-color: #e5e7eb; /* gray-200 */
+            border-radius: 50%; display: inline-block; position: relative;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .custom-radio input:checked + .radio-checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .custom-radio input:checked + .radio-checkmark:after {
+            content: ''; position: absolute; display: block;
+            left: 9px; top: 5px; width: 6px; height: 12px;
+            border: solid white; border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .custom-radio:hover .radio-checkmark { background-color: #d1d5db; /* gray-300 */ }
 
-        /* Tab styling */
-        .tab-button {
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
-        }
-        .tab-button.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            font-weight: 600;
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        /* Print-specific styles */
-        @media print {
-            body { background-color: white; }
-            .no-print { display: none !important; }
-            .printable-content {
-                box-shadow: none !important;
-                border: none !important;
-            }
-            .tab-content { display: block !important; } /* Show all content for printing */
-            .tab-nav { display: none !important; } /* Hide tab navigation */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-        }
-        
-        /* Responsive improvements */
-        @media (max-width: 768px) {
-            .mobile-stack { flex-direction: column; }
-            .mobile-full { width: 100%; }
-        }
-        
-        /* Validation styles */
-        .input-error {
-            border-color: #ef4444 !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
-        }
-        
-        .error-message {
-            color: #ef4444;
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-        }
-        
-        /* Loading animation improvements */
-        .loading-dots:after {
-            content: '';
-            animation: dots 1.5s steps(5, end) infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60% { content: '...'; }
-            80%, 100% { content: ''; }
-        }
-    </style>
+        /* Tab styling */
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: 600;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Print-specific styles */
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .printable-content {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .tab-content { display: block !important; } /* Show all content for printing */
+            .tab-nav { display: none !important; } /* Hide tab navigation */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .mobile-stack { flex-direction: column; }
+            .mobile-full { width: 100%; }
+        }
+        
+        /* Validation styles */
+        .input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Loading animation improvements */
+        .loading-dots:after {
+            content: '';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+    </style>
 </head>
 <body class="antialiased">
 
-    <!-- Main Container -->
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <div id="form-container" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content">
-            <!-- Form Header -->
-            <div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200">
-                <div class="flex items-center space-x-4 mobile-stack">
-                    <div class="bg-indigo-100 text-indigo-600 p-3 rounded-xl">
-                        <i class="fas fa-clipboard-check fa-2x"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">INSTRUMEN SUPERVISI AKADEMIK TERPADU</h1>
-                        <p class="text-gray-500">Pendekatan Pembelajaran Mendalam - SMK Negeri 1 Purbalingga</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Form Sections Wrapper -->
-            <div class="p-6 sm:p-8 space-y-8">
+        <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        <div id="form-container" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content">
+                        <div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200">
+                <div class="flex items-center space-x-4 mobile-stack">
+                    <div class="bg-indigo-100 text-indigo-600 p-3 rounded-xl">
+                        <i class="fas fa-clipboard-check fa-2x"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">INSTRUMEN SUPERVISI AKADEMIK TERPADU</h1>
+                        <p class="text-gray-500">Pendekatan Pembelajaran Mendalam - SMK Negeri 1 Purbalingga</p>
+                    </div>
+                </div>
+            </div>
+            
+                        <div class="p-6 sm:p-8 space-y-8">
 
-                <!-- Section: Identitas (Unified) -->
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Guru <span class="text-red-500">*</span></label>
-                            <div class="relative">
-                                <select id="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
-                                <span id="teacherBadge" class="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">Database</span>
-                            </div>
-                            <div id="teacherError" class="error-message"></div>
-                        </div>
-                        <div>
-                            <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
-                            <input type="text" id="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran <span class="text-red-500">*</span></label>
-                            <input type="text" id="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan" required>
-                            <div id="subjectError" class="error-message"></div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester <span class="text-red-500">*</span></label>
-                            <input type="text" id="class-semester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal" required>
-                            <div id="classError" class="error-message"></div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi <span class="text-red-500">*</span></label>
-                            <input type="date" id="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required>
-                            <div id="dateError" class="error-message"></div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor <span class="text-red-500">*</span></label>
-                            <select id="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
-                            <div id="supervisorError" class="error-message"></div>
-                        </div>
-                    </div>
-                </section>
+                                <section>
+                    <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Guru <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <select id="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
+                                <span id="teacherBadge" class="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">Database</span>
+                            </div>
+                            <div id="teacherError" class="error-message"></div>
+                        </div>
+                        <div>
+                            <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
+                            <input type="text" id="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran <span class="text-red-500">*</span></label>
+                            <input type="text" id="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan" required>
+                            <div id="subjectError" class="error-message"></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester <span class="text-red-500">*</span></label>
+                            <input type="text" id="class-semester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal" required>
+                            <div id="classError" class="error-message"></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi <span class="text-red-500">*</span></label>
+                            <input type="date" id="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                            <div id="dateError" class="error-message"></div>
+                        </div>
+                        <div>
+          S               <label class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor <span class="text-red-500">*</span></label>
+                            <select id="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" required></select>
+                            <div id="supervisorError" class="error-message"></div>
+                        </div>
+                    </div>
+                </section>
 
-                <!-- Tab Navigation -->
-                <nav class="border-b border-gray-200 tab-nav">
-                    <div class="flex space-x-6 overflow-x-auto">
-                        <button class="tab-button py-3 px-1 text-lg active whitespace-nowrap" onclick="switchTab('administrasi')">
-                           <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
-                        </button>
-                        <button class="tab-button py-3 px-1 text-lg whitespace-nowrap" onclick="switchTab('instrumen')">
-                            <i class="fas fa-chalkboard-teacher mr-2"></i> 2. Instrumen Modul Ajar
-                        </button>
-                    </div>
-                </nav>
+                                <nav class="border-b border-gray-200 tab-nav">
+                    <div class="flex space-x-6 overflow-x-auto">
+                        <button class="tab-button py-3 px-1 text-lg active whitespace-nowrap" onclick="switchTab('administrasi')">
+                           <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
+                        </button>
+                        <button class="tab-button py-3 px-1 text-lg whitespace-nowrap" onclick="switchTab('instrumen')">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i> 2. Instrumen Modul Ajar
+                        </button>
+                    </div>
+                </nav>
 
-                <!-- Tab 1: Administrasi Pembelajaran -->
-                <div id="administrasi-content" class="tab-content active">
-                    <div class="space-y-8">
-                        <section>
-                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
-                            </h2>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-600" id="adminTable">
-                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-4 w-1/12 text-center">No</th>
-                                            <th scope="col" class="px-6 py-4 w-5/12">Komponen Administrasi</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Tidak Ada (0)</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada, Tidak Sesuai (1)</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada dan Sesuai (2)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot class="font-semibold text-gray-800">
-                                        <tr class="bg-gray-50 border-t">
-                                            <td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
-                                            <td class="px-6 py-3 text-center" id="countTidakAda">0</td>
-                                            <td class="px-6 py-3 text-center" id="countAdaTidakSesuai">0</td>
-                                            <td class="px-6 py-3 text-center" id="countAdaSesuai">0</td>
-                                        </tr>
-                                        <tr class="bg-indigo-50 border-t">
-                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">SKOR TOTAL</td>
-                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="skorTotalAdmin">0</td>
-                                        </tr>
-                                        <tr class="bg-indigo-100 border-t">
-                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">KETERSEDIAAN PERANGKAT</td>
-                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="ketersediaanAdmin">0%</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div id="adminTableError" class="error-message mt-2"></div>
-                        </section>
+                                <div id="administrasi-content" class="tab-content active">
+                    <div class="space-y-8">
+                        <section>
+                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
+                            </h2>
+                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm text-left text-gray-600" id="adminTable">
+                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-4 w-1/12 text-center">No</th>
+                                            <th scope="col" class="px-6 py-4 w-5/12">Komponen Administrasi</th>
+                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Tidak Ada (0)</th>
+                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada, Tidak Sesuai (1)</th>
+                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada dan Sesuai (2)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot class="font-semibold text-gray-800">
+                                        <tr class="bg-gray-50 border-t">
+                                            <td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
+                                            <td class="px-6 py-3 text-center" id="countTidakAda">0</td>
+                                            <td class="px-6 py-3 text-center" id="countAdaTidakSesuai">0</td>
+                                            <td class="px-6 py-3 text-center" id="countAdaSesuai">0</td>
+                                        </tr>
+                                        <tr class="bg-indigo-50 border-t">
+                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">SKOR TOTAL</td>
+                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="skorTotalAdmin">0</td>
+                                        </tr>
+                                        <tr class="bg-indigo-100 border-t">
+                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">KETERSEDIAAN PERANGKAT</td>
+                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="ketersediaanAdmin">0%</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="adminTableError" class="error-message mt-2"></div>
+                        </section>
 
-                        <section>
-                            <div class="bg-gray-50 rounded-lg p-6 border border-dashed">
-                                <h5 class="font-bold text-gray-700 mb-4 flex items-center"><i class="fas fa-trophy mr-3"></i>Tingkat Ketersediaan</h5>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div id="level-sangat-baik" class="achievement-level bg-green-100 border border-green-200 text-green-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">SANGAT BAIK</h6><p class="text-sm font-medium">80% - 100%</p>
-                                    </div>
-                                    <div id="level-baik" class="achievement-level bg-blue-100 border border-blue-200 text-blue-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">BAIK</h6><p class="text-sm font-medium">60% - 79%</p>
-                                    </div>
-                                    <div id="level-cukup" class="achievement-level bg-yellow-100 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">CUKUP</h6><p class="text-sm font-medium">40% - 59%</p>
-                                    </div>
-                                    <div id="level-kurang" class="achievement-level bg-red-100 border border-red-200 text-red-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">KURANG</h6><p class="text-sm font-medium">&lt; 40%</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                
-                <!-- Tab 2: Instrumen Supervisi -->
-                <div id="instrumen-content" class="tab-content">
-                     <div class="space-y-8">
-                        <section>
-                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
-                            </h2>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-600" id="instrumentTable">
-                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
-                                        <tr>
-                                            <th class="px-4 py-3 w-[5%] text-center">No</th>
-                                            <th class="px-4 py-3 w-[20%]">Aspek</th>
-                                            <th class="px-4 py-3 w-[35%]">Komponen</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">0</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">1</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">2</th>
-                                            <th class="px-4 py-3 w-[25%]">Keterangan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                            <div id="instrumentTableError" class="error-message mt-2"></div>
-                        </section>
-                        <section>
-                            <div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
-                                <h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                                    <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="total-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600">Skor Perolehan</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="max-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600">Skor Maksimal</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
-                                        <p class="text-sm text-gray-600">Nilai Akhir</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="predicate-instrument">-</p>
-                                        <p class="text-sm text-gray-600">Predikat</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+                        <section>
+                            <div class="bg-gray-50 rounded-lg p-6 border border-dashed">
+                                <h5 class="font-bold text-gray-700 mb-4 flex items-center"><i class="fas fa-trophy mr-3"></i>Tingkat Ketersediaan</h5>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div id="level-sangat-baik" class="achievement-level bg-green-100 border border-green-200 text-green-800 p-4 rounded-lg text-center transition-all duration-300">
+                                        <h6 class="font-bold">SANGAT BAIK</h6><p class="text-sm font-medium">80% - 100%</p>
+                                    </div>
+                                    <div id="level-baik" class="achievement-level bg-blue-100 border border-blue-200 text-blue-800 p-4 rounded-lg text-center transition-all duration-300">
+                                        <h6 class="font-bold">BAIK</h6><p class="text-sm font-medium">60% - 79%</p>
+                                    </div>
+                                    <div id="level-cukup" class="achievement-level bg-yellow-100 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-center transition-all duration-300">
+                                        <h6 class="font-bold">CUKUP</h6><p class="text-sm font-medium">40% - 59%</p>
+                                    </div>
+                                    <div id="level-kurang" class="achievement-level bg-red-100 border border-red-200 text-red-800 p-4 rounded-lg text-center transition-all duration-300">
+                                        <h6 class="font-bold">KURANG</h6><p class="text-sm font-medium">&lt; 40%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                
+                                <div id="instrumen-content" class="tab-content">
+                     <div class="space-y-8">
+                        <section>
+                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
+                            </h2>
+                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm text-left text-gray-600" id="instrumentTable">
+                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+                                        <tr>
+                                            <th class="px-4 py-3 w-[5%] text-center">No</th>
+                                            <th class="px-4 py-3 w-[20%]">Aspek</th>
+                                            <th class="px-4 py-3 w-[35%]">Komponen</th>
+                                            <th class="px-4 py-3 w-[5%] text-center">0</th>
+                                            <th class="px-4 py-3 w-[5%] text-center">1</th>
+                                            <th class="px-4 py-3 w-[5%] text-center">2</th>
+                                            <th class="px-4 py-3 w-[25%]">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div id="instrumentTableError" class="error-message mt-2"></div>
+                        </section>
+                        <section>
+                            <div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                    <div>
+                                        <p class="text-2xl font-bold text-indigo-700" id="total-score-instrument">0</p>
+                                        <p class="text-sm text-gray-600">Skor Perolehan</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-2xl font-bold text-indigo-700" id="max-score-instrument">0</p>
+                                        <p class="text-sm text-gray-600">Skor Maksimal</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-2xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
+                                        <p class="text-sm text-gray-600">Nilai Akhir</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-2xl font-bold text-indigo-700" id="predicate-instrument">-</p>
+                                        <p class="text-sm text-gray-600">Predikat</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
 
-                <!-- Section: Catatan Supervisi (Unified) -->
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-4 flex items-center"><i class="fas fa-feather-alt mr-3"></i>CATATAN & RENCANA TINDAK LANJUT</h2>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Keunggulan (Strengths)</label>
-                            <textarea id="strengths" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan keunggulan yang ditemukan..."></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Area Perbaikan (Areas for Improvement)</label>
-                            <textarea id="improvements" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan area yang perlu diperbaiki..."></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Saran & Rencana Tindak Lanjut</label>
-                            <textarea id="followup" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Berikan saran konkret untuk pengembangan..."></textarea>
-                        </div>
-                    </div>
-                </section>
+                                <section>
+                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-4 flex items-center"><i class="fas fa-feather-alt mr-3"></i>CATATAN & RENCANA TINDAK LANJUT</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Keunggulan (Strengths)</label>
+                            <textarea id="strengths" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan keunggulan yang ditemukan..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Area Perbaikan (Areas for Improvement)</label>
+                            <textarea id="improvements" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan area yang perlu diperbaiki..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Saran & Rencana Tindak Lanjut</label>
+                            <textarea id="followup" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Berikan saran konkret untuk pengembangan..."></textarea>
+                        </div>
+                    </div>
+                </section>
 
-                <!-- Section: Validasi / Tanda Tangan (Unified) -->
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-6 flex items-center"><i class="fas fa-file-signature mr-3"></i>VALIDASI</h2>
-                    <div class="text-center mb-6">
-                        <label class="text-sm font-medium text-gray-700 mr-2">Purbalingga,</label>
-                        <input type="date" id="signatureDate" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
-                    </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <div class="text-center flex flex-col">
-                            <p class="font-semibold text-gray-700">Supervisor</p>
-                            <div class="flex-grow h-24 my-2"></div>
-                            <p class="font-bold text-gray-800 border-t pt-2" id="supervisorNameDisplay">........................................</p>
-                            <p class="text-xs text-gray-500" id="supervisorNipDisplay">NIP. .............................</p>
-                        </div>
-                        <div class="text-center flex flex-col">
-                            <p class="font-semibold text-gray-700">Guru Mapel</p>
-                            <div class="flex-grow h-24 my-2"></div>
-                            <p class="font-bold text-gray-800 border-t pt-2" id="teacherNameDisplay">........................................</p>
-                            <p class="text-xs text-gray-500" id="teacherNipDisplay">NIP. .............................</p>
-                        </div>
-                    </div>
-                    <div class="text-center pt-6 border-t border-dashed">
-                        <p class="font-semibold text-gray-700">Mengetahui, Kepala Sekolah</p>
-                        <div class="h-24 my-2"></div>
-                        <p class="font-bold text-gray-800 border-t pt-2">Maryono S.Pd, M.Si</p>
-                        <p class="text-xs text-gray-500">NIP. 19660701 2000121002</p>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
+                                <section>
+                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-6 flex items-center"><i class="fas fa-file-signature mr-3"></i>VALIDASI</h2>
+                    <div class="text-center mb-6">
+                        <label class="text-sm font-medium text-gray-700 mr-2">Purbalingga,</label>
+                        <input type="date" id="signatureDate" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="text-center flex flex-col">
+                            <p class="font-semibold text-gray-700">Supervisor</p>
+                            <div class="flex-grow h-24 my-2"></div>
+                            <p class="font-bold text-gray-800 border-t pt-2" id="supervisorNameDisplay">........................................</p>
+                            <p class="text-xs text-gray-500" id="supervisorNipDisplay">NIP. .............................</p>
+                        </div>
+                        <div class="text-center flex flex-col">
+                            <p class="font-semibold text-gray-700">Guru Mapel</p>
+                            <div class="flex-grow h-24 my-2"></div>
+                            <p class="font-bold text-gray-800 border-t pt-2" id="teacherNameDisplay">........................................</p>
+                            <p class="text-xs text-gray-500" id="teacherNipDisplay">NIP. .............................</p>
+                        </div>
+          _           </div>
+                    <div class="text-center pt-6 border-t border-dashed">
+                        <p class="font-semibold text-gray-700">Mengetahui, Kepala Sekolah</p>
+                        <div class="h-24 my-2"></div>
+                        <p class="font-bold text-gray-800 border-t pt-2">Maryono S.Pd, M.Si</p>
+                        <p class="text-xs text-gray-500">NIP. 19660701 2000121002</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-6 right-6 flex flex-col items-center space-y-3 no-print">
-        <button id="submitButton" class="bg-indigo-600 text-white px-5 py-3 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:scale-105">
-            <i class="fas fa-save mr-2"></i> Hitung & Simpan
-        </button>
-        <button onclick="window.print()" class="bg-gray-700 text-white w-12 h-12 rounded-full shadow-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition transform hover:scale-105">
-            <i class="fas fa-print"></i>
-        </button>
-         <button id="resetButton" class="bg-red-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition transform hover:scale-105">
-            <i class="fas fa-sync-alt"></i>
-        </button>
-    </div>
+        <div class="fixed bottom-6 right-6 flex flex-col items-center space-y-3 no-print">
+        <button id="submitButton" class="bg-indigo-600 text-white px-5 py-3 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:scale-105">
+            <i class="fas fa-save mr-2"></i> Hitung & Simpan
+        </button>
+        <button onclick="window.print()" class="bg-gray-700 text-white w-12 h-12 rounded-full shadow-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition transform hover:scale-105">
+            <i class="fas fa-print"></i>
+        </button>
+         <button id="resetButton" class="bg-red-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition transform hover:scale-105">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
 
-    <!-- Modals and Notifications -->
-    <div id="addTeacherModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden no-print" tabindex="-1">
-         <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-xl bg-white">
-            <div class="flex justify-between items-center pb-3 border-b">
-                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-user-plus mr-2"></i>Tambah Guru Baru</h3>
-                <button id="closeModalBtn" class="cursor-pointer z-50 p-1 rounded-full hover:bg-gray-200">
-                    <i class="fas fa-times text-gray-500"></i>
-                </button>
-            </div>
-            <div class="mt-4">
-                <form id="addTeacherForm" onsubmit="event.preventDefault(); addNewTeacher();">
-                    <div class="mb-4">
-                        <label for="newTeacherName" class="block text-sm font-medium text-gray-700">Nama Guru</label>
-                        <input type="text" id="newTeacherName" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Masukkan nama lengkap" required>
-                    </div>
-                    <div>
-                        <label for="newTeacherNIP" class="block text-sm font-medium text-gray-700">NIP</label>
-                        <input type="text" id="newTeacherNIP" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Gunakan '-' jika tidak ada NIP" required>
-                    </div>
-                </form>
-            </div>
-            <div class="flex justify-end pt-4 mt-4 border-t">
-                <button type="button" onclick="addNewTeacher()" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
-                    <i class="fas fa-save mr-2"></i> Simpan Guru
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-75 hidden justify-center items-center flex-col space-y-4 z-50 no-print">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
-        <p class="text-lg font-semibold text-indigo-700">Menyimpan data<span class="loading-dots"></span></p>
-    </div>
+        <div id="addTeacherModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden no-print" tabindex="-1">
+         <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-xl bg-white">
+            <div class="flex justify-between items-center pb-3 border-b">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-user-plus mr-2"></i>Tambah Guru Baru</h3>
+                <button id="closeModalBtn" class="cursor-pointer z-50 p-1 rounded-full hover:bg-gray-200">
+                    <i class="fas fa-times text-gray-500"></i>
+                </button>
+            </div>
+            <div class="mt-4">
+                <form id="addTeacherForm" onsubmit="event.preventDefault(); addNewTeacher();">
+                    <div class="mb-4">
+                        <label for="newTeacherName" class="block text-sm font-medium text-gray-700">Nama Guru</label>
+                        <input type="text" id="newTeacherName" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div>
+                        <label for="newTeacherNIP" class="block text-sm font-medium text-gray-700">NIP</label>
+Â                       <input type="text" id="newTeacherNIP" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Gunakan '-' jika tidak ada NIP" required>
+                    </div>
+                </form>
+            </div>
+            <div class="flex justify-end pt-4 mt-4 border-t">
+                <button type="button" onclick="addNewTeacher()" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+                    <i class="fas fa-save mr-2"></i> Simpan Guru
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-75 hidden justify-center items-center flex-col space-y-4 z-50 no-print">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
+        <p class="text-lg font-semibold text-indigo-700">Menyimpan data<span class="loading-dots"></span></p>
+    </div>
 
-    <div id="toast" class="fixed top-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out no-print">
-        <p id="toast-message">Success!</p>
-    </div>
+    <div id="toast" class="fixed top-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out no-print">
+        <p id="toast-message">Success!</p>
+    </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // --- CONFIGURATION & DATA ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysdXuiPj9eertZ7S1a82AesxLod1KdzX7zP-m4PvoJvdz7oX8-uHB7xCFXoi9iViZF/exec'; // URL Google Script untuk menyimpan data
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- CONFIGURATION & DATA ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-BK1zpJS-a20LnmIcbDWks_KupZfUJAPVbcSjgJoNzk0sqBL3AvJJD79CWCmAeCq4/exec'; // <-- INI URL BARU ANDA
 
-        // Data guru default
-        const defaultTeacherData = {
-             "Maryono S.Pd, M.Si": "196607012000121002", "Satyo Nugroho, S.Kom.": "197807142009031006",
-             "Dra. Sri Mularsih": "196706201994122001", "Drs. Fiva Widiarto": "196510231996011002", "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", "Marwoto, S.Pd, S.Kom": "196904082000121001", "Sri Endah Swarastuti, S.Pd": "197407022003122004", "Dra. Cukat Budi Rahayu": "196901121994032010", "Dra. Diah Ayu Supriyanti": "196603261994122004", "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", "Sri Wahyuni, S.Pd": "197008022002122004", "Dwi Agus Tri M.M., S.Pd": "197102232002122004", "Sumardi, S.Pd., S.Kom": "197305272003121002", "Agung Pamuji, S.Pd": "197402132005011008", "Retnowati, S.Pd": "197303272005012009", "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", "Nur Romlah, S.Pd": "197509082008012008", "Deddy Suwito, S.Kom": "197209022006041013", "Agus Wuryanto, S.Pd": "197503222006041002", "Tri Puji Utami, S.Kom": "198304252009032009", "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", "Nur Fajriyahti, S.Pd.": "197005212007012014", "Srirahayu, S.Pd.": "197408042008012009", "Romidin, S.Pd": "197505052008011021", "Teguh Cahyono, S.Pd.": "198110232006041010", "Seto Eko Purwanto, S.Si": "197804232010011009", "Nelly Amaliyah, S.Psi": "197907032010012019", "Suratno, S.Pd": "198409032010011012", "Vektor Realita Aditopo, S.Pd": "198603312011011003", "Adi Setiawan, S.Pd.": "199012292014021001", "Galih Tyas Anjari, S.Pd.": "199201212014022001", "Deti Lestiyorini, S.Pd.": "198912142014022001", "Mahzun, S.Pd I": "197601072008011009", "Sugeng Pitoyo, S.Pd.": "197311032008011002", "Asriyatun, S.Pd": "199208262020122009", "Nur Laeli, S.Pd": "199704112020122011", "Sepudin Zupri, S.Kom": "197010222022211001", "Arif Nurokhman, S.Pd": "198010172022211002", "Elis Sugiarti, S.Pd.": "198503072022212028", "Sudiyarti, S.Pd": "198511182022212012", "Otiah, S.Pd.": "198802242022212013", "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", "Menik Yuni Hartini, S.Pd.": "198906292022212008", "Baiq Nur Aisyah, S.Pd.": "198909222022212005", "Sulistiono, S.Pd.": "199112202022211007", "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", "Hindun Fatmawati, S.Pd.": "199210042022212007", "Ana Nurlatifah, S.Pd.": "199304032022212014", "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", "Nining Setiani, S.Pd.": "199610102022212008", "Kukuh Pribadi, S.Pd.": "198610232022211006", "Yekti Apriyoni, S.Pd.": "197804272023212002", "Novita Adhimurti, S.Pd.": "197811142023212001", "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", "Lely Erawati, S.Pd.": "198708212023212018", "Septian Endro Laksono, S.Pd.": "199009052023211004", "Firmanika Rozaqi, S.Pd.": "199104242023212024", "Devi Artati, S.Pd.": "199210112023212020", "Soviatun Khasanah, S.Pd.": "199606302023212006", "Miftah Iskandar, S.Pd.": "198512112023211006", "Dista Puspitasari Adi, S.Pd.": "198603182024212004", "Rita Wijiarti, S.Pd.": "199410172024212021", "Safa Aulia Astri, S.Sos": "199607212024212021", "Slamet Suparman, S.Pd.": "-", "Devi Dwi Wahyuni, S.Pd.": "-", "Muhammad Idris Afandi, S.S., M.Pd.": "-"
-        };
+        // Data guru default
+        const defaultTeacherData = {
+             "Maryono S.Pd, M.Si": "196607012000121002", "Satyo Nugroho, S.Kom.": "197807142009031006",
+             "Dra. Sri Mularsih": "196706201994122001", "Drs. Fiva Widiarto": "196510231996011002", "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", "Marwoto, S.Pd, S.Kom": "196904082000121001", "Sri Endah Swarastuti, S.Pd": "197407022003122004", "Dra. Cukat Budi Rahayu": "196901121994032010", "Dra. Diah Ayu Supriyanti": "196603261994122004", "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", "Sri Wahyuni, S.Pd": "197008022002122004", "Dwi Agus Tri M.M., S.Pd": "197102232002122004", "Sumardi, S.Pd., S.Kom": "197305272003121002", "Agung Pamuji, S.Pd": "197402132005011008", "Retnowati, S.Pd": "197303272005012009", "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", "Nur Romlah, S.Pd": "197509082008012008", "Deddy Suwito, S.Kom": "197209022006041013", "Agus Wuryanto, S.Pd": "197503222006041002", "Tri Puji Utami, S.Kom": "198304252009032009", "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", "Nur Fajriyahti, S.Pd.": "197005212007012014", "Srirahayu, S.Pd.": "197408042008012009", "Romidin, S.Pd": "197505052008011021", "Teguh Cahyono, S.Pd.": "198110232006041010", "Seto Eko Purwanto, S.Si": "197804232010011009", "Nelly Amaliyah, S.Psi": "197907032010012019", "Suratno, S.Pd": "198409032010011012", "Vektor Realita Aditopo, S.Pd": "198603312011011003", "Adi Setiawan, S.Pd.": "199012292014021001", "Galih Tyas Anjari, S.Pd.": "199201212014022001", "Deti Lestiyorini, S.Pd.": "198912142014022001", "Mahzun, S.Pd I": "197601072008011009", "Sugeng Pitoyo, S.Pd.": "197311032008011002", "Asriyatun, S.Pd": "199208262020122009", "Nur Laeli, S.Pd": "199704112020122011", "Sepudin Zupri, S.Kom": "197010222022211001", "Arif Nurokhman, S.Pd": "198010172022211002", "Elis Sugiarti, S.Pd.": "198503072022212028", "Sudiyarti, S.Pd": "198511182022212012", "Otiah, S.Pd.": "198802242022212013", "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", "Menik Yuni Hartini, S.Pd.": "198906292022212008", "Baiq Nur Aisyah, S.Pd.": "198909222022212005", "Sulistiono, S.Pd.": "199112202022211007", "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", "Hindun Fatmawati, S.Pd.": "199210042022212007", "Ana Nurlatifah, S.Pd.": "199304032022212014", "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", "Nining Setiani, S.Pd.": "199610102022212008", "Kukuh Pribadi, S.Pd.": "198610232022211006", "Yekti Apriyoni, S.Pd.": "197804272023212002", "Novita Adhimurti, S.Pd.": "197811142023212001", "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", "Lely Erawati, S.Pd.": "198708212023212018", "Septian Endro Laksono, S.Pd.": "199009052023211004", "Firmanika Rozaqi, S.Pd.": "199104242023212024", "Devi Artati, S.Pd.": "199210112023212020", "Soviatun Khasanah, S.Pd.": "199606302023212006", "Miftah Iskandar, S.Pd.": "198512112023211006", "Dista Puspitasari Adi, S.Pd.": "198603182024212004", "Rita Wijiarti, S.Pd.": "199410172024212021", "Safa Aulia Astri, S.Sos": "199607212024212021", "Slamet Suparman, S.Pd.": "-", "Devi Dwi Wahyuni, S.Pd.": "-", "Muhammad Idris Afandi, S.S., M.Pd.": "-"
+        };
 
-        // Komponen Administrasi dengan urutan yang diperbarui
-        const adminComponents = [
-            "Capaian Pembelajaran",
-            "Alur Tujuan Pembelajaran",
-            "Tujuan Pembelajaran",
-            "Program Tahunan",
-            "Program Semester",
-            "Analisis Minggu Efektif",
-            "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)",
-            "Kaldik",
-            "RPM/Modul Ajar",
-            "Daftar Nilai, Soal dan Analisis"
-        ];
-        
-        const instrumentItems = [
-             { aspect: "IDENTITAS MODUL", items: ["1. Nama Sekolah", "2. Nama Guru", "3. Nama Mata Pelajaran", "4. Elemen", "5. Fase/Kelas / Semester", "6. Alokasi Waktu", "7. Tahun Pelajaran"] },
-             { aspect: "IDENTIFIKASI MURID", items: ["Mencantumkan Kondisi Kemampuan Murid Sebelum Kegiatan Pembelajaran", "Mencantumkan Bahwa Murid Mengetahui Materi Prasyarat"] },
-             { aspect: "IDENTIFIKASI MATERI", items: ["Mencantumkan Karakteristik Materi"] },
-             { aspect: "DIMENSI PROFIL LULUSAN", items: ["Mencantumkan Dimensi Profil Lulusa n"] },
-             { aspect: "CAPAIAN PEMBELAJARAN", items: ["Mencantumkan Capaian Pembelajaran di akhir Fase"] },
-             { aspect: "LINTAS DISIPLIN ILMU", items: ["Mencantumkan mata pelajaran yang terkait dengan materi."] },
-             { aspect: "TUJUAN PEMBELAJARAN", items: ["Mencantumkan Tujuan yang Akan Dicapai saat Pembelajaran"] },
-             { aspect: "TOPIK PEMBELAJARAN", items: ["Mencantumkan Topik Pembelajaran"] },
-             { aspect: "PRAKTIK PEDAGOGIS", items: ["Menggambarkan model pembelajaran.", "Mencantumkan strategi pembelajaran.", "Mencantumkan Metode Pembelajaran."] },
-             { aspect: "KEMITRAAN PEMBELAJARAN", items: ["Kemitraan yang dilibatkan dalam kegiatan pembelajaran"] },
-             { aspect: "LINGKUNGAN PEMBELAJARAN", items: ["Mencantumkan ruang yang digunakan dalam kegiatan pembelajaran."] },
-             { aspect: "PEMANFAATAN DIGITAL", items: ["Media digital yang digunakan dalam kegiatan pembelajaran"] },
-             { aspect: "LANGKAH PEMBELAJARAN", items: ["Mencantumkan 3 prinsip pembelajaran mendalam ( berkesadaran, bermakna dan menyenangkan)", "Mencantumkan 3 pengalaman belajar murid (memahami, mengaplikasi dan merefleksi)"] },
-             { aspect: "REFLEKSI PESERTA DIDIK", items: ["Mencantumkan Refleksi Peserta didik"] },
-             { aspect: "REFLEKSI GURU", items: ["Mencantumkan refleksi Guru"] },
-             { aspect: "LEMBAR KERJA", items: ["Mencantumkan Lembar Kerja"] },
-             { aspect: "ASESMEN AWAL PEMBELAJARAN", items: ["Mencantumkan Penilaian sebelum pembelajaran (sikap / afektif dan atau kemampuan awal)."] },
-             { aspect: "ASESMEN FORMATIF", items: ["Mencantumkan Penilaian selama proses pembelajaran"] },
-             { aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
-        ];
+        // Komponen Administrasi dengan urutan yang diperbarui
+        const adminComponents = [
+            "Capaian Pembelajaran",
+            "Alur Tujuan Pembelajaran",
+            "Tujuan Pembelajaran",
+            "Program Tahunan",
+            "Program Semester",
+            "Analisis Minggu Efektif",
+            "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)",
+            "Kaldik",
+            "RPM/Modul Ajar",
+            "Daftar Nilai, Soal dan Analisis"
+        ];
+        
+        const instrumentItems = [
+             { aspect: "IDENTITAS MODUL", items: ["1. Nama Sekolah", "2. Nama Guru", "3. Nama Mata Pelajaran", "4. Elemen", "5. Fase/Kelas / Semester", "6. Alokasi Waktu", "7. Tahun Pelajaran"] },
+             { aspect: "IDENTIFIKASI MURID", items: ["Mencantumkan Kondisi Kemampuan Murid Sebelum Kegiatan Pembelajaran", "Mencantumkan Bahwa Murid Mengetahui Materi Prasyarat"] },
+             { aspect: "IDENTIFIKASI MATERI", items: ["Mencantumkan Karakteristik Materi"] },
+             { aspect: "DIMENSI PROFIL LULUSAN", items: ["Mencantumkan Dimensi Profil Lulusa n"] },
+             { aspect: "CAPAIAN PEMBELAJARAN", items: ["Mencantumkan Capaian Pembelajaran di akhir Fase"] },
+             { aspect: "LINTAS DISIPLIN ILMU", items: ["Mencantumkan mata pelajaran yang terkait dengan materi."] },
+             { aspect: "TUJUAN PEMBELAJARAN", items: ["Mencantumkan Tujuan yang Akan Dicapai saat Pembelajaran"] },
+             { aspect: "TOPIK PEMBELAJARAN", items: ["Mencantumkan Topik Pembelajaran"] },
+             { aspect: "PRAKTIK PEDAGOGIS", items: ["Menggambarkan model pembelajaran.", "Mencantumkan strategi pembelajaran.", "Mencantumkan Metode Pembelajaran."] },
+             { aspect: "KEMITRAAN PEMBELAJARAN", items: ["Kemitraan yang dilibatkan dalam kegiatan pembelajaran"] },
+             { aspect: "LINGKUNGAN PEMBELAJARAN", items: ["Mencantumkan ruang yang digunakan dalam kegiatan pembelajaran."] },
+             { aspect: "PEMANFAATAN DIGITAL", items: ["Media digital yang digunakan dalam kegiatan pembelajaran"] },
+             { aspect: "LANGKAH PEMBELAJARAN", items: ["Mencantumkan 3 prinsip pembelajaran mendalam ( berkesadaran, bermakna dan menyenangkan)", "Mencantumkan 3 pengalaman belajar murid (memahami, mengaplikasi dan merefleksi)"] },
+             { aspect: "REFLEKSI PESERTA DIDIK", items: ["Mencantumkan Refleksi Peserta didik"] },
+             { aspect: "REFLEKSI GURU", items: ["Mencantumkan refleksi Guru"] },
+             { aspect: "LEMBAR KERJA", items: ["Mencantumkan Lembar Kerja"] },
+             { aspect: "ASESMEN AWAL PEMBELAJARAN", items: ["Mencantumkan Penilaian sebelum pembelajaran (sikap / afektif dan atau kemampuan awal)."] },
+S             { aspect: "ASESMEN FORMATIF", items: ["Mencantumkan Penilaian selama proses pembelajaran"] },
+             { aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
+        ];
 
-        let teacherData = {}; // Global variable for teacher data
+        let teacherData = {}; // Global variable for teacher data
 
-        // --- CORE FUNCTIONS ---
+        // --- CORE FUNCTIONS ---
 
-        const loadTeacherData = () => {
-            const storedData = localStorage.getItem('teacherSupervisionData');
-            teacherData = storedData ? { ...defaultTeacherData, ...JSON.parse(storedData) } : { ...defaultTeacherData };
-        };
+        const loadTeacherData = () => {
+            const storedData = localStorage.getItem('teacherSupervisionData');
+            teacherData = storedData ? { ...defaultTeacherData, ...JSON.parse(storedData) } : { ...defaultTeacherData };
+        };
 
-        const saveTeacherData = () => {
-            localStorage.setItem('teacherSupervisionData', JSON.stringify(teacherData));
-        };
-        
-        const populateDropdowns = () => {
-            const teacherSelect = document.getElementById('teacherSelect');
-            const supervisorSelect = document.getElementById('supervisorSelect');
-            const currentTeacher = teacherSelect.value;
-            const currentSupervisor = supervisorSelect.value;
-            teacherSelect.innerHTML = '<option value="">-- Pilih Guru --</option>';
-            supervisorSelect.innerHTML = '<option value="">-- Pilih Supervisor --</option>';
+        const saveTeacherData = () => {
+            localStorage.setItem('teacherSupervisionData', JSON.stringify(teacherData));
+        };
+        
+        const populateDropdowns = () => {
+            const teacherSelect = document.getElementById('teacherSelect');
+            const supervisorSelect = document.getElementById('supervisorSelect');
+            const currentTeacher = teacherSelect.value;
+            const currentSupervisor = supervisorSelect.value;
+            teacherSelect.innerHTML = '<option value="">-- Pilih Guru --</option>';
+            supervisorSelect.innerHTML = '<option value="">-- Pilih Supervisor --</option>';
 
-            const sortedTeachers = Object.keys(teacherData).sort((a, b) => a.localeCompare(b));
-            sortedTeachers.forEach(name => {
-                teacherSelect.add(new Option(name, name));
-                supervisorSelect.add(new Option(name, name));
-            });
+            const sortedTeachers = Object.keys(teacherData).sort((a, b) => a.localeCompare(b));
+            sortedTeachers.forEach(name => {
+                teacherSelect.add(new Option(name, name));
+                supervisorSelect.add(new Option(name, name));
+            });
 
-            const addNewOption = new Option("+ Tambah Guru Baru", "add_new");
-            addNewOption.className = "font-bold text-indigo-600";
-            teacherSelect.add(addNewOption);
-            
-            teacherSelect.value = currentTeacher;
-            supervisorSelect.value = currentSupervisor;
-        };
-        
-        // --- TABLE POPULATION ---
+            const addNewOption = new Option("+ Tambah Guru Baru", "add_new");
+            addNewOption.className = "font-bold text-indigo-600";
+            teacherSelect.add(addNewOption);
+            
+            teacherSelect.value = currentTeacher;
+            supervisorSelect.value = currentSupervisor;
+        };
+        
+        // --- TABLE POPULATION ---
 
-        const populateAdminTable = () => {
-            const tableBody = document.querySelector('#adminTable tbody');
-            tableBody.innerHTML = '';
-            adminComponents.forEach((component, index) => {
-                const row = `
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
-                        <td class="px-6 py-4">${component}</td>
-                        ${[0, 1, 2].map(value => `
-                            <td class="px-6 py-4 text-center">
-                                <label class="custom-radio">
-                                    <input type="radio" name="admin_comp_${index}" value="${value}">
-                                    <span class="radio-checkmark"></span>
-                                </label>
-                            </td>
-                        `).join('')}
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
-        };
-        
-        const populateInstrumentTable = () => {
-            const tableBody = document.querySelector('#instrumentTable tbody');
-            tableBody.innerHTML = '';
-            let componentCounter = 0;
-            instrumentItems.forEach((group, groupIndex) => {
-                group.items.forEach((itemText, itemIndex) => {
-                    componentCounter++;
-                    const row = `
-                        <tr class="border-b hover:bg-gray-50">
-                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 text-center font-medium bg-gray-50">${groupIndex + 1}</td>` : ''}
-                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 font-semibold bg-gray-50">${group.aspect}</td>` : ''}
-                            <td class="px-4 py-3">${itemText}</td>
-                            ${[0, 1, 2].map(value => `
-                                <td class="px-4 py-3 text-center">
-                                    <label class="custom-radio">
-                                        <input type="radio" name="instr_comp_${componentCounter}" value="${value}">
-                                        <span class="radio-checkmark"></span>
-                                    </label>
-                                </td>
-                            `).join('')}
-                            <td class="px-4 py-3">
-                                <input type="text" id="instr_ket_${componentCounter}" class="w-full p-2 text-sm bg-white border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Catatan...">
-                            </td>
-                        </tr>
-                    `;
-                    tableBody.innerHTML += row;
-                });
-            });
-        };
-        
-        // --- UI & EVENT HANDLERS ---
-        
-        window.switchTab = (tabName) => {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-            
-            document.getElementById(`${tabName}-content`).classList.add('active');
-            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
-        };
+        const populateAdminTable = () => {
+            const tableBody = document.querySelector('#adminTable tbody');
+            tableBody.innerHTML = '';
+            adminComponents.forEach((component, index) => {
+                const row = `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
+                        <td class="px-6 py-4">${component}</td>
+                        ${[0, 1, 2].map(value => `
+                            <td class="px-6 py-4 text-center">
+                                <label class="custom-radio">
+                                    <input type="radio" name="admin_comp_${index}" value="${value}">
+                                    <span class="radio-checkmark"></span>
+                                </label>
+                            </td>
+                        `).join('')}
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        };
+        
+        const populateInstrumentTable = () => {
+            const tableBody = document.querySelector('#instrumentTable tbody');
+            tableBody.innerHTML = '';
+            let componentCounter = 0;
+            instrumentItems.forEach((group, groupIndex) => {
+                group.items.forEach((itemText, itemIndex) => {
+                    componentCounter++;
+                    const row = `
+                        <tr class="border-b hover:bg-gray-50">
+                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 text-center font-medium bg-gray-50">${groupIndex + 1}</td>` : ''}
+                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 font-semibold bg-gray-50">${group.aspect}</td>` : ''}
+                            <td class="px-4 py-3">${itemText}</td>
+                            ${[0, 1, 2].map(value => `
+                                <td class="px-4 py-3 text-center">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="instr_comp_${componentCounter}" value="${value}">
+Â                                       <span class="radio-checkmark"></span>
+                                    </label>
+                                </td>
+                            `).join('')}
+                            <td class="px-4 py-3">
+                                <input type="text" id="instr_ket_${componentCounter}" class="w-full p-2 text-sm bg-white border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Catatan...">
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            });
+        };
+        
+        // --- UI & EVENT HANDLERS ---
+        
+        window.switchTab = (tabName) => {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(`${tabName}-content`).classList.add('active');
+            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+        };
 
-        const handleTeacherSelectChange = (e) => {
-            const selectedValue = e.target.value;
-            const teacherNIPInput = document.getElementById('teacherNIP');
-            const teacherBadge = document.getElementById('teacherBadge');
-            
-            if (selectedValue === "add_new") {
-                document.getElementById('addTeacherModal').classList.remove('hidden');
-                e.target.value = "";
-                teacherNIPInput.value = "";
-                updateSignatureDisplay('teacher', '', '');
-            } else if (selectedValue && teacherData[selectedValue]) {
-                const nip = teacherData[selectedValue];
-                teacherNIPInput.value = nip;
-                updateSignatureDisplay('teacher', selectedValue, nip);
-                teacherBadge.textContent = defaultTeacherData[selectedValue] ? "Database" : "Baru";
-                teacherBadge.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2.5 py-1 rounded-full ${defaultTeacherData[selectedValue] ? 'bg-gray-200 text-gray-600' : 'bg-yellow-200 text-yellow-800'}`;
-            } else {
-                teacherNIPInput.value = "";
-                updateSignatureDisplay('teacher', '', '');
-                teacherBadge.textContent = "Database";
-                teacherBadge.className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
-            }
-        };
+        const handleTeacherSelectChange = (e) => {
+            const selectedValue = e.target.value;
+            const teacherNIPInput = document.getElementById('teacherNIP');
+            const teacherBadge = document.getElementById('teacherBadge');
+            
+            if (selectedValue === "add_new") {
+                document.getElementById('addTeacherModal').classList.remove('hidden');
+                e.target.value = "";
+                teacherNIPInput.value = "";
+                updateSignatureDisplay('teacher', '', '');
+            } else if (selectedValue && teacherData[selectedValue]) {
+                const nip = teacherData[selectedValue];
+                teacherNIPInput.value = nip;
+                updateSignatureDisplay('teacher', selectedValue, nip);
+                teacherBadge.textContent = defaultTeacherData[selectedValue] ? "Database" : "Baru";
+                teacherBadge.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2.5 py-1 rounded-full ${defaultTeacherData[selectedValue] ? 'bg-gray-200 text-gray-600' : 'bg-yellow-200 text-yellow-800'}`;
+            } else {
+                teacherNIPInput.value = "";
+                updateSignatureDisplay('teacher', '', '');
+                teacherBadge.textContent = "Database";
+                teacherBadge.className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
+            }
+        };
 
-        const handleSupervisorSelectChange = (e) => {
-            const selectedValue = e.target.value;
-            updateSignatureDisplay('supervisor', selectedValue, teacherData[selectedValue] || '');
-        };
+        const handleSupervisorSelectChange = (e) => {
+            const selectedValue = e.target.value;
+            updateSignatureDisplay('supervisor', selectedValue, teacherData[selectedValue] || '');
+        };
 
-        const updateSignatureDisplay = (role, name, nip) => {
-            document.getElementById(`${role}NameDisplay`).textContent = name || '........................................';
-            document.getElementById(`${role}NipDisplay`).textContent = nip ? `NIP. ${nip}` : 'NIP. .............................';
-        };
+        const updateSignatureDisplay = (role, name, nip) => {
+            document.getElementById(`${role}NameDisplay`).textContent = name || '........................................';
+            document.getElementById(`${role}NipDisplay`).textContent = nip ? `NIP. ${nip}` : 'NIP. .............................';
+        };
 
-        window.addNewTeacher = () => {
-            const name = document.getElementById('newTeacherName').value.trim();
-            const nip = document.getElementById('newTeacherNIP').value.trim();
-            if (name && nip) {
-                if(teacherData[name]) {
-                    showToast(`Error: Guru "${name}" sudah ada.`, 'error');
-                    return;
-                }
-                teacherData[name] = nip;
-                saveTeacherData();
-                populateDropdowns();
-                document.getElementById('teacherSelect').value = name;
-                document.getElementById('teacherSelect').dispatchEvent(new Event('change'));
-                document.getElementById('addTeacherModal').classList.add('hidden');
-                document.getElementById('addTeacherForm').reset();
-                showToast(`Guru "${name}" berhasil ditambahkan!`, 'success');
-            } else {
-                showToast('Nama dan NIP tidak boleh kosong.', 'error');
-            }
-        };
+        window.addNewTeacher = () => {
+            const name = document.getElementById('newTeacherName').value.trim();
+            const nip = document.getElementById('newTeacherNIP').value.trim();
+            if (name && nip) {
+                if(teacherData[name]) {
+Â                   showToast(`Error: Guru "${name}" sudah ada.`, 'error');
+                    return;
+                }
+                teacherData[name] = nip;
+                saveTeacherData();
+                populateDropdowns();
+                document.getElementById('teacherSelect').value = name;
+                document.getElementById('teacherSelect').dispatchEvent(new Event('change'));
+                document.getElementById('addTeacherModal').classList.add('hidden');
+                document.getElementById('addTeacherForm').reset();
+                showToast(`Guru "${name}" berhasil ditambahkan!`, 'success');
+            } else {
+                showToast('Nama dan NIP tidak boleh kosong.', 'error');
+            }
+        };
+        
+        // --- CALCULATION LOGIC ---
 
-        // --- CALCULATION LOGIC ---
+        const calculateAdminResults = () => {
+            let counts = { 0: 0, 1: 0, 2: 0 };
+            let isComplete = true;
+            for (let i = 0; i < adminComponents.length; i++) {
+                const checkedRadio = document.querySelector(`input[name="admin_comp_${i}"]:checked`);
+                if (checkedRadio) {
+                    counts[checkedRadio.value]++;
+                } else {
+                    isComplete = false;
+                }
+            }
+            
+            document.getElementById('countTidakAda').textContent = counts[0];
+            document.getElementById('countAdaTidakSesuai').textContent = counts[1];
+            document.getElementById('countAdaSesuai').textContent = counts[2];
+            
+            const skorTotal = (counts[2] * 2) + (counts[1] * 1);
+            document.getElementById('skorTotalAdmin').textContent = skorTotal;
+            
+            const maxScore = adminComponents.length * 2;
+            const ketersediaan = maxScore > 0 ? Math.round((skorTotal / maxScore) * 100) : 0;
+            document.getElementById('ketersediaanAdmin').textContent = ketersediaan + '%';
+            
+            updateAchievementHighlight(ketersediaan);
+            return isComplete;
+        };
 
-        const calculateAdminResults = () => {
-            let counts = { 0: 0, 1: 0, 2: 0 };
-            let isComplete = true;
-            for (let i = 0; i < adminComponents.length; i++) {
-                const checkedRadio = document.querySelector(`input[name="admin_comp_${i}"]:checked`);
-                if (checkedRadio) {
-                    counts[checkedRadio.value]++;
-                } else {
-                    isComplete = false;
-                }
-            }
-            
-            document.getElementById('countTidakAda').textContent = counts[0];
-            document.getElementById('countAdaTidakSesuai').textContent = counts[1];
-            document.getElementById('countAdaSesuai').textContent = counts[2];
-            
-            const skorTotal = (counts[2] * 2) + (counts[1] * 1);
-            document.getElementById('skorTotalAdmin').textContent = skorTotal;
-            
-            const maxScore = adminComponents.length * 2;
-            const ketersediaan = maxScore > 0 ? Math.round((skorTotal / maxScore) * 100) : 0;
-            document.getElementById('ketersediaanAdmin').textContent = ketersediaan + '%';
-            
-            updateAchievementHighlight(ketersediaan);
-            return isComplete;
-        };
+        const updateAchievementHighlight = (percentage) => {
+            document.querySelectorAll('.achievement-level').forEach(el => {
+                el.classList.remove('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', 'ring-green-400', 'ring-blue-400', 'ring-yellow-400', 'ring-red-400');
+SESSION           });
 
-        const updateAchievementHighlight = (percentage) => {
-            document.querySelectorAll('.achievement-level').forEach(el => {
-                el.classList.remove('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', 'ring-green-400', 'ring-blue-400', 'ring-yellow-400', 'ring-red-400');
-            });
+            let levelToHighlight = '', ringColor = '';
+            if (percentage >= 80) { levelToHighlight = 'sangat-baik'; ringColor = 'ring-green-400'; }
+            else if (percentage >= 60) { levelToHighlight = 'baik'; ringColor = 'ring-blue-400'; }
+            else if (percentage >= 40) { levelToHighlight = 'cukup'; ringColor = 'ring-yellow-400'; }
+            else { levelToHighlight = 'kurang'; ringColor = 'ring-red-400'; }
+            
+            const el = document.getElementById(`level-${levelToHighlight}`);
+            if (el) el.classList.add('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', ringColor);
+        };
+        
+        const calculateInstrumentResults = () => {
+            let totalScore = 0;
+            let isComplete = true;
+            const componentCount = instrumentItems.flatMap(g => g.items).length;
 
-            let levelToHighlight = '', ringColor = '';
-            if (percentage >= 80) { levelToHighlight = 'sangat-baik'; ringColor = 'ring-green-400'; }
-            else if (percentage >= 60) { levelToHighlight = 'baik'; ringColor = 'ring-blue-400'; }
-            else if (percentage >= 40) { levelToHighlight = 'cukup'; ringColor = 'ring-yellow-400'; }
-            else { levelToHighlight = 'kurang'; ringColor = 'ring-red-400'; }
-            
-            const el = document.getElementById(`level-${levelToHighlight}`);
-            if (el) el.classList.add('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', ringColor);
-        };
-        
-        const calculateInstrumentResults = () => {
-            let totalScore = 0;
-            let isComplete = true;
-            const componentCount = instrumentItems.flatMap(g => g.items).length;
+            for (let i = 1; i <= componentCount; i++) {
+                const selectedRadio = document.querySelector(`input[name="instr_comp_${i}"]:checked`);
+                if (selectedRadio) {
+                    totalScore += parseInt(selectedRadio.value);
+                } else {
+                    isComplete = false;
+  _             }
+            }
 
-            for (let i = 1; i <= componentCount; i++) {
-                const selectedRadio = document.querySelector(`input[name="instr_comp_${i}"]:checked`);
-                if (selectedRadio) {
-                    totalScore += parseInt(selectedRadio.value);
-                } else {
-                    isComplete = false;
-                }
-            }
+            const maxScore = componentCount * 2;
+            const finalGrade = maxScore > 0 ? ((totalScore / maxScore) * 100) : 0;
+            
+            let predicate = '-';
+            if (finalGrade >= 88) predicate = 'AB (Amat Baik)';
+            else if (finalGrade >= 75) predicate = 'B (Baik)';
+            else if (finalGrade >= 62) predicate = 'C (Cukup)';
+            else if (finalGrade >= 49) predicate = 'K (Kurang)';
+            else predicate = 'AK (Amat Kurang)';
 
-            const maxScore = componentCount * 2;
-            const finalGrade = maxScore > 0 ? ((totalScore / maxScore) * 100) : 0;
-            
-            let predicate = '-';
-            if (finalGrade >= 88) predicate = 'AB (Amat Baik)';
-            else if (finalGrade >= 75) predicate = 'B (Baik)';
-            else if (finalGrade >= 62) predicate = 'C (Cukup)';
-            else if (finalGrade >= 49) predicate = 'K (Kurang)';
-            else predicate = 'AK (Amat Kurang)';
+            document.getElementById('total-score-instrument').textContent = totalScore;
+            document.getElementById('max-score-instrument').textContent = maxScore;
+            document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
+            document.getElementById('predicate-instrument').textContent = predicate;
+            
+            return isComplete;
+        };
 
-            document.getElementById('total-score-instrument').textContent = totalScore;
-            document.getElementById('max-score-instrument').textContent = maxScore;
-            document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
-            document.getElementById('predicate-instrument').textContent = predicate;
-            
-            return isComplete;
-        };
+        // --- VALIDATION FUNCTIONS ---
 
-        // --- VALIDATION FUNCTIONS ---
+        const validateForm = () => {
+            let isValid = true;
+            const errors = {};
 
-        const validateForm = () => {
-            let isValid = true;
-            const errors = {};
+            // Validate required fields
+            if (!document.getElementById('teacherSelect').value) {
+                errors.teacher = 'Pilih nama guru yang akan disupervisi';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('supervisorSelect').value) {
+                errors.supervisor = 'Pilih nama supervisor';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('subject').value.trim()) {
+                errors.subject = 'Masukkan mata pelajaran';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('class-semester').value.trim()) {
+                errors.class = 'Masukkan kelas dan semester';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('supervisionDate').value) {
+                errors.date = 'Pilih tanggal supervisi';
+                isValid = false;
+            }
 
-            // Validate required fields
-            if (!document.getElementById('teacherSelect').value) {
-                errors.teacher = 'Pilih nama guru yang akan disupervisi';
-                isValid = false;
-            }
-            
-            if (!document.getElementById('supervisorSelect').value) {
-                errors.supervisor = 'Pilih nama supervisor';
-                isValid = false;
-            }
-            
-            if (!document.getElementById('subject').value.trim()) {
-                errors.subject = 'Masukkan mata pelajaran';
-                isValid = false;
-            }
-            
-            if (!document.getElementById('class-semester').value.trim()) {
-                errors.class = 'Masukkan kelas dan semester';
-                isValid = false;
-            }
-            
-            if (!document.getElementById('supervisionDate').value) {
-                errors.date = 'Pilih tanggal supervisi';
-                isValid = false;
-            }
+            // Validate tables
+            const isAdminComplete = calculateAdminResults();
+            const isInstrumentComplete = calculateInstrumentResults();
+            
+            if (!isAdminComplete) {
+                errors.adminTable = 'Lengkapi semua item penilaian administrasi';
+                isValid = false;
+            }
+            
+            if (!isInstrumentComplete) {
+                errors.instrumentTable = 'Lengkapi semua item penilaian modul ajar';
+                isValid = false;
+            }
 
-            // Validate tables
-            const isAdminComplete = calculateAdminResults();
-            const isInstrumentComplete = calculateInstrumentResults();
-            
-            if (!isAdminComplete) {
-                errors.adminTable = 'Lengkapi semua item penilaian administrasi';
-                isValid = false;
-            }
-            
-            if (!isInstrumentComplete) {
-                errors.instrumentTable = 'Lengkapi semua item penilaian modul ajar';
-                isValid = false;
-            }
+            // Display errors
+            displayErrors(errors);
+            
+            return isValid;
+        };
 
-            // Display errors
-            displayErrors(errors);
-            
-            return isValid;
-        };
+        const displayErrors = (errors) => {
+            // Clear all error messages
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            
+            // Set new error messages
+            for (const [field, message] of Object.entries(errors)) {
+SESSION               const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                }
+                
+                // Add error styling to input
+                const inputElement = document.getElementById(field);
+                if (inputElement) {
+                    inputElement.classList.add('input-error');
+                }
+            }
+        };
 
-        const displayErrors = (errors) => {
-            // Clear all error messages
-            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
-            
-            // Set new error messages
-            for (const [field, message] of Object.entries(errors)) {
-                const errorElement = document.getElementById(`${field}Error`);
-                if (errorElement) {
-                    errorElement.textContent = message;
-                }
-                
-                // Add error styling to input
-                const inputElement = document.getElementById(field);
-                if (inputElement) {
-                    inputElement.classList.add('input-error');
-                }
-            }
-        };
+        // --- SUBMISSION ---
 
-        // --- SUBMISSION ---
+        const handleFormSubmit = () => {
+            if (!validateForm()) {
+                showToast('Harap perbaiki kesalahan pada form sebelum menyimpan.', 'error');
+                return;
+            }
 
-        const handleFormSubmit = () => {
-            if (!validateForm()) {
-                showToast('Harap perbaiki kesalahan pada form sebelum menyimpan.', 'error');
-                return;
-            }
+            showToast('Semua hasil dihitung. Menyimpan data...', 'info');
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-overlay').classList.add('flex');
 
-            showToast('Semua hasil dihitung. Menyimpan data...', 'info');
-            document.getElementById('loading-overlay').classList.remove('hidden');
-            document.getElementById('loading-overlay').classList.add('flex');
+            const formData = new FormData();
+            
+            // Common Data
+            formData.append('Timestamp', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
+            formData.append('TanggalSupervisi', document.getElementById('supervisionDate').value);
+            formData.append('GuruDinilai', document.getElementById('teacherSelect').value);
+            formData.append('NIPGuru', document.getElementById('teacherNIP').value);
+            formData.append('Mapel', document.getElementById('subject').value);
+            formData.append('KelasSemester', document.getElementById('class-semester').value);
+A           formData.append('Supervisor', document.getElementById('supervisorSelect').value);
+            
+            // Admin Results
+            formData.append('AdminSkorTotal', document.getElementById('skorTotalAdmin').textContent);
+            formData.append('AdminKetersediaan', document.getElementById('ketersediaanAdmin').textContent);
 
-            const formData = new FormData();
-            
-            // Common Data
-            formData.append('Timestamp', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
-            formData.append('TanggalSupervisi', document.getElementById('supervisionDate').value);
-            formData.append('GuruDinilai', document.getElementById('teacherSelect').value);
-            formData.append('NIPGuru', document.getElementById('teacherNIP').value);
-            formData.append('Mapel', document.getElementById('subject').value);
-            formData.append('KelasSemester', document.getElementById('class-semester').value);
-            formData.append('Supervisor', document.getElementById('supervisorSelect').value);
-            
-            // Admin Results
-            formData.append('AdminSkorTotal', document.getElementById('skorTotalAdmin').textContent);
-            formData.append('AdminKetersediaan', document.getElementById('ketersediaanAdmin').textContent);
+            // Instrument Results & Details
+            formData.append('InstrumenSkorTotal', document.getElementById('total-score-instrument').textContent);
+            formData.append('InstrumenNilaiAkhir', document.getElementById('final-grade-instrument').textContent);
+            formData.append('InstrumenPredikat', document.getElementById('predicate-instrument').textContent);
+      _       
+            const componentCount = instrumentItems.flatMap(g => g.items).length;
+            for (let i = 1; i <= componentCount; i++) {
+                const score = document.querySelector(`input[name="instr_comp_${i}"]:checked`).value;
+                const keterangan = document.getElementById(`instr_ket_${i}`).value;
+                formData.append(`InstrumenSkor_${i}`, score);
+                formData.append(`InstrumenKet_${i}`, keterangan);
+            }
+            
+            // Notes
+            formData.append('CatatanKeunggulan', document.getElementById('strengths').value);
+            formData.append('CatatanPerbaikan', document.getElementById('improvements').value);
+            formData.append('CatatanTindakLanjut', document.getElementById('followup').value);
+            
+            fetch(SCRIPT_URL, { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loading-overlay').classList.add('hidden');
+                    document.getElementById('loading-overlay').classList.remove('flex');
+                    if (data.result === 'success') {
+                         showToast('Data berhasil disimpan ke Google Sheet!', 'success');
+GA                        resetForm();
+                    } else {
+                         throw new Error(data.message || 'Gagal menyimpan data.');
+                    }
+                })
+                .catch(error => {
+    _                   document.getElementById('loading-overlay').classList.add('hidden');
+                    document.getElementById('loading-overlay').classList.remove('flex');
+                    console.error('Error:', error);
+                    showToast(`Error: ${error.message}`, 'error');
+                });
+        };
+        
+        // --- HELPERS & INITIALIZATION ---
+        
+        window.showToast = (message, type = 'success') => {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+  nbsp;         toast.className = 'fixed top-5 right-5 text-white py-3 px-6 rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out no-print'; // Reset
+            if (type === 'success') toast.classList.add('bg-green-500', 'translate-x-0');
+            else if (type === 'error') toast.classList.add('bg-red-500', 'translate-x-0');
+            else if (type === 'info') toast.classList.add('bg-blue-500', 'translate-x-0');
+            
+            setTimeout(() => toast.classList.add('translate-x-full'), 3000);
+        };
+        
+        const setInitialDates = () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('supervisionDate').value = today;
+            document.getElementById('signatureDate').value = today;
+        };
 
-            // Instrument Results & Details
-            formData.append('InstrumenSkorTotal', document.getElementById('total-score-instrument').textContent);
-            formData.append('InstrumenNilaiAkhir', document.getElementById('final-grade-instrument').textContent);
-            formData.append('InstrumenPredikat', document.getElementById('predicate-instrument').textContent);
-            
-            const componentCount = instrumentItems.flatMap(g => g.items).length;
-            for (let i = 1; i <= componentCount; i++) {
-                const score = document.querySelector(`input[name="instr_comp_${i}"]:checked`).value;
-                const keterangan = document.getElementById(`instr_ket_${i}`).value;
-                formData.append(`InstrumenSkor_${i}`, score);
-                formData.append(`InstrumenKet_${i}`, keterangan);
-            }
-            
-            // Notes
-            formData.append('CatatanKeunggulan', document.getElementById('strengths').value);
-            formData.append('CatatanPerbaikan', document.getElementById('improvements').value);
-            formData.append('CatatanTindakLanjut', document.getElementById('followup').value);
-            
-            fetch(SCRIPT_URL, { method: 'POST', body: formData })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('loading-overlay').classList.add('hidden');
-                    document.getElementById('loading-overlay').classList.remove('flex');
-                    if (data.result === 'success') {
-                         showToast('Data berhasil disimpan ke Google Sheet!', 'success');
-                         resetForm();
-                    } else {
-                         throw new Error(data.message || 'Gagal menyimpan data.');
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('loading-overlay').classList.add('hidden');
-                    document.getElementById('loading-overlay').classList.remove('flex');
-                    console.error('Error:', error);
-                    showToast(`Error: ${error.message}`, 'error');
-                });
-        };
-        
-        // --- HELPERS & INITIALIZATION ---
-        
-        window.showToast = (message, type = 'success') => {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = message;
-            toast.className = 'fixed top-5 right-5 text-white py-3 px-6 rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out no-print'; // Reset
-            if (type === 'success') toast.classList.add('bg-green-500', 'translate-x-0');
-            else if (type === 'error') toast.classList.add('bg-red-500', 'translate-x-0');
-            else if (type === 'info') toast.classList.add('bg-blue-500', 'translate-x-0');
-            
-            setTimeout(() => toast.classList.add('translate-x-full'), 3000);
-        };
-        
-        const setInitialDates = () => {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('supervisionDate').value = today;
-            document.getElementById('signatureDate').value = today;
-        };
+        const resetForm = () => {
+    Two             document.querySelector('form').reset();
+            // Manually trigger updates for elements not reset by form.reset()
+            calculateAdminResults();
+            calculateInstrumentResults();
+            updateSignatureDisplay('teacher', '', '');
+            updateSignatureDisplay('supervisor', '', '');
+            setInitialDates();
+            switchTab('administrasi');
+            document.getElementById('teacherBadge').textContent = "Database";
+            document.getElementById('teacherBadge').className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
+            
+            // Clear error messages
+            displayErrors({});
+        };
 
-        const resetForm = () => {
-            document.querySelector('form').reset();
-            // Manually trigger updates for elements not reset by form.reset()
-            calculateAdminResults();
-            calculateInstrumentResults();
-            updateSignatureDisplay('teacher', '', '');
-            updateSignatureDisplay('supervisor', '', '');
-            setInitialDates();
-            switchTab('administrasi');
-            document.getElementById('teacherBadge').textContent = "Database";
-            document.getElementById('teacherBadge').className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
-            
-            // Clear error messages
-            displayErrors({});
-        };
+        // --- ATTACH LISTENERS ---
+        document.getElementById('teacherSelect').addEventListener('change', handleTeacherSelectChange);
+        document.getElementById('supervisorSelect').addEventListener('change', handleSupervisorSelectChange);
+        document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addTeacherModal').classList.add('hidden'));
+Sure. Here's your complete HTML code.       document.getElementById('submitButton').addEventListener('click', handleFormSubmit);
+        document.getElementById('resetButton').addEventListener('click', resetForm);
 
-        // --- ATTACH LISTENERS ---
-        document.getElementById('teacherSelect').addEventListener('change', handleTeacherSelectChange);
-        document.getElementById('supervisorSelect').addEventListener('change', handleSupervisorSelectChange);
-        document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addTeacherModal').classList.add('hidden'));
-        document.getElementById('submitButton').addEventListener('click', handleFormSubmit);
-        document.getElementById('resetButton').addEventListener('click', resetForm);
+        // Add real-time validation for required fields
+        document.getElementById('teacherSelect').addEventListener('change', () => {
+            if (document.getElementById('teacherSelect').value) {
+                document.getElementById('teacherSelect').classList.remove('input-error');
+                document.getElementById('teacherError').textContent = '';
+            }
+        });
+        
+        document.getElementById('supervisorSelect').addEventListener('change', () => {
+CSS             if (document.getElementById('supervisorSelect').value) {
+                document.getElementById('supervisorSelect').classList.remove('input-error');
+                document.getElementById('supervisorError').textContent = '';
+            }
+        });
+        
+        document.getElementById('subject').addEventListener('input', () => {
+            if (document.getElementById('subject').value.trim()) {
+                document.getElementById('subject').classList.remove('input-error');
+                document.getElementById('subjectError').textContent = '';
+            }
+        });
+        
+        document.getElementById('class-semester').addEventListener('input', () => {
+CSS             if (document.getElementById('class-semester').value.trim()) {
+                document.getElementById('class-semester').classList.remove('input-error');
+                document.getElementById('classError').textContent = '';
+            }
+        });
+        
+        document.getElementById('supervisionDate').addEventListener('change', () => {
+CSS             if (document.getElementById('supervisionDate').value) {
+                document.getElementById('supervisionDate').classList.remove('input-error');
+                document.getElementById('dateError').textContent = '';
+            }
+        });
 
-        // Add real-time validation for required fields
-        document.getElementById('teacherSelect').addEventListener('change', () => {
-            if (document.getElementById('teacherSelect').value) {
-                document.getElementById('teacherSelect').classList.remove('input-error');
-                document.getElementById('teacherError').textContent = '';
-            }
-        });
-        
-        document.getElementById('supervisorSelect').addEventListener('change', () => {
-            if (document.getElementById('supervisorSelect').value) {
-                document.getElementById('supervisorSelect').classList.remove('input-error');
-                document.getElementById('supervisorError').textContent = '';
-            }
-        });
-        
-        document.getElementById('subject').addEventListener('input', () => {
-            if (document.getElementById('subject').value.trim()) {
-                document.getElementById('subject').classList.remove('input-error');
-                document.getElementById('subjectError').textContent = '';
-            }
-        });
-        
-        document.getElementById('class-semester').addEventListener('input', () => {
-            if (document.getElementById('class-semester').value.trim()) {
-                document.getElementById('class-semester').classList.remove('input-error');
-                document.getElementById('classError').textContent = '';
-            }
-        });
-        
-        document.getElementById('supervisionDate').addEventListener('change', () => {
-            if (document.getElementById('supervisionDate').value) {
-                document.getElementById('supervisionDate').classList.remove('input-error');
-                document.getElementById('dateError').textContent = '';
-            }
-        });
-
-        // --- INITIAL EXECUTION ---
-        loadTeacherData();
-        populateDropdowns();
-        populateAdminTable();
-        populateInstrumentTable();
-        setInitialDates();
-    });
-    </script>
+        // --- INITIAL EXECUTION ---
+        loadTeacherData();
+        populateDropdowns();
+        populateAdminTable();
+        populateInstrumentTable();
+    T     setInitialDates();
+    });
+    </script>
 </body>
 </html>
