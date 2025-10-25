@@ -44,6 +44,7 @@
         .tab-button {
             transition: all 0.3s ease;
             border-bottom: 4px solid transparent;
+            padding-bottom: 8px;
         }
         .tab-button.active {
             color: var(--primary-color);
@@ -60,25 +61,67 @@
             object-fit: contain;
         }
 
-        .print-header {
+        .print-header, .print-only {
             display: none;
         }
         
         /* Validation styles */
         .error-message {
-            color: #ef4444;
-            font-size: 0.75rem;
+            color: #ef4444; /* red-500 */
+            font-size: 0.875rem;
             margin-top: 0.25rem;
             display: none;
         }
         
         .input-error {
             border-color: #ef4444 !important;
+            box-shadow: 0 0 0 1px #ef4444 !important;
         }
         
         /* Signature styles for print */
         .signature-grid-print {
             display: none;
+        }
+        
+        /* Style untuk dropdown agar lebih rapi */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%D%22292.4%22%20height%D%22292.4%22%3E%3Cpath%20fill%D%22%236B7280%22%20d%D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 0.65em auto;
+            padding-right: 2.5rem;
+        }
+        
+        /* Style untuk section <details> agar rapi */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '▼';
+            float: right;
+            font-size: 0.8em;
+            transition: transform 0.2s;
+            margin-top: 4px;
+        }
+        details[open] > summary::after {
+            transform: rotate(180deg);
+        }
+        
+        /* Level Ketersediaan */
+        .achievement-level {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        .achievement-level.highlighted {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         /* Print-specific styles for F4 paper (21cm x 33cm) */
@@ -118,7 +161,7 @@
                 justify-content: flex-start;
                 margin-bottom: 15px;
                 padding: 10px 0;
-                border-bottom: 2px solid #4f46e5;
+                border-bottom: 3px solid #4f46e5;
                 page-break-after: avoid;
             }
             .school-logo {
@@ -132,14 +175,14 @@
                 flex-grow: 1;
             }
             .school-info h1 {
-                font-size: 14pt !important;
+                font-size: 16pt !important;
                 font-weight: bold;
                 margin: 0;
                 color: #1f2937;
                 line-height: 1.1;
             }
             .school-info h2 {
-                font-size: 12pt !important;
+                font-size: 14pt !important;
                 font-weight: bold;
                 margin: 3px 0;
                 color: #4f46e5;
@@ -148,6 +191,10 @@
                 font-size: 10pt !important;
                 margin: 2px 0;
                 color: #6b7280;
+            }
+            
+            .print-only {
+                display: block;
             }
             
             /* Show print signature grid */
@@ -176,7 +223,7 @@
                 margin-top: 2.5cm;
                 border-top: 1px solid #000;
                 padding-top: 0.5cm;
-                width: 50%;
+                width: 60%;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -193,7 +240,7 @@
             table {
                 page-break-inside: auto;
                 width: 100% !important;
-                font-size: 9pt !important;
+                font-size: 10pt !important;
             }
             tr {
                 page-break-inside: avoid;
@@ -215,7 +262,8 @@
                 background: white !important;
                 color: black !important;
                 -webkit-print-color-adjust: exact;
-                font-size: 9pt !important;
+                font-size: 10pt !important;
+                padding: 4px !important;
             }
             
             /* Ensure radio buttons are visible when printed */
@@ -224,9 +272,32 @@
                 border-color: #4f46e5 !important;
             }
             
+            details {
+                page-break-inside: avoid;
+            }
+            
+            details[open] > summary::after {
+                display: none;
+            }
+            
             /* Adjust spacing for print */
             section {
-                margin-bottom: 15px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            .tab-button {
+                font-size: 0.875rem;
+                padding: 0.5rem 0.25rem;
+            }
+            .school-logo {
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
@@ -235,7 +306,7 @@
 
     <!-- Main Container -->
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <div id="form-container" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content">
+        <form id="supervisionForm" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content" method="POST" action="#">
             
             <!-- Print Header (Only visible when printing) -->
             <div class="print-header no-print">
@@ -244,7 +315,7 @@
                      class="school-logo">
                 <div class="school-info">
                     <h1>SMK NEGERI 1 PURBALINGGA</h1>
-                    <h2>INSTRUMEN SUPERVISI AKADEMIK</h2>
+                    <h2>INSTRUMEN SUPERVISI AKADEMIK TERPADU</h2>
                     <p>Jl. Mayor Jend. Sungkono No.34, Selabaya, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
                 </div>
             </div>
@@ -271,48 +342,54 @@
                     <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Guru</label>
+                            <label for="teacherSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Guru</label>
                             <div class="relative">
-                                <select id="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
-                                <span id="teacherBadge" class="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full">Database</span>
+                                <select id="teacherSelect" name="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
                             </div>
-                            <div id="teacherError" class="error-message">Pilih guru yang akan disupervisi</div>
+                            <div id="teacherSelectError" class="error-message">Pilih guru yang akan disupervisi</div>
                         </div>
                         <div>
-                            <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
-                            <input type="text" id="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
+                            <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Guru</label>
+                            <input type="text" id="teacherNIP" name="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
-                            <input type="text" id="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan">
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
+                            <input type="text" id="subject" name="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan">
                             <div id="subjectError" class="error-message">Masukkan mata pelajaran</div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester</label>
-                            <input type="text" id="class-semester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal">
-                            <div id="classError" class="error-message">Masukkan kelas dan semester</div>
+                            <label for="classSemester" class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester</label>
+                            <input type="text" id="classSemester" name="classSemester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal">
+                            <div id="classSemesterError" class="error-message">Masukkan kelas dan semester</div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi</label>
-                            <input type="date" id="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
-                            <div id="dateError" class="error-message">Pilih tanggal supervisi</div>
+                            <label for="supervisionDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi</label>
+                            <input type="date" id="supervisionDate" name="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+                            <div id="supervisionDateError" class="error-message">Pilih tanggal supervisi</div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor</label>
-                            <select id="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
-                            <div id="supervisorError" class="error-message">Pilih supervisor</div>
+                            <label for="supervisorSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor</label>
+                            <select id="supervisorSelect" name="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
+                            <div id="supervisorSelectError" class="error-message">Pilih supervisor</div>
+                        </div>
+                         <div>
+                            <label for="supervisorNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Supervisor</label>
+                            <input type="text" id="supervisorNIP" name="supervisorNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
                         </div>
                     </div>
                 </section>
 
                 <!-- Tab Navigation -->
                 <nav class="border-b border-gray-200 tab-nav no-print">
-                    <div class="flex space-x-6">
-                        <button class="tab-button py-3 px-1 text-lg active" onclick="switchTab('administrasi')">
+                    <div class="flex space-x-6 overflow-x-auto">
+                        <button type="button" class="tab-button py-3 px-1 text-lg active" data-tab="administrasi">
                            <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
                         </button>
-                        <button class="tab-button py-3 px-1 text-lg" onclick="switchTab('instrumen')">
-                            <i class="fas fa-chalkboard-teacher mr-2"></i> 2. Instrumen Modul Ajar
+                        <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="instrumen">
+                            <i class="fas fa-tasks mr-2"></i> 2. Instrumen Modul Ajar
+                        </button>
+                        <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="proses">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i> 3. Proses Pembelajaran
                         </button>
                     </div>
                 </nav>
@@ -335,7 +412,9 @@
                                             <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada dan Sesuai (2)</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody id="adminTableBody">
+                                        <!-- Rows will be injected by JavaScript -->
+                                    </tbody>
                                     <tfoot class="font-semibold text-gray-800">
                                         <tr class="bg-gray-50 border-t">
                                             <td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
@@ -390,15 +469,16 @@
                                     <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
                                         <tr>
                                             <th class="px-4 py-3 w-[5%] text-center">No</th>
-                                            <th class="px-4 py-3 w-[20%]">Aspek</th>
-                                            <th class="px-4 py-3 w-[35%]">Komponen</th>
+                                            <th class="px-4 py-3 w-[55%]" colspan="2">Komponen Penilaian</th>
                                             <th class="px-4 py-3 w-[5%] text-center">0</th>
                                             <th class="px-4 py-3 w-[5%] text-center">1</th>
                                             <th class="px-4 py-3 w-[5%] text-center">2</th>
                                             <th class="px-4 py-3 w-[25%]">Keterangan</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody id="instrumentTableBody">
+                                        <!-- Rows will be injected by JavaScript -->
+                                    </tbody>
                                 </table>
                             </div>
                         </section>
@@ -407,20 +487,20 @@
                                 <h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                                     <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="total-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600">Skor Perolehan</p>
+                                        <p class="text-3xl font-bold text-indigo-700" id="total-score-instrument">0</p>
+                                        <p class="text-sm text-gray-600 uppercase">Skor Perolehan</p>
                                     </div>
                                     <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="max-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600">Skor Maksimal</p>
+                                        <p class="text-3xl font-bold text-indigo-700" id="max-score-instrument">0</p>
+                                        <p class="text-sm text-gray-600 uppercase">Skor Maksimal</p>
                                     </div>
                                     <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
-                                        <p class="text-sm text-gray-600">Nilai Akhir</p>
+                                        <p class="text-3xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
+                                        <p class="text-sm text-gray-600 uppercase">Nilai Akhir</p>
                                     </div>
                                     <div>
-                                        <p class="text-2xl font-bold text-indigo-700" id="predicate-instrument">-</p>
-                                        <p class="text-sm text-gray-600">Predikat</p>
+                                        <p class="text-3xl font-bold text-indigo-700" id="predicate-instrument">-</p>
+                                        <p class="text-sm text-gray-600 uppercase">Predikat</p>
                                     </div>
                                 </div>
                             </div>
@@ -428,182 +508,776 @@
                     </div>
                 </div>
 
+                <!-- Tab 3: Supervisi Proses Pembelajaran -->
+                <div id="proses-content" class="tab-content">
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-chalkboard-teacher mr-3 text-indigo-500"></i>Instrumen Supervisi Observasi Proses Pembelajaran
+                            </h2>
+                            
+                            <!-- Bagian Penilaian -->
+                            <fieldset class="border border-gray-300 p-4 rounded-lg">
+                                <legend class="text-xl font-semibold text-gray-700 px-2">Butir Penilaian</legend>
+                                
+                                <!-- Kotak Pesan Error -->
+                                <div id="messageBox" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert">
+                                    <span class="font-medium" id="messageText"></span>
+                                </div>
+
+                                <!-- Opsi Pilihan Skor -->
+                                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                                    <h4 class="font-semibold text-gray-700 mb-2">Keterangan Skor:</h4>
+                                    <ul class="list-disc list-inside text-sm space-y-1">
+                                        <li><b>4:</b> Sesuai/Dilakukan dan efektif</li>
+                                        <li><b>3:</b> Sebagian besar dilakukan dengan efektif</li>
+                                        <li><b>2:</b> Sebagian besar dilakukan namun belum efektif</li>
+                                        <li><b>1:</b> Sebagian Kecil dilakukan dan tidak efektif</li>
+                                    </ul>
+                                </div>
+
+                                <!-- I. Kegiatan Pendahuluan -->
+                                <details open class="mb-4 border rounded-md">
+                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
+                                        I. Kegiatan Pendahuluan (8 Butir)
+                                    </summary>
+                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
+                                        <!-- Item 1-8 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">1. Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">2. Guru menyampaikan dan mengingatkan keyakinan kelas...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">3. Guru mengajukan pertanyaan sebagai asesmen formatif di awal...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">4. Memberikan apersepsi dengan cara menghubungkan materi...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">5. Menyampaikan tujuan pembelajaran, dan kompetensi yang akan dicapai...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">6. Menyampaikan manfaat pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">7. Menyampaikan langkah-langkah kegiatan pembelajaran...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">8. Guru mengelola kesadaran sosial dan emosional (KSE) siswa...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </details>
+
+                                <!-- II. Kegiatan Inti -->
+                                <details open class="mb-4 border rounded-md">
+                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
+                                        II. Kegiatan Inti (34 Butir)
+                                    </summary>
+                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
+                                        <!-- Sub-judul untuk kejelasan -->
+                                        <h4 class="font-semibold text-md text-gray-600 mt-2">A. Guru menguasai materi yang diajarkan</h4>
+                                        <!-- Item 9-13 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">9. Kemampuan menyesuaikan materi dengan tujuan pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">10. Kemampuan mengaitkan materi dengan pengetahuan lain...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">11. Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">12. Memotivasi peserta didik untuk berpartisipasi aktif...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">13. Guru menyajikan materi secara sistematis...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+
+                                        <h4 class="font-semibold text-md text-gray-600 mt-4">B. Guru menerapkan strategi pembelajaran yang mendidik</h4>
+                                        <!-- Item 14-23 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">14. Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">15. Guru melaksanakan pembelajaran sesuai dengan kompetensi...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">16. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">17. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengemukakan pendapat).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">18. Menguasai pengelolaan kelas dengan baik.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">19. Melaksanakan asesmen formatif dalam Proses Pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">20. Melaksanakan umpan balik pelaksanaan proses pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">21. Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">22. Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">23. Melaksanakan pembelajaran sesuai dengan alokasi waktu...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+
+                                        <h4 class="font-semibold text-md text-gray-600 mt-4">C. Guru memanfaatkan sumber belajar / media dalam pembelajaran</h4>
+                                        <!-- Item 24-25 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">24. Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">25. Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+
+                                        <h4 class="font-semibold text-md text-gray-600 mt-4">D. Implementasi Keterampilan Pembelajaran Abad 21</h4>
+                                        <!-- Item 26-31 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">26. Pembelajaran bersifat interaktif (communication).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">27. Pembelajaran menantang (critical thinking and problem solving).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">28. Pembelajaran mendorong peserta didik bekerja sama (collaboration).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">29. Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                         <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">30. Guru menciptakan suasana kelas yang kondusif...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                         <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">31. Guru menerapkan prinsip disiplin positif...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+
+                                        <h4 class="font-semibold text-md text-gray-600 mt-4">E. Guru memicu dan/atau memelihara keterlibatan peserta didik</h4>
+                                        <!-- Item 32-39 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">32. Melaksanakan pembelajaran yang berpusat pada siswa.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">33. Guru memberikan perhatian dan bantuan ekstra...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">34. Guru senantiasa memberikan umpan balik langsung...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">35. Guru memberikan respon positif terhadap partisipasi peserta didik.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">36. Guru melaksanakan praktik adaptasi pengajaran (Diferensiasi Konten).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">37. Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">38. Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">39. Menumbuhkan keceriaan dan antusiasme peserta didik...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+
+                                        <h4 class="font-semibold text-md text-gray-600 mt-4">F. Guru menggunakan bahasa yang benar dan tepat dalam pembelajaran</h4>
+                                        <!-- Item 40-42 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">40. Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">41. Menggunakan pilihan kata yang mudah dipahami...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">42. Menyampaikan pesan dan gaya yang sesuai.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </details>
+
+                                <!-- III. Kegiatan Penutup -->
+                                <details open class="mb-4 border rounded-md">
+                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
+                                        III. Kegiatan Penutup (6 Butir)
+                                    </summary>
+                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
+                                        <!-- Item 43-48 -->
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">43. Membuat rangkuman dan/atau kesimpulan...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">44. Melakukan refleksi pembelajaran...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">45. Melaksanakan Asesmen sumatif / penilaian pembelajaran...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">46. Melaksanakan tindak lanjut dengan memberikan arahan...</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">47. Menyampaikan rencana pembelajaran berikutnya.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                        <div class="border p-3 rounded-md bg-gray-50/50">
+                                            <label class="block font-medium mb-2 text-gray-700">48. Menutup Pembelajaran.</label>
+                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <option value="0">-- Pilih Nilai --</option>
+                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
+                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
+                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
+                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </details>
+                            </fieldset>
+
+                            <!-- Tombol Hitung -->
+                            <button type="button" id="hitungProsesBtn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200">
+                                <i class="fas fa-calculator mr-2"></i> Hitung Nilai Proses Pembelajaran
+                            </button>
+
+                            <!-- Bagian Hasil (disembunyikan awalnya) -->
+                            <div id="hasilProsesSection" class="hidden mt-6 border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
+                                <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                                    <div class="bg-white p-4 rounded-lg shadow">
+                                        <h3 class="text-sm font-medium text-gray-500 uppercase">Total Skor Perolehan (SP)</h3>
+                                        <p id="skorPerolehanProsesEl" class="text-3xl font-bold text-blue-600">0 / 192</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg shadow">
+                                        <h3 class="text-sm font-medium text-gray-500 uppercase">Nilai Akhir</h3>
+                                        <p id="nilaiAkhirProsesEl" class="text-3xl font-bold text-blue-600">0.00</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow mt-4 text-center">
+                                    <h3 class="text-lg font-medium text-gray-500 uppercase">Predikat</h3>
+                                    <p id="predikatProsesEl" class="text-4xl font-extrabold mt-2">--</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
                 <!-- Section: Catatan Supervisi (Unified) -->
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-4 flex items-center"><i class="fas fa-feather-alt mr-3"></i>CATATAN & RENCANA TINDAK LANJUT</h2>
-                    <div class="space-y-6">
+                <section class="page-break">
+                    <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
+                    <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Keunggulan (Strengths)</label>
-                            <textarea id="strengths" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan keunggulan yang ditemukan..."></textarea>
+                            <label for="catatanUmum" class="block text-sm font-medium text-gray-700 mb-1">Catatan Umum / Umpan Balik</label>
+                            <textarea id="catatanUmum" name="catatanUmum" rows="5" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Tuliskan catatan umum, temuan positif, dan area yang perlu perbaikan..."></textarea>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Area Perbaikan (Areas for Improvement)</label>
-                            <textarea id="improvements" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Deskripsikan area yang perlu diperbaiki..."></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Saran & Rencana Tindak Lanjut</label>
-                            <textarea id="followup" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" rows="3" placeholder="Berikan saran konkret untuk pengembangan..."></textarea>
+                            <label for="rekomendasi" class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi / Tindak Lanjut</label>
+                            <textarea id="rekomendasi" name="rekomendasi" rows="5" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Berikan rekomendasi spesifik untuk perbaikan..."></textarea>
                         </div>
                     </div>
                 </section>
 
-                <!-- Section: Validasi / Tanda Tangan (Unified) -->
-                <section class="signature-section">
-                    <h2 class="text-xl font-bold text-indigo-700 mt-8 mb-6 flex items-center"><i class="fas fa-file-signature mr-3"></i>VALIDASI</h2>
-                    <div class="text-center mb-6">
-                        <label class="text-sm font-medium text-gray-700 mr-2">Purbalingga,</label>
-                        <input type="date" id="signatureDate" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+                <!-- Section: Tombol Aksi (Unified) -->
+                <section class="no-print pt-6 border-t border-gray-200">
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all duration-300 ease-in-out">
+                            <i class="fas fa-undo mr-2"></i> Reset Form
+                        </button>
+                        <button type="button" id="printBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
+                            <i class="fas fa-print mr-2"></i> Simpan & Cetak Laporan
+                        </button>
                     </div>
+                </section>
+
+                <!-- Section: Tanda Tangan (Print Only) -->
+                <section class="page-break">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center print-only"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
                     
-                    <!-- Signature grid for PRINT -->
                     <div class="signature-grid-print no-print">
                         <div class="signature-box">
-                            <p class="font-semibold text-gray-700">Supervisor</p>
+                            <p>Purbalingga, <span id="print-tanggal"></span></p>
+                            <p class="font-bold">Guru yang disupervisi,</p>
                             <div class="signature-line">
-                                <p class="font-bold text-gray-800" id="supervisorNameDisplayPrint">........................................</p>
-                                <p class="text-xs text-gray-500" id="supervisorNipDisplayPrint">NIP. .............................</p>
+                                <p class="font-bold" id="print-guru-nama">[Nama Guru]</p>
+                                <p>NIP. <span id="print-guru-nip">[NIP Guru]</span></p>
                             </div>
                         </div>
                         <div class="signature-box">
-                            <p class="font-semibold text-gray-700">Guru Mapel</p>
+                            <p>&nbsp;</p> <!-- Placeholder for alignment -->
+                            <p class="font-bold">Supervisor,</p>
                             <div class="signature-line">
-                                <p class="font-bold text-gray-800" id="teacherNameDisplayPrint">........................................</p>
-                                <p class="text-xs text-gray-500" id="teacherNipDisplayPrint">NIP. .............................</p>
+                                <p class="font-bold" id="print-supervisor-nama">[Nama Supervisor]</p>
+                                <p>NIP. <span id="print-supervisor-nip">[NIP Supervisor]</span></p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Original signature layout for SCREEN -->
-                    <div class="no-print">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            <div class="text-center flex flex-col">
-                                <p class="font-semibold text-gray-700">Supervisor</p>
-                                <div class="flex-grow h-24 my-2"></div>
-                                <p class="font-bold text-gray-800 border-t pt-2" id="supervisorNameDisplayScreen">........................................</p>
-                                <p class="text-xs text-gray-500" id="supervisorNipDisplayScreen">NIP. .............................</p>
+                    <div class="headmaster-signature signature-grid-print no-print">
+                         <div class="signature-box" style="margin-left: auto; margin-right: auto;">
+                            <p>Mengetahui,</p>
+                            <p class="font-bold">Kepala SMK Negeri 1 Purbalingga,</p>
+                            <div class="headmaster-line">
+                                <p class="font-bold" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
+                                <p>NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</span></p>
                             </div>
-                            <div class="text-center flex flex-col">
-                                <p class="font-semibold text-gray-700">Guru Mapel</p>
-                                <div class="flex-grow h-24 my-2"></div>
-                                <p class="font-bold text-gray-800 border-t pt-2" id="teacherNameDisplayScreen">........................................</p>
-                                <p class="text-xs text-gray-500" id="teacherNipDisplayScreen">NIP. .............................</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Headmaster signature for both screen and print -->
-                    <div class="headmaster-signature">
-                        <p class="font-semibold text-gray-700">Mengetahui, Kepala Sekolah</p>
-                        <div class="headmaster-line">
-                            <p class="font-bold text-gray-800">Maryono S.Pd, M.Si</p>
-                            <p class="text-xs text-gray-500">NIP. 19660701 2000121002</p>
                         </div>
                     </div>
                 </section>
-            </div>
-        </div>
-    </div>
-
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-6 right-6 flex flex-col items-center space-y-3 no-print">
-        <button id="submitButton" class="bg-indigo-600 text-white px-5 py-3 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:scale-105">
-            <i class="fas fa-save mr-2"></i> Hitung & Simpan
-        </button>
-        <button onclick="window.print()" class="bg-gray-700 text-white w-12 h-12 rounded-full shadow-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition transform hover:scale-105">
-            <i class="fas fa-print"></i>
-        </button>
-         <button id="resetButton" class="bg-red-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition transform hover:scale-105">
-            <i class="fas fa-sync-alt"></i>
-        </button>
-    </div>
-
-    <!-- Modals and Notifications -->
-    <div id="addTeacherModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden no-print" tabindex="-1">
-         <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-xl bg-white">
-            <div class="flex justify-between items-center pb-3 border-b">
-                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-user-plus mr-2"></i>Tambah Guru Baru</h3>
-                <button id="closeModalBtn" class="cursor-pointer z-50 p-1 rounded-full hover:bg-gray-200">
-                    <i class="fas fa-times text-gray-500"></i>
-                </button>
-            </div>
-            <div class="mt-4">
-                <form id="addTeacherForm" onsubmit="event.preventDefault(); addNewTeacher();">
-                    <div class="mb-4">
-                        <label for="newTeacherName" class="block text-sm font-medium text-gray-700">Nama Guru</label>
-                        <input type="text" id="newTeacherName" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Masukkan nama lengkap" required>
-                    </div>
-                    <div>
-                        <label for="newTeacherNIP" class="block text-sm font-medium text-gray-700">NIP</label>
-                        <input type="text" id="newTeacherNIP" class="mt-1 w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Gunakan '-' jika tidak ada NIP" required>
-                    </div>
-                </form>
-            </div>
-            <div class="flex justify-end pt-4 mt-4 border-t">
-                <button type="button" onclick="addNewTeacher()" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
-                    <i class="fas fa-save mr-2"></i> Simpan Guru
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Confirmation Modal -->
-    <div id="confirmResetModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden no-print" tabindex="-1">
-        <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-xl bg-white">
-            <div class="flex justify-between items-center pb-3 border-b">
-                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>Konfirmasi Reset</h3>
-                <button id="closeConfirmModalBtn" class="cursor-pointer z-50 p-1 rounded-full hover:bg-gray-200">
-                    <i class="fas fa-times text-gray-500"></i>
-                </button>
-            </div>
-            <div class="mt-4">
-                <p class="text-gray-700">Apakah Anda yakin ingin mereset semua data yang telah diisi? Tindakan ini tidak dapat dibatalkan.</p>
-            </div>
-            <div class="flex justify-end space-x-3 pt-4 mt-4 border-t">
-                <button type="button" id="cancelResetBtn" class="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition">
-                    Batal
-                </button>
-                <button type="button" id="confirmResetBtn" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition">
-                    Ya, Reset
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-75 hidden justify-center items-center flex-col space-y-4 z-50 no-print">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
-        <p class="text-lg font-semibold text-indigo-700">Menyimpan data...</p>
-    </div>
-
-    <div id="toast" class="fixed top-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out no-print">
-        <p id="toast-message">Success!</p>
-    </div>
+                
+            </div> <!-- End Form Sections Wrapper -->
+        </form> <!-- End Form -->
+    </div> <!-- End Main Container -->
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // --- CONFIGURATION & DATA ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMi0fUBOL2ptJ6Grct3W_oVvhwzjP635IY_4-T5aNMlZObYS8rcHxT0TY_0n8Ybvcu/exec';
+    document.addEventListener('DOMContentLoaded', () => {
 
-        // Data guru default - Maryono S.Pd, M.Si sudah termasuk di sini
+        // --- DATA MASTER ---
         const defaultTeacherData = {
-             "Maryono S.Pd, M.Si": "196607012000121002", "Satyo Nugroho, S.Kom.": "197807142009031006",
-             "Dra. Sri Mularsih": "196706201994122001", "Drs. Fiva Widiarto": "196510231996011002", "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", "Marwoto, S.Pd, S.Kom": "196904082000121001", "Sri Endah Swarastuti, S.Pd": "197407022003122004", "Dra. Cukat Budi Rahayu": "196901121994032010", "Dra. Diah Ayu Supriyanti": "196603261994122004", "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", "Sri Wahyuni, S.Pd": "197008022002122004", "Dwi Agus Tri M.M., S.Pd": "197102232002122004", "Sumardi, S.Pd., S.Kom": "197305272003121002", "Agung Pamuji, S.Pd": "197402132005011008", "Retnowati, S.Pd": "197303272005012009", "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", "Nur Romlah, S.Pd": "197509082008012008", "Deddy Suwito, S.Kom": "197209022006041013", "Agus Wuryanto, S.Pd": "197503222006041002", "Tri Puji Utami, S.Kom": "198304252009032009", "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", "Nur Fajriyahti, S.Pd.": "197005212007012014", "Srirahayu, S.Pd.": "197408042008012009", "Romidin, S.Pd": "197505052008011021", "Teguh Cahyono, S.Pd.": "198110232006041010", "Seto Eko Purwanto, S.Si": "197804232010011009", "Nelly Amaliyah, S.Psi": "197907032010012019", "Suratno, S.Pd": "198409032010011012", "Vektor Realita Aditopo, S.Pd": "198603312011011003", "Adi Setiawan, S.Pd.": "199012292014021001", "Galih Tyas Anjari, S.Pd.": "199201212014022001", "Deti Lestiyorini, S.Pd.": "198912142014022001", "Mahzun, S.Pd I": "197601072008011009", "Sugeng Pitoyo, S.Pd.": "197311032008011002", "Asriyatun, S.Pd": "199208262020122009", "Nur Laeli, S.Pd": "199704112020122011", "Sepudin Zupri, S.Kom": "197010222022211001", "Arif Nurokhman, S.Pd": "198010172022211002", "Elis Sugiarti, S.Pd.": "198503072022212028", "Sudiyarti, S.Pd": "198511182022212012", "Otiah, S.Pd.": "198802242022212013", "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", "Menik Yuni Hartini, S.Pd.": "198906292022212008", "Baiq Nur Aisyah, S.Pd.": "198909222022212005", "Sulistiono, S.Pd.": "199112202022211007", "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", "Hindun Fatmawati, S.Pd.": "199210042022212007", "Ana Nurlatifah, S.Pd.": "199304032022212014", "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", "Nining Setiani, S.Pd.": "199610102022212008", "Kukuh Pribadi, S.Pd.": "198610232022211006", "Yekti Apriyoni, S.Pd.": "197804272023212002", "Novita Adhimurti, S.Pd.": "197811142023212001", "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", "Lely Erawati, S.Pd.": "198708212023212018", "Septian Endro Laksono, S.Pd.": "199009052023211004", "Firmanika Rozaqi, S.Pd.": "199104242023212024", "Devi Artati, S.Pd.": "199210112023212020", "Soviatun Khasanah, S.Pd.": "199606302023212006", "Miftah Iskandar, S.Pd.": "198512112023211006", "Dista Puspitasari Adi, S.Pd.": "198603182024212004", "Rita Wijiarti, S.Pd.": "199410172024212021", "Safa Aulia Astri, S.Sos": "199607212024212021", "Slamet Suparman, S.Pd.": "-", "Devi Dwi Wahyuni, S.Pd.": "-", "Muhammad Idris Afandi, S.S., M.Pd.": "-"
+            "Maryono S.Pd, M.Si": "196607012000121002", 
+            "Satyo Nugroho, S.Kom.": "197807142009031006",
+            "Dra. Sri Mularsih": "196706201994122001", 
+            "Drs. Fiva Widiarto": "196510231996011002", 
+            "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", 
+            "Marwoto, S.Pd, S.Kom": "196904082000121001", 
+            "Sri Endah Swarastuti, S.Pd": "197407022003122004", 
+            "Dra. Cukat Budi Rahayu": "196901121994032010", 
+            "Dra. Diah Ayu Supriyanti": "196603261994122004", 
+            "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", 
+            "Sri Wahyuni, S.Pd": "197008022002122004", 
+            "Dwi Agus Tri M.M., S.Pd": "197102232002122004", 
+            "Sumardi, S.Pd., S.Kom": "197305272003121002", 
+            "Agung Pamuji, S.Pd": "197402132005011008", 
+            "Retnowati, S.Pd": "197303272005012009", 
+            "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", 
+            "Nur Romlah, S.Pd": "197509082008012008", 
+            "Deddy Suwito, S.Kom": "197209022006041013", 
+            "Agus Wuryanto, S.Pd": "197503222006041002", 
+            "Tri Puji Utami, S.Kom": "198304252009032009", 
+            "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", 
+            "Nur Fajriyahti, S.Pd.": "197005212007012014", 
+            "Srirahayu, S.Pd.": "197408042008012009", 
+            "Romidin, S.Pd": "197505052008011021", 
+            "Teguh Cahyono, S.Pd.": "198110232006041010", 
+            "Seto Eko Purwanto, S.Si": "197804232010011009", 
+            "Nelly Amaliyah, S.Psi": "197907032010012019", 
+            "Suratno, S.Pd": "198409032010011012", 
+            "Vektor Realita Aditopo, S.Pd": "198603312011011003", 
+            "Adi Setiawan, S.Pd.": "199012292014021001", 
+            "Galih Tyas Anjari, S.Pd.": "199201212014022001", 
+            "Deti Lestiyorini, S.Pd.": "198912142014022001", 
+            "Mahzun, S.Pd I": "197601072008011009", 
+            "Sugeng Pitoyo, S.Pd.": "197311032008011002", 
+            "Asriyatun, S.Pd": "199208262020122009", 
+            "Nur Laeli, S.Pd": "199704112020122011", 
+            "Sepudin Zupri, S.Kom": "197010222022211001", 
+            "Arif Nurokhman, S.Pd": "198010172022211002", 
+            "Elis Sugiarti, S.Pd.": "198503072022212028", 
+            "Sudiyarti, S.Pd": "198511182022212012", 
+            "Otiah, S.Pd.": "198802242022212013", 
+            "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", 
+            "Menik Yuni Hartini, S.Pd.": "198906292022212008", 
+            "Baiq Nur Aisyah, S.Pd.": "198909222022212005", 
+            "Sulistiono, S.Pd.": "199112202022211007", 
+            "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", 
+            "Hindun Fatmawati, S.Pd.": "199210042022212007", 
+            "Ana Nurlatifah, S.Pd.": "199304032022212014", 
+            "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", 
+            "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", 
+            "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", 
+            "Nining Setiani, S.Pd.": "199610102022212008", 
+            "Kukuh Pribadi, S.Pd.": "198610232022211006", 
+            "Yekti Apriyoni, S.Pd.": "197804272023212002", 
+            "Novita Adhimurti, S.Pd.": "197811142023212001", 
+            "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", 
+            "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", 
+            "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", 
+            "Lely Erawati, S.Pd.": "198708212023212018", 
+            "Septian Endro Laksono, S.Pd.": "199009052023211004", 
+            "Firmanika Rozaqi, S.Pd.": "199104242023212024", 
+            "Devi Artati, S.Pd.": "199210112023212020", 
+            "Soviatun Khasanah, S.Pd.": "199606302023212006", 
+            "Miftah Iskandar, S.Pd.": "198512112023211006", 
+            "Dista Puspitasari Adi, S.Pd.": "198603182024212004", 
+            "Rita Wijiarti, S.Pd.": "199410172024212021", 
+            "Safa Aulia Astri, S.Sos": "199607212024212021", 
+            "Slamet Suparman, S.Pd.": "-", 
+            "Devi Dwi Wahyuni, S.Pd.": "-", 
+            "Agus Sutono, S.Pd.": "197406182025211007",
+            "Yanti Karadina, S.Pd.": "197512172025212006",
+            "Widia Sukaesih, S.E.": "197810082025212008",
+            "Triyanto, S.Pd.": "198411252025211021",
+            "Inayatul Munawaroh, S.Pd.": "199301062025212023",
+            "Danu Setio Aji, S.Pd.": "199310162025211021",
+            "Hera Dwi Suryandari, S.Pd.": "199312262025212012",
+            "Rindhi Rezqi Hertindha, M.Pd.": "-",
+            "Seli Fadriyah, S.Pd.": "-",
+            "Nurhidayah, S.S., M.Pd.": "-",
+            "Prana Prakasita, S.Pd.": "-",
+            "Rita Puspitasari, S.Pd.": "-",
+            "Ullil Hykmah, S.Pd.": "-",
+            "Muhammad Idris Afandi, S.S., M.Pd.": "-",
         };
 
-        // Komponen Administrasi dengan urutan yang baru
-        const adminComponents = [
-            "Capaian Pembelajaran", 
-            "Alur Tujuan Pembelajaran", 
-            "Tujuan Pembelajaran",
-            "Program Tahunan", 
-            "Program Semester", 
-            "Analisis Minggu Efektif",
-            "KKTP", 
-            "Kaldik", 
-            "RPM/Modul Ajar", 
-            "Daftar Nilai, Soal dan Analisis"
+        // Konversi ke format array untuk kompatibilitas dengan kode yang ada
+        const teacherData = Object.entries(defaultTeacherData).map(([name, nip]) => ({ name, nip }));
+        teacherData.unshift({ name: "-- Pilih Guru --", nip: "" });
+
+        const supervisorData = [
+            { name: "-- Pilih Supervisor --", nip: "" },
+            { name: "Tim Supervisi Internal", nip: "-" }
         ];
-        
+
+        const headmasterData = {
+            name: "Maryono S.Pd, M.Si",
+            nip: "196607012000121002"
+        };
+
+        const adminItems = [
+            "Program Tahunan (Prota)", 
+            "Program Semester (Promes)", 
+            "Capaian Pembelajaran (CP)",
+            "Alur Tujuan Pembelajaran (ATP)", 
+            "Modul Ajar / RPP", 
+            "KKTP / KKM", 
+            "Jurnal / Agenda Guru",
+            "Daftar Hadir Siswa", 
+            "Daftar Nilai Siswa", 
+            "Analisis Penilaian", 
+            "Program Remedial & Pengayaan",
+            "Buku Teks / Sumber Belajar"
+        ];
+        const TOTAL_ADMIN_ITEMS = adminItems.length;
+        const MAX_ADMIN_SCORE = TOTAL_ADMIN_ITEMS * 2;
+
         const instrumentItems = [
              { aspect: "IDENTITAS MODUL", items: ["1. Nama Sekolah", "2. Nama Guru", "3. Nama Mata Pelajaran", "4. Elemen", "5. Fase/Kelas / Semester", "6. Alokasi Waktu", "7. Tahun Pelajaran"] },
              { aspect: "IDENTIFIKASI MURID", items: ["Mencantumkan Kondisi Kemampuan Murid Sebelum Kegiatan Pembelajaran", "Mencantumkan Bahwa Murid Mengetahui Materi Prasyarat"] },
@@ -625,508 +1299,366 @@
              { aspect: "ASESMEN FORMATIF", items: ["Mencantumkan Penilaian selama proses pembelajaran"] },
              { aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
         ];
-
-        let teacherData = {}; // Global variable for teacher data
-
-        // --- CORE FUNCTIONS ---
-
-        const loadTeacherData = () => {
-            try {
-                const storedData = localStorage.getItem('teacherSupervisionData');
-                teacherData = storedData ? { ...defaultTeacherData, ...JSON.parse(storedData) } : { ...defaultTeacherData };
-                console.log("Teacher data loaded successfully:", Object.keys(teacherData).length, "teachers");
-            } catch (error) {
-                console.error("Error loading teacher data:", error);
-                teacherData = { ...defaultTeacherData };
-            }
-        };
-
-        const saveTeacherData = () => {
-            try {
-                localStorage.setItem('teacherSupervisionData', JSON.stringify(teacherData));
-                console.log("Teacher data saved successfully");
-            } catch (error) {
-                console.error("Error saving teacher data:", error);
-            }
-        };
         
-        const populateDropdowns = () => {
-            const teacherSelect = document.getElementById('teacherSelect');
-            const supervisorSelect = document.getElementById('supervisorSelect');
-            const currentTeacher = teacherSelect.value;
-            const currentSupervisor = supervisorSelect.value;
-            
-            // Clear dropdowns
-            teacherSelect.innerHTML = '<option value="">-- Pilih Guru --</option>';
-            supervisorSelect.innerHTML = '<option value="">-- Pilih Supervisor --</option>';
+        // Calculate total items from the new structure
+        const TOTAL_INSTRUMENT_ITEMS = instrumentItems.reduce((acc, aspectGroup) => acc + aspectGroup.items.length, 0);
+        const MAX_INSTRUMENT_SCORE = TOTAL_INSTRUMENT_ITEMS * 2;
 
-            // Get sorted list of teachers (including Maryono S.Pd, M.Si)
-            const sortedTeachers = Object.keys(teacherData).sort((a, b) => a.localeCompare(b));
-            
-            // Populate teacher dropdown
-            sortedTeachers.forEach(name => {
-                teacherSelect.add(new Option(name, name));
+        const TOTAL_PROSES_BUTIR = 48;
+        const MAX_PROSES_SKOR = TOTAL_PROSES_BUTIR * 4;
+
+        // --- ELEMEN DOM ---
+        const teacherSelect = document.getElementById('teacherSelect');
+        const teacherNIP = document.getElementById('teacherNIP');
+        const supervisorSelect = document.getElementById('supervisorSelect');
+        const supervisorNIP = document.getElementById('supervisorNIP');
+        const adminTableBody = document.getElementById('adminTableBody');
+        const instrumentTableBody = document.getElementById('instrumentTableBody');
+
+        // --- FUNGSI INISIALISASI ---
+
+        // Mengisi dropdown guru dan supervisor
+        function populateDropdowns() {
+            teacherData.forEach(teacher => {
+                const option = new Option(teacher.name, teacher.name);
+                teacherSelect.add(option);
             });
-
-            // Populate supervisor dropdown (same list as teachers)
-            sortedTeachers.forEach(name => {
-                supervisorSelect.add(new Option(name, name));
+            supervisorData.forEach(supervisor => {
+                const option = new Option(supervisor.name, supervisor.name);
+                supervisorSelect.add(option);
             });
+        }
 
-            // Add "Tambah Guru Baru" option to teacher dropdown only
-            const addNewOption = new Option("+ Tambah Guru Baru", "add_new");
-            addNewOption.className = "font-bold text-indigo-600";
-            teacherSelect.add(addNewOption);
-            
-            // Restore previous selections if any
-            if (currentTeacher) teacherSelect.value = currentTeacher;
-            if (currentSupervisor) supervisorSelect.value = currentSupervisor;
-            
-            console.log("Dropdowns populated successfully");
-        };
-        
-        // --- TABLE POPULATION ---
+        // Mengisi NIP otomatis
+        function fillNIP(event) {
+            const select = event.currentTarget;
+            const selectedName = select.value;
+            let data, targetNIP;
 
-        const populateAdminTable = () => {
-            const tableBody = document.querySelector('#adminTable tbody');
-            tableBody.innerHTML = '';
-            adminComponents.forEach((component, index) => {
-                const row = `
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
-                        <td class="px-6 py-4">${component}</td>
+            if (select.id === 'teacherSelect') {
+                data = teacherData;
+                targetNIP = teacherNIP;
+            } else { // supervisorSelect
+                data = supervisorData;
+                targetNIP = supervisorNIP;
+            }
+            
+            const selectedData = data.find(item => item.name === selectedName);
+            targetNIP.value = selectedData ? selectedData.nip : "";
+        }
+
+        // Mengisi tabel administrasi (Tab 1)
+        function populateAdminTable() {
+            adminItems.forEach((item, index) => {
+                const row = adminTableBody.insertRow();
+                row.className = "bg-white border-b hover:bg-gray-50";
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900">${item}</td>
+                    ${[0, 1, 2].map(value => `
+                        <td class="px-6 py-4 text-center">
+                            <label class="custom-radio flex justify-center items-center">
+                                <input type="radio" name="admin_item_${index}" value="${value}" class="admin-radio-item">
+                                <span class="radio-checkmark"></span>
+                            </label>
+                        </td>
+                    `).join('')}
+                `;
+            });
+        }
+
+        // Mengisi tabel instrumen (Tab 2)
+        function populateInstrumentTable() {
+            let itemCounter = 1;
+            instrumentItems.forEach((aspectGroup, aspectIndex) => {
+                // 1. Add Aspect Header Row
+                const headerRow = instrumentTableBody.insertRow();
+                headerRow.className = "bg-gray-100 font-semibold text-gray-700 uppercase";
+                headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${aspectGroup.aspect}</td>`;
+                
+                // 2. Add Item Rows
+                aspectGroup.items.forEach((itemText, itemIndex) => {
+                    const itemRow = instrumentTableBody.insertRow();
+                    itemRow.className = "bg-white border-b hover:bg-gray-50";
+                    
+                    // Remove number from itemText if present (e.g., "1. Nama Sekolah")
+                    const cleanItemText = itemText.replace(/^[0-9]+\.\s*/, '');
+                    
+                    itemRow.innerHTML = `
+                        <td class="px-4 py-3 text-center">${itemCounter}</td>
+                        <td class="px-4 py-3" colspan="2">${cleanItemText}</td>
                         ${[0, 1, 2].map(value => `
-                            <td class="px-6 py-4 text-center">
-                                <label class="custom-radio">
-                                    <input type="radio" name="admin_comp_${index}" value="${value}">
+                            <td class="px-4 py-3 text-center">
+                                <label class="custom-radio flex justify-center items-center">
+                                    <input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item">
                                     <span class="radio-checkmark"></span>
                                 </label>
                             </td>
                         `).join('')}
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
-            console.log("Admin table populated successfully");
-        };
-        
-        const populateInstrumentTable = () => {
-            const tableBody = document.querySelector('#instrumentTable tbody');
-            tableBody.innerHTML = '';
-            let componentCounter = 0;
-            instrumentItems.forEach((group, groupIndex) => {
-                group.items.forEach((itemText, itemIndex) => {
-                    componentCounter++;
-                    const row = `
-                        <tr class="border-b hover:bg-gray-50">
-                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 text-center font-medium bg-gray-50">${groupIndex + 1}</td>` : ''}
-                            ${itemIndex === 0 ? `<td rowspan="${group.items.length}" class="px-4 py-3 font-semibold bg-gray-50">${group.aspect}</td>` : ''}
-                            <td class="px-4 py-3">${itemText}</td>
-                            ${[0, 1, 2].map(value => `
-                                <td class="px-4 py-3 text-center">
-                                    <label class="custom-radio">
-                                        <input type="radio" name="instr_comp_${componentCounter}" value="${value}">
-                                        <span class="radio-checkmark"></span>
-                                    </label>
-                                </td>
-                            `).join('')}
-                            <td class="px-4 py-3">
-                                <input type="text" id="instr_ket_${componentCounter}" class="w-full p-2 text-sm bg-white border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Catatan...">
-                            </td>
-                        </tr>
+                        <td class="px-4 py-3">
+                            <input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
+                        </td>
                     `;
-                    tableBody.innerHTML += row;
+                    itemCounter++;
                 });
             });
-            console.log("Instrument table populated successfully");
-        };
-        
-        // --- UI & EVENT HANDLERS ---
-        
-        window.switchTab = (tabName) => {
+        }
+
+        // --- FUNGSI NAVIGASI TAB ---
+        function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
             
-            document.getElementById(`${tabName}-content`).classList.add('active');
-            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
-        };
+            document.getElementById(tabId + '-content').classList.add('active');
+            document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
+        }
 
-        const handleTeacherSelectChange = (e) => {
-            const selectedValue = e.target.value;
-            const teacherNIPInput = document.getElementById('teacherNIP');
-            const teacherBadge = document.getElementById('teacherBadge');
+        // --- FUNGSI PERHITUNGAN ---
+
+        // Perhitungan Tab 1: Administrasi
+        function calculateAdminScore() {
+            let totalScore = 0;
+            let counts = { 0: 0, 1: 0, 2: 0 };
             
-            if (selectedValue === "add_new") {
-                document.getElementById('addTeacherModal').classList.remove('hidden');
-                e.target.value = "";
-                teacherNIPInput.value = "";
-                updateSignatureDisplay('teacher', '', '');
-            } else if (selectedValue && teacherData[selectedValue]) {
-                const nip = teacherData[selectedValue];
-                teacherNIPInput.value = nip;
-                updateSignatureDisplay('teacher', selectedValue, nip);
-                teacherBadge.textContent = defaultTeacherData[selectedValue] ? "Database" : "Baru";
-                teacherBadge.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2.5 py-1 rounded-full ${defaultTeacherData[selectedValue] ? 'bg-gray-200 text-gray-600' : 'bg-yellow-200 text-yellow-800'}`;
-            } else {
-                teacherNIPInput.value = "";
-                updateSignatureDisplay('teacher', '', '');
-                teacherBadge.textContent = "Database";
-                teacherBadge.className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
-            }
+            const checkedRadios = document.querySelectorAll('.admin-radio-item:checked');
             
-            validateField('teacherSelect', selectedValue);
-        };
-
-        const handleSupervisorSelectChange = (e) => {
-            const selectedValue = e.target.value;
-            updateSignatureDisplay('supervisor', selectedValue, teacherData[selectedValue] || '');
-            validateField('supervisorSelect', selectedValue);
-        };
-
-        const updateSignatureDisplay = (role, name, nip) => {
-            // Update both screen and print displays
-            document.getElementById(`${role}NameDisplayScreen`).textContent = name || '........................................';
-            document.getElementById(`${role}NipDisplayScreen`).textContent = nip ? `NIP. ${nip}` : 'NIP. .............................';
-            document.getElementById(`${role}NameDisplayPrint`).textContent = name || '........................................';
-            document.getElementById(`${role}NipDisplayPrint`).textContent = nip ? `NIP. ${nip}` : 'NIP. .............................';
-        };
-
-        window.addNewTeacher = () => {
-            const name = document.getElementById('newTeacherName').value.trim();
-            const nip = document.getElementById('newTeacherNIP').value.trim();
-            if (name && nip) {
-                if(teacherData[name]) {
-                    showToast(`Error: Guru "${name}" sudah ada.`, 'error');
-                    return;
-                }
-                teacherData[name] = nip;
-                saveTeacherData();
-                populateDropdowns();
-                document.getElementById('teacherSelect').value = name;
-                document.getElementById('teacherSelect').dispatchEvent(new Event('change'));
-                document.getElementById('addTeacherModal').classList.add('hidden');
-                document.getElementById('addTeacherForm').reset();
-                showToast(`Guru "${name}" berhasil ditambahkan!`, 'success');
-            } else {
-                showToast('Nama dan NIP tidak boleh kosong.', 'error');
-            }
-        };
-
-        // --- VALIDATION FUNCTIONS ---
-        
-        const validateField = (fieldId, value) => {
-            const errorElement = document.getElementById(`${fieldId}Error`);
-            const inputElement = document.getElementById(fieldId);
-            
-            if (!value || value.trim() === '') {
-                errorElement.style.display = 'block';
-                inputElement.classList.add('input-error');
-                return false;
-            } else {
-                errorElement.style.display = 'none';
-                inputElement.classList.remove('input-error');
-                return true;
-            }
-        };
-        
-        const validateForm = () => {
-            const fields = [
-                { id: 'teacherSelect', value: document.getElementById('teacherSelect').value },
-                { id: 'subject', value: document.getElementById('subject').value },
-                { id: 'class-semester', value: document.getElementById('class-semester').value },
-                { id: 'supervisionDate', value: document.getElementById('supervisionDate').value },
-                { id: 'supervisorSelect', value: document.getElementById('supervisorSelect').value }
-            ];
-            
-            let isValid = true;
-            fields.forEach(field => {
-                if (!validateField(field.id, field.value)) {
-                    isValid = false;
-                }
+            checkedRadios.forEach(radio => {
+                const value = parseInt(radio.value);
+                totalScore += value;
+                counts[value]++;
             });
             
-            return isValid;
-        };
+            // Hitung item yang belum diisi
+            const uncheckedCount = TOTAL_ADMIN_ITEMS - checkedRadios.length;
+            counts[0] += uncheckedCount;
 
-        // --- CALCULATION LOGIC ---
+            const percentage = (totalScore / MAX_ADMIN_SCORE) * 100;
 
-        const calculateAdminResults = () => {
-            let counts = { 0: 0, 1: 0, 2: 0 };
-            let isComplete = true;
-            for (let i = 0; i < adminComponents.length; i++) {
-                const checkedRadio = document.querySelector(`input[name="admin_comp_${i}"]:checked`);
-                if (checkedRadio) {
-                    counts[checkedRadio.value]++;
-                } else {
-                    isComplete = false;
-                }
-            }
-            
+            // Update DOM
             document.getElementById('countTidakAda').textContent = counts[0];
             document.getElementById('countAdaTidakSesuai').textContent = counts[1];
             document.getElementById('countAdaSesuai').textContent = counts[2];
+            document.getElementById('skorTotalAdmin').textContent = totalScore;
+            document.getElementById('ketersediaanAdmin').textContent = percentage.toFixed(2) + '%';
             
-            const skorTotal = (counts[2] * 2) + (counts[1] * 1);
-            document.getElementById('skorTotalAdmin').textContent = skorTotal;
-            
-            const maxScore = adminComponents.length * 2;
-            const ketersediaan = maxScore > 0 ? Math.round((skorTotal / maxScore) * 100) : 0;
-            document.getElementById('ketersediaanAdmin').textContent = ketersediaan + '%';
-            
-            updateAchievementHighlight(ketersediaan);
-            return isComplete;
-        };
+            // Update Achievement Level
+            updateAchievementLevel(percentage);
+        }
 
-        const updateAchievementHighlight = (percentage) => {
-            document.querySelectorAll('.achievement-level').forEach(el => {
-                el.classList.remove('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', 'ring-green-400', 'ring-blue-400', 'ring-yellow-400', 'ring-red-400');
+        function updateAchievementLevel(percentage) {
+            document.querySelectorAll('.achievement-level').forEach(el => el.classList.remove('highlighted'));
+            if (percentage >= 80) {
+                document.getElementById('level-sangat-baik').classList.add('highlighted');
+            } else if (percentage >= 60) {
+                document.getElementById('level-baik').classList.add('highlighted');
+            } else if (percentage >= 40) {
+                document.getElementById('level-cukup').classList.add('highlighted');
+            } else {
+                document.getElementById('level-kurang').classList.add('highlighted');
+            }
+        }
+
+        // Perhitungan Tab 2: Instrumen Modul Ajar
+        function calculateInstrumentScore() {
+            let totalScore = 0;
+            const checkedRadios = document.querySelectorAll('.instrument-radio-item:checked');
+            
+            checkedRadios.forEach(radio => {
+                totalScore += parseInt(radio.value);
+            });
+            
+            const finalGrade = (totalScore / MAX_INSTRUMENT_SCORE) * 100;
+            const predicate = getPredikat(finalGrade);
+            
+            // Update DOM
+            document.getElementById('total-score-instrument').textContent = totalScore;
+            document.getElementById('max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
+            document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
+            document.getElementById('predicate-instrument').textContent = predicate.text;
+            document.getElementById('predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
+        }
+
+        // Perhitungan Tab 3: Proses Pembelajaran
+        function calculateProsesScore() {
+            let totalSkorPerolehan = 0;
+            let semuaTerisi = true;
+            
+            const semuaSkor = document.querySelectorAll('#proses-content .item-skor');
+            
+            if (semuaSkor.length !== TOTAL_PROSES_BUTIR) {
+                showMessage(`Jumlah butir tidak sesuai! Ditemukan ${semuaSkor.length}, seharusnya ${TOTAL_PROSES_BUTIR}.`, true);
+                return;
+            }
+            
+            semuaSkor.forEach(item => {
+                const nilai = parseInt(item.value);
+                if (nilai === 0 || isNaN(nilai)) {
+                    semuaTerisi = false;
+                    item.classList.add('border-red-500', 'ring-red-500');
+                } else {
+                    item.classList.remove('border-red-500', 'ring-red-500');
+                    totalSkorPerolehan += nilai;
+                }
             });
 
-            let levelToHighlight = '', ringColor = '';
-            if (percentage >= 80) { levelToHighlight = 'sangat-baik'; ringColor = 'ring-green-400'; }
-            else if (percentage >= 60) { levelToHighlight = 'baik'; ringColor = 'ring-blue-400'; }
-            else if (percentage >= 40) { levelToHighlight = 'cukup'; ringColor = 'ring-yellow-400'; }
-            else { levelToHighlight = 'kurang'; ringColor = 'ring-red-400'; }
+            if (!semuaTerisi) {
+                showMessage('Harap isi semua butir penilaian di Tab 3 (nilai tidak boleh "-- Pilih Nilai --").', true);
+                document.getElementById('hasilProsesSection').classList.add('hidden');
+                return;
+            }
             
-            const el = document.getElementById(`level-${levelToHighlight}`);
-            if (el) el.classList.add('ring-4', 'ring-offset-2', 'scale-105', 'shadow-lg', ringColor);
-        };
+            hideMessage();
+            
+            const nilaiAkhir = (totalSkorPerolehan / MAX_PROSES_SKOR) * 100;
+            const predikat = getPredikat(nilaiAkhir);
+            
+            // Update DOM
+            document.getElementById('skorPerolehanProsesEl').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
+            document.getElementById('nilaiAkhirProsesEl').textContent = nilaiAkhir.toFixed(2);
+            document.getElementById('predikatProsesEl').textContent = predikat.text;
+            document.getElementById('predikatProsesEl').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
+            
+            document.getElementById('hasilProsesSection').classList.remove('hidden');
+            document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
+        }
         
-        const calculateInstrumentResults = () => {
-            let totalScore = 0;
-            let isComplete = true;
-            const componentCount = instrumentItems.flatMap(g => g.items).length;
+        // Helper Predikat
+        function getPredikat(nilai) {
+            if (nilai >= 86) return { text: 'Sangat Baik', color: 'text-green-600' };
+            if (nilai >= 70) return { text: 'Baik', color: 'text-blue-600' };
+            if (nilai >= 55) return { text: 'Cukup', color: 'text-yellow-600' };
+            return { text: 'Kurang', color: 'text-red-600' };
+        }
+        
+        // Helper Pesan
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        function showMessage(message, isError = true) {
+            messageText.textContent = message;
+            messageBox.className = `p-4 mb-4 text-sm rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
+            messageBox.classList.remove('hidden');
+            messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        function hideMessage() {
+            messageBox.classList.add('hidden');
+        }
 
-            for (let i = 1; i <= componentCount; i++) {
-                const selectedRadio = document.querySelector(`input[name="instr_comp_${i}"]:checked`);
-                if (selectedRadio) {
-                    totalScore += parseInt(selectedRadio.value);
+        // --- FUNGSI VALIDASI & CETAK ---
+        
+        const identityFields = ['teacherSelect', 'subject', 'classSemester', 'supervisionDate', 'supervisorSelect'];
+        
+        function validateIdentity() {
+            let isValid = true;
+            identityFields.forEach(id => {
+                const field = document.getElementById(id);
+                const errorEl = document.getElementById(id + 'Error');
+                
+                let value = field.value.trim();
+                
+                if (field.tagName === 'SELECT' && (value === '-- Pilih Guru --' || value === '-- Pilih Supervisor --')) {
+                    value = ""; // Anggap kosong jika masih default
+                }
+
+                if (!value) {
+                    isValid = false;
+                    field.classList.add('input-error');
+                    if (errorEl) errorEl.style.display = 'block';
                 } else {
-                    isComplete = false;
+                    field.classList.remove('input-error');
+                    if (errorEl) errorEl.style.display = 'none';
                 }
+            });
+            
+            if (!isValid) {
+                // Pindah ke tab identitas jika belum di sana
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            return isValid;
+        }
 
-            const maxScore = componentCount * 2;
-            const finalGrade = maxScore > 0 ? ((totalScore / maxScore) * 100) : 0;
+        function handlePrint(event) {
+            event.preventDefault();
             
-            let predicate = '-';
-            if (finalGrade >= 88) predicate = 'AB (Amat Baik)';
-            else if (finalGrade >= 75) predicate = 'B (Baik)';
-            else if (finalGrade >= 62) predicate = 'C (Cukup)';
-            else if (finalGrade >= 49) predicate = 'K (Kurang)';
-            else predicate = 'AK (Amat Kurang)';
-
-            document.getElementById('total-score-instrument').textContent = totalScore;
-            document.getElementById('max-score-instrument').textContent = maxScore;
-            document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
-            document.getElementById('predicate-instrument').textContent = predicate;
-            
-            return isComplete;
-        };
-
-        // --- SUBMISSION ---
-
-        const handleFormSubmit = () => {
-            if (!validateForm()) {
-                showToast('Harap lengkapi semua data identitas supervisi.', 'error');
+            // 1. Validasi Identitas
+            if (!validateIdentity()) {
+                // Ganti pesan alert dengan message box
+                const mainMessageBox = document.getElementById('messageBox');
+                mainMessageBox.className = 'p-4 mb-4 text-sm rounded-lg bg-red-100 text-red-700';
+                mainMessageBox.innerHTML = '<span class="font-medium">Validasi Gagal!</span> Harap lengkapi semua data di bagian IDENTITAS SUPERVISI sebelum mencetak.';
+                mainMessageBox.classList.remove('hidden');
+                mainMessageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
-
-            const isAdminComplete = calculateAdminResults();
-            const isInstrumentComplete = calculateInstrumentResults();
             
-            if (!isAdminComplete || !isInstrumentComplete) {
-                showToast('Harap lengkapi semua item penilaian di kedua tab.', 'error');
-                if (!isAdminComplete) switchTab('administrasi');
-                else if (!isInstrumentComplete) switchTab('instrumen');
-                return;
+            // 2. Isi data untuk cetak
+            const selectedTeacher = teacherData.find(t => t.name === teacherSelect.value);
+            const selectedSupervisor = supervisorData.find(s => s.name === supervisorSelect.value);
+            const supervisionDate = new Date(document.getElementById('supervisionDate').value).toLocaleDateString('id-ID', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+
+            document.getElementById('print-tanggal').textContent = supervisionDate;
+            document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
+            document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
+            document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
+            document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
+            document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
+            document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
+
+            // 3. Panggil window.print()
+            window.print();
+        }
+
+        // --- EVENT LISTENERS ---
+        
+        // Navigasi Tab
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                switchTab(e.currentTarget.dataset.tab);
+            });
+        });
+
+        // Pengisi NIP
+        teacherSelect.addEventListener('change', fillNIP);
+        supervisorSelect.addEventListener('change', fillNIP);
+        
+        // Kalkulator
+        document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
+        document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
+        document.getElementById('hitungProsesBtn').addEventListener('click', calculateProsesScore);
+
+        // Tombol Aksi
+        document.getElementById('printBtn').addEventListener('click', handlePrint);
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            // Ganti window.confirm
+            if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
+                 document.getElementById('supervisionForm').reset();
+                 // Reset hasil kalkulasi manual
+                 calculateAdminScore();
+                 calculateInstrumentScore();
+                 document.getElementById('hasilProsesSection').classList.add('hidden');
+                 document.getElementById('predikatProsesEl').textContent = '--';
+                 document.getElementById('predikatProsesEl').className = 'text-4xl font-extrabold mt-2';
+                 updateAchievementLevel(0);
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-
-            showToast('Semua hasil dihitung. Menyimpan data...', 'info');
-            document.getElementById('loading-overlay').classList.remove('hidden');
-            document.getElementById('loading-overlay').classList.add('flex');
-
-            // Prepare data as URL parameters
-            const params = new URLSearchParams();
-            
-            // Common Data
-            params.append('Timestamp', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
-            params.append('TanggalSupervisi', document.getElementById('supervisionDate').value);
-            params.append('GuruDinilai', document.getElementById('teacherSelect').value);
-            params.append('NIPGuru', document.getElementById('teacherNIP').value);
-            params.append('Mapel', document.getElementById('subject').value);
-            params.append('KelasSemester', document.getElementById('class-semester').value);
-            params.append('Supervisor', document.getElementById('supervisorSelect').value);
-            
-            // Admin Results
-            params.append('AdminSkorTotal', document.getElementById('skorTotalAdmin').textContent);
-            params.append('AdminKetersediaan', document.getElementById('ketersediaanAdmin').textContent);
-
-            // Instrument Results & Details
-            params.append('InstrumenSkorTotal', document.getElementById('total-score-instrument').textContent);
-            params.append('InstrumenNilaiAkhir', document.getElementById('final-grade-instrument').textContent);
-            params.append('InstrumenPredikat', document.getElementById('predicate-instrument').textContent);
-            
-            const componentCount = instrumentItems.flatMap(g => g.items).length;
-            for (let i = 1; i <= componentCount; i++) {
-                const scoreElement = document.querySelector(`input[name="instr_comp_${i}"]:checked`);
-                const keteranganElement = document.getElementById(`instr_ket_${i}`);
-                if (scoreElement) {
-                    params.append(`InstrumenSkor_${i}`, scoreElement.value);
-                }
-                if (keteranganElement) {
-                    params.append(`InstrumenKet_${i}`, keteranganElement.value);
-                }
-            }
-            
-            // Notes
-            params.append('CatatanKeunggulan', document.getElementById('strengths').value);
-            params.append('CatatanPerbaikan', document.getElementById('improvements').value);
-            params.append('CatatanTindakLanjut', document.getElementById('followup').value);
-            
-            // Tanggal Validasi
-            params.append('TanggalValidasi', document.getElementById('signatureDate').value);
-
-            // Kirim data ke Google Apps Script dengan GET method
-            const urlWithParams = `${SCRIPT_URL}?${params.toString()}`;
-            
-            console.log('Mengirim data ke Google Apps Script:', SCRIPT_URL);
-            console.log('Parameter data:', params.toString());
-
-            // Use XMLHttpRequest for better compatibility
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', urlWithParams, true);
-            xhr.timeout = 15000; // 15 seconds timeout
-            
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    document.getElementById('loading-overlay').classList.add('hidden');
-                    document.getElementById('loading-overlay').classList.remove('flex');
-                    
-                    if (xhr.status === 200) {
-                        try {
-                            const response = JSON.parse(xhr.responseText);
-                            if (response.result === 'success') {
-                                showToast('Data berhasil disimpan ke Google Sheet!', 'success');
-                                resetForm();
-                            } else {
-                                showToast('Gagal menyimpan data: ' + response.message, 'error');
-                            }
-                        } catch (e) {
-                            // Jika response bukan JSON, anggap berhasil
-                            showToast('Data berhasil dikirim!', 'success');
-                            resetForm();
-                        }
-                    } else {
-                        showToast('Error HTTP: ' + xhr.status + ' - ' + xhr.statusText, 'error');
-                    }
-                }
-            };
-            
-            xhr.ontimeout = function() {
-                document.getElementById('loading-overlay').classList.add('hidden');
-                document.getElementById('loading-overlay').classList.remove('flex');
-                showToast('Waktu koneksi habis. Periksa koneksi internet Anda.', 'error');
-            };
-            
-            xhr.onerror = function() {
-                document.getElementById('loading-overlay').classList.add('hidden');
-                document.getElementById('loading-overlay').classList.remove('flex');
-                showToast('Error jaringan. Periksa koneksi internet.', 'error');
-            };
-            
-            xhr.send();
-        };
-        
-        // --- HELPERS & INITIALIZATION ---
-        
-        window.showToast = (message, type = 'success') => {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = message;
-            toast.className = 'fixed top-5 right-5 text-white py-3 px-6 rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out no-print'; // Reset
-            if (type === 'success') toast.classList.add('bg-green-500', 'translate-x-0');
-            else if (type === 'error') toast.classList.add('bg-red-500', 'translate-x-0');
-            else if (type === 'info') toast.classList.add('bg-blue-500', 'translate-x-0');
-            
-            setTimeout(() => toast.classList.add('translate-x-full'), 3000);
-        };
-        
-        const setInitialDates = () => {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('supervisionDate').value = today;
-            document.getElementById('signatureDate').value = today;
-        };
-
-        const resetForm = () => {
-            document.querySelector('form').reset();
-            // Manually trigger updates for elements not reset by form.reset()
-            calculateAdminResults();
-            calculateInstrumentResults();
-            updateSignatureDisplay('teacher', '', '');
-            updateSignatureDisplay('supervisor', '', '');
-            setInitialDates();
-            switchTab('administrasi');
-            document.getElementById('teacherBadge').textContent = "Database";
-            document.getElementById('teacherBadge').className = "absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full";
-        };
-
-        // --- ATTACH LISTENERS ---
-        document.getElementById('teacherSelect').addEventListener('change', handleTeacherSelectChange);
-        document.getElementById('supervisorSelect').addEventListener('change', handleSupervisorSelectChange);
-        document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addTeacherModal').classList.add('hidden'));
-        document.getElementById('submitButton').addEventListener('click', handleFormSubmit);
-        
-        // Add validation listeners for form fields
-        document.getElementById('subject').addEventListener('input', function() {
-            validateField('subject', this.value);
         });
         
-        document.getElementById('class-semester').addEventListener('input', function() {
-            validateField('class-semester', this.value);
-        });
-        
-        document.getElementById('supervisionDate').addEventListener('change', function() {
-            validateField('supervisionDate', this.value);
-        });
-        
-        // Reset button with confirmation
-        document.getElementById('resetButton').addEventListener('click', function() {
-            document.getElementById('confirmResetModal').classList.remove('hidden');
-        });
-        
-        document.getElementById('closeConfirmModalBtn').addEventListener('click', function() {
-            document.getElementById('confirmResetModal').classList.add('hidden');
-        });
-        
-        document.getElementById('cancelResetBtn').addEventListener('click', function() {
-            document.getElementById('confirmResetModal').classList.add('hidden');
-        });
-        
-        document.getElementById('confirmResetBtn').addEventListener('click', function() {
-            document.getElementById('confirmResetModal').classList.add('hidden');
-            resetForm();
-            showToast('Form berhasil direset', 'info');
+        // Hapus error saat diketik
+        identityFields.forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                document.getElementById(id).classList.remove('input-error');
+                const errorEl = document.getElementById(id + 'Error');
+                if (errorEl) errorEl.style.display = 'none';
+            });
         });
 
-        // --- INITIAL EXECUTION ---
-        loadTeacherData();
+        // --- INISIALISASI ---
         populateDropdowns();
         populateAdminTable();
         populateInstrumentTable();
-        setInitialDates();
-        
-        // Add event listeners for real-time calculation
-        document.addEventListener('change', function(e) {
-            if (e.target.name && e.target.name.startsWith('admin_comp_')) {
-                calculateAdminResults();
-            }
-            if (e.target.name && e.target.name.startsWith('instr_comp_')) {
-                calculateInstrumentResults();
-            }
-        });
-        
-        console.log("Application initialized successfully");
-        console.log("Google Apps Script URL:", SCRIPT_URL);
+        calculateAdminScore(); // Jalankan sekali untuk inisialisasi
+        calculateInstrumentScore(); // Jalankan sekali untuk inisialisasi
     });
     </script>
 </body>
