@@ -1661,11 +1661,158 @@
         calculateInstrumentScore(); // Jalankan sekali untuk inisialisasi
     });
     </script>
-    const SUPABASE_CONFIG = {
-    url: 'https://excdhqzsnbgfckswkkma.supabase.co',  // URL dari Supabase Anda
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4Y2RocXpzbmJnZmNrc3dra21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MjQ4NTEsImV4cCI6MjA3NzAwMDg1MX0.IXldaTP77vjiEHoMQnKVu3yX7sZIDlYdF2vvckFvFFw'  // Anon key dari Supabase
+    <!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+// === SUPABASE CONFIGURATION ===
+const SUPABASE_CONFIG = {
+    url: 'https://excdhqzsnbgfckswkkma.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4Y2RocXpzbmJnZmNrc3dra21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MjQ4NTEsImV4cCI6MjA3NzAwMDg1MX0.IXldaTP77vjiEHoMQnKVu3yX7sZIDlYdF2vvckFvFFw'
 };
+
+// === SUPABASE DATABASE FUNCTIONS ===
+let supabase;
+
+// Initialize Supabase
+function initializeSupabase() {
+    try {
+        supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        console.log('✅ Supabase connected successfully');
+        showMessage('Database connected!', false);
+    } catch (error) {
+        console.error('❌ Database connection failed:', error);
+        showMessage('Database connection failed: ' + error.message, true);
+    }
+}
+
+// Save data to Supabase
+async function saveToDatabase(formData) {
+    try {
+        console.log('💾 Saving to database...', formData);
+        
+        const { data, error } = await supabase
+            .from('supervisions')
+            .insert([
+                {
+                    teacher_name: formData.teacherName,
+                    teacher_nip: formData.teacherNIP,
+                    subject: formData.subject,
+                    class_semester: formData.classSemester,
+                    supervision_date: formData.supervisionDate,
+                    supervisor_name: formData.supervisorName,
+                    supervisor_nip: formData.supervisorNIP,
+                    admin_score: formData.adminScore,
+                    admin_percentage: formData.adminPercentage,
+                    instrument_score: formData.instrumentScore,
+                    instrument_percentage: formData.instrumentPercentage,
+                    process_score: formData.processScore,
+                    process_predicate: formData.processPredicate,
+                    notes: formData.notes,
+                    recommendations: formData.recommendations
+                }
+            ])
+            .select();
+
+        if (error) throw error;
+        
+        console.log('✅ Data saved with ID:', data[0].id);
+        return data[0].id;
+
+    } catch (error) {
+        console.error('❌ Error saving data:', error);
+        throw new Error(`Gagal menyimpan: ${error.message}`);
+    }
+}
+
+// Update the print button event listener
+document.getElementById('printBtn').addEventListener('click', async (event) => {
+    event.preventDefault();
+    
+    if (!validateIdentity()) {
+        showMessage('Harap lengkapi semua data di bagian IDENTITAS SUPERVISI sebelum menyimpan!', true);
+        return;
+    }
+
+    const originalText = event.target.innerHTML;
+    event.target.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan ke Database...';
+    event.target.disabled = true;
+
+    try {
+        const formData = collectFormData();
+        console.log('Data yang akan disimpan:', formData);
+
+        // Simpan ke database
+        const recordId = await saveToDatabase(formData);
+        
+        // Siapkan print
+        preparePrintData();
+        
+        showMessage(`✅ Data berhasil disimpan! ID: ${recordId}. Mencetak...`, false);
+        
+        setTimeout(() => {
+            window.print();
+        }, 1500);
+
+    } catch (error) {
+        console.error('Error:', error);
+        showMessage(`❌ Gagal menyimpan: ${error.message}`, true);
+    } finally {
+        event.target.innerHTML = originalText;
+        event.target.disabled = false;
+    }
+});
+
+// Add collectFormData function if not exists
+function collectFormData() {
+    const adminScore = parseInt(document.getElementById('skorTotalAdmin').textContent) || 0;
+    const adminPercentage = parseFloat(document.getElementById('ketersediaanAdmin').textContent) || 0;
+    const instrumentScore = parseInt(document.getElementById('total-score-instrument').textContent) || 0;
+    const instrumentPercentage = parseFloat(document.getElementById('final-grade-instrument').textContent) || 0;
+    const processScore = parseFloat(document.getElementById('nilaiAkhirProsesEl').textContent) || 0;
+    const processPredicate = document.getElementById('predikatProsesEl').textContent || '-';
+
+    return {
+        teacherName: document.getElementById('teacherSelect').value,
+        teacherNIP: document.getElementById('teacherNIP').value,
+        subject: document.getElementById('subject').value,
+        classSemester: document.getElementById('classSemester').value,
+        supervisionDate: document.getElementById('supervisionDate').value,
+        supervisorName: document.getElementById('supervisorSelect').value,
+        supervisorNIP: document.getElementById('supervisorNIP').value,
+        adminScore: adminScore,
+        adminPercentage: adminPercentage,
+        instrumentScore: instrumentScore,
+        instrumentPercentage: instrumentPercentage,
+        processScore: processScore,
+        processPredicate: processPredicate,
+        notes: document.getElementById('catatanUmum').value,
+        recommendations: document.getElementById('rekomendasi').value
+    };
+}
+
+// Add preparePrintData function if not exists
+function preparePrintData() {
+    const selectedTeacher = teacherData.find(t => t.name === document.getElementById('teacherSelect').value);
+    const selectedSupervisor = supervisorData.find(s => s.name === document.getElementById('supervisorSelect').value);
+    const supervisionDate = new Date(document.getElementById('supervisionDate').value).toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric'
+    });
+
+    document.getElementById('print-tanggal').textContent = supervisionDate;
+    document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
+    document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
+    document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
+    document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
+    document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
+    document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
+}
+
+// Initialize Supabase when page loads
+initializeSupabase();
 </script>
 </body>
 </html>
+
+
 
