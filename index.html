@@ -128,7 +128,7 @@
         @media print {
             @page {
                 size: 21cm 33cm; /* F4 paper size */
-                margin: 1.5cm;
+                margin: 2.5cm 1.5cm 1.5cm 1.5cm; /* Atas, Kanan, Bawah, Kiri */
             }
             
             body { 
@@ -415,6 +415,14 @@
                                     <tbody id="adminTableBody">
                                         <!-- Rows will be injected by JavaScript -->
                                     </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- Summary Section for Tab 1 -->
+                        <section>
+                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm text-left text-gray-600">
                                     <tfoot class="font-semibold text-gray-800">
                                         <tr class="bg-gray-50 border-t">
                                             <td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
@@ -536,532 +544,25 @@
                                     </ul>
                                 </div>
 
-                                <!-- I. Kegiatan Pendahuluan -->
-                                <details open class="mb-4 border rounded-md">
-                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
-                                        I. Kegiatan Pendahuluan (8 Butir)
-                                    </summary>
-                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
-                                        <!-- Item 1-8 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">1. Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">2. Guru menyampaikan dan mengingatkan keyakinan kelas...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">3. Guru mengajukan pertanyaan sebagai asesmen formatif di awal...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">4. Memberikan apersepsi dengan cara menghubungkan materi...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">5. Menyampaikan tujuan pembelajaran, dan kompetensi yang akan dicapai...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">6. Menyampaikan manfaat pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">7. Menyampaikan langkah-langkah kegiatan pembelajaran...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">8. Guru mengelola kesadaran sosial dan emosional (KSE) siswa...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </details>
-
-                                <!-- II. Kegiatan Inti -->
-                                <details open class="mb-4 border rounded-md">
-                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
-                                        II. Kegiatan Inti (34 Butir)
-                                    </summary>
-                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
-                                        <!-- Sub-judul untuk kejelasan -->
-                                        <h4 class="font-semibold text-md text-gray-600 mt-2">A. Guru menguasai materi yang diajarkan</h4>
-                                        <!-- Item 9-13 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">9. Kemampuan menyesuaikan materi dengan tujuan pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">10. Kemampuan mengaitkan materi dengan pengetahuan lain...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">11. Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">12. Memotivasi peserta didik untuk berpartisipasi aktif...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">13. Guru menyajikan materi secara sistematis...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-
-                                        <h4 class="font-semibold text-md text-gray-600 mt-4">B. Guru menerapkan strategi pembelajaran yang mendidik</h4>
-                                        <!-- Item 14-23 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">14. Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">15. Guru melaksanakan pembelajaran sesuai dengan kompetensi...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">16. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">17. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengemukakan pendapat).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">18. Menguasai pengelolaan kelas dengan baik.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">19. Melaksanakan asesmen formatif dalam Proses Pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">20. Melaksanakan umpan balik pelaksanaan proses pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">21. Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">22. Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">23. Melaksanakan pembelajaran sesuai dengan alokasi waktu...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-
-                                        <h4 class="font-semibold text-md text-gray-600 mt-4">C. Guru memanfaatkan sumber belajar / media dalam pembelajaran</h4>
-                                        <!-- Item 24-25 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">24. Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">25. Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-
-                                        <h4 class="font-semibold text-md text-gray-600 mt-4">D. Implementasi Keterampilan Pembelajaran Abad 21</h4>
-                                        <!-- Item 26-31 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">26. Pembelajaran bersifat interaktif (communication).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">27. Pembelajaran menantang (critical thinking and problem solving).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">28. Pembelajaran mendorong peserta didik bekerja sama (collaboration).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">29. Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                         <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">30. Guru menciptakan suasana kelas yang kondusif...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                         <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">31. Guru menerapkan prinsip disiplin positif...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-
-                                        <h4 class="font-semibold text-md text-gray-600 mt-4">E. Guru memicu dan/atau memelihara keterlibatan peserta didik</h4>
-                                        <!-- Item 32-39 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">32. Melaksanakan pembelajaran yang berpusat pada siswa.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">33. Guru memberikan perhatian dan bantuan ekstra...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">34. Guru senantiasa memberikan umpan balik langsung...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">35. Guru memberikan respon positif terhadap partisipasi peserta didik.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">36. Guru melaksanakan praktik adaptasi pengajaran (Diferensiasi Konten).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">37. Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">38. Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">39. Menumbuhkan keceriaan dan antusiasme peserta didik...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-
-                                        <h4 class="font-semibold text-md text-gray-600 mt-4">F. Guru menggunakan bahasa yang benar dan tepat dalam pembelajaran</h4>
-                                        <!-- Item 40-42 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">40. Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">41. Menggunakan pilihan kata yang mudah dipahami...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">42. Menyampaikan pesan dan gaya yang sesuai.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </details>
-
-                                <!-- III. Kegiatan Penutup -->
-                                <details open class="mb-4 border rounded-md">
-                                    <summary class="text-lg font-semibold bg-gray-100 p-3 cursor-pointer rounded-t-md">
-                                        III. Kegiatan Penutup (6 Butir)
-                                    </summary>
-                                    <div class="p-4 space-y-4 bg-white border-t border-gray-200">
-                                        <!-- Item 43-48 -->
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">43. Membuat rangkuman dan/atau kesimpulan...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">44. Melakukan refleksi pembelajaran...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">45. Melaksanakan Asesmen sumatif / penilaian pembelajaran...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">46. Melaksanakan tindak lanjut dengan memberikan arahan...</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">47. Menyampaikan rencana pembelajaran berikutnya.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                        <div class="border p-3 rounded-md bg-gray-50/50">
-                                            <label class="block font-medium mb-2 text-gray-700">48. Menutup Pembelajaran.</label>
-                                            <select class="item-skor w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                                <option value="0">-- Pilih Nilai --</option>
-                                                <option value="4">4 - Sesuai/Dilakukan dan efektif</option>
-                                                <option value="3">3 - Sebagian besar dilakukan dengan efektif</option>
-                                                <option value="2">2 - Sebagian besar dilakukan namun belum efektif</option>
-                                                <option value="1">1 - Sebagian Kecil dilakukan dan tidak efektif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </details>
+                                <!-- Tabel Penilaian Proses Pembelajaran -->
+                                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                                    <table class="w-full text-sm text-left text-gray-600" id="prosesTable">
+                                        <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+                                            <tr>
+                                                <th scope="col" class="px-4 py-3 w-[5%] text-center">No</th>
+                                                <th scope="col" class="px-4 py-3 w-[60%]">Komponen Penilaian</th>
+                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">1</th>
+                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">2</th>
+                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">3</th>
+                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">4</th>
+                                                <th scope="col" class="px-4 py-3 w-[14%]">Catatan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="prosesTableBody">
+                                            <!-- Rows will be injected by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </fieldset>
 
                             <!-- Tombol Hitung -->
@@ -1091,17 +592,52 @@
                     </div>
                 </div>
 
-                <!-- Section: Catatan Supervisi (Unified) -->
-                <section class="page-break">
+                <!-- Section: Catatan Supervisi dan Tanda Tangan (Digabung) -->
+                <section>
                     <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
-                    <div class="space-y-4">
+                    <div class="space-y-4 mb-8">
                         <div>
                             <label for="catatanUmum" class="block text-sm font-medium text-gray-700 mb-1">Catatan Umum / Umpan Balik</label>
-                            <textarea id="catatanUmum" name="catatanUmum" rows="5" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Tuliskan catatan umum, temuan positif, dan area yang perlu perbaikan..."></textarea>
+                            <textarea id="catatanUmum" name="catatanUmum" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Tuliskan catatan umum, temuan positif, dan area yang perlu perbaikan..."></textarea>
                         </div>
                         <div>
                             <label for="rekomendasi" class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi / Tindak Lanjut</label>
-                            <textarea id="rekomendasi" name="rekomendasi" rows="5" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Berikan rekomendasi spesifik untuk perbaikan..."></textarea>
+                            <textarea id="rekomendasi" name="rekomendasi" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Berikan rekomendasi spesifik untuk perbaikan..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Lembar Pengesahan -->
+                    <div class="mt-8 pt-6 border-t border-gray-300">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div class="signature-box">
+                                <p class="mb-2">Purbalingga, <span id="print-tanggal"></span></p>
+                                <p class="font-bold mb-8">Guru yang disupervisi,</p>
+                                <div class="signature-line mt-16">
+                                    <p class="font-bold text-center" id="print-guru-nama">[Nama Guru]</p>
+                                    <p class="text-center">NIP. <span id="print-guru-nip">[NIP Guru]</span></p>
+                                </div>
+                            </div>
+                            <div class="signature-box">
+                                <p class="mb-2">&nbsp;</p>
+                                <p class="font-bold mb-8">Supervisor,</p>
+                                <div class="signature-line mt-16">
+                                    <p class="font-bold text-center" id="print-supervisor-nama">[Nama Supervisor]</p>
+                                    <p class="text-center">NIP. <span id="print-supervisor-nip">[NIP Supervisor]</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="headmaster-signature mt-12 text-center">
+                            <div class="signature-box inline-block">
+                                <p class="mb-2">Mengetahui,</p>
+                                <p class="font-bold mb-8">Kepala SMK Negeri 1 Purbalingga,</p>
+                                <div class="headmaster-line mt-16 mx-auto">
+                                    <p class="font-bold text-center" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
+                                    <p class="text-center">NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1115,41 +651,6 @@
                         <button type="button" id="printBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
                             <i class="fas fa-print mr-2"></i> Simpan & Cetak Laporan
                         </button>
-                    </div>
-                </section>
-
-                <!-- Section: Tanda Tangan (Print Only) -->
-                <section class="page-break">
-                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center print-only"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
-                    
-                    <div class="signature-grid-print no-print">
-                        <div class="signature-box">
-                            <p>Purbalingga, <span id="print-tanggal"></span></p>
-                            <p class="font-bold">Guru yang disupervisi,</p>
-                            <div class="signature-line">
-                                <p class="font-bold" id="print-guru-nama">[Nama Guru]</p>
-                                <p>NIP. <span id="print-guru-nip">[NIP Guru]</span></p>
-                            </div>
-                        </div>
-                        <div class="signature-box">
-                            <p>&nbsp;</p> <!-- Placeholder for alignment -->
-                            <p class="font-bold">Supervisor,</p>
-                            <div class="signature-line">
-                                <p class="font-bold" id="print-supervisor-nama">[Nama Supervisor]</p>
-                                <p>NIP. <span id="print-supervisor-nip">[NIP Supervisor]</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="headmaster-signature signature-grid-print no-print">
-                         <div class="signature-box" style="margin-left: auto; margin-right: auto;">
-                            <p>Mengetahui,</p>
-                            <p class="font-bold">Kepala SMK Negeri 1 Purbalingga,</p>
-                            <div class="headmaster-line">
-                                <p class="font-bold" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
-                                <p>NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</span></p>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 
@@ -1304,6 +805,75 @@
         const TOTAL_INSTRUMENT_ITEMS = instrumentItems.reduce((acc, aspectGroup) => acc + aspectGroup.items.length, 0);
         const MAX_INSTRUMENT_SCORE = TOTAL_INSTRUMENT_ITEMS * 2;
 
+        // Data untuk Tab 3: Proses Pembelajaran
+        const prosesItems = [
+            { section: "I. KEGIATAN PENDAHULUAN", items: [
+                "1. Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...",
+                "2. Guru menyampaikan dan mengingatkan keyakinan kelas...",
+                "3. Guru mengajukan pertanyaan sebagai asesmen formatif di awal...",
+                "4. Memberikan apersepsi dengan cara menghubungkan materi...",
+                "5. Menyampaikan tujuan pembelajaran, dan kompetensi yang akan dicapai...",
+                "6. Menyampaikan manfaat pembelajaran.",
+                "7. Menyampaikan langkah-langkah kegiatan pembelajaran...",
+                "8. Guru mengelola kesadaran sosial dan emosional (KSE) siswa..."
+            ]},
+            { section: "II. KEGIATAN INTI", items: [
+                // A. Guru menguasai materi yang diajarkan
+                "9. Kemampuan menyesuaikan materi dengan tujuan pembelajaran.",
+                "10. Kemampuan mengaitkan materi dengan pengetahuan lain...",
+                "11. Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...",
+                "12. Memotivasi peserta didik untuk berpartisipasi aktif...",
+                "13. Guru menyajikan materi secara sistematis...",
+                
+                // B. Guru menerapkan strategi pembelajaran yang mendidik
+                "14. Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.",
+                "15. Guru melaksanakan pembelajaran sesuai dengan kompetensi...",
+                "16. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).",
+                "17. Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengemukakan pendapat).",
+                "18. Menguasai pengelolaan kelas dengan baik.",
+                "19. Melaksanakan asesmen formatif dalam Proses Pembelajaran.",
+                "20. Melaksanakan umpan balik pelaksanaan proses pembelajaran.",
+                "21. Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.",
+                "22. Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...",
+                "23. Melaksanakan pembelajaran sesuai dengan alokasi waktu...",
+                
+                // C. Guru memanfaatkan sumber belajar / media dalam pembelajaran
+                "24. Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...",
+                "25. Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.",
+                
+                // D. Implementasi Keterampilan Pembelajaran Abad 21
+                "26. Pembelajaran bersifat interaktif (communication).",
+                "27. Pembelajaran menantang (critical thinking and problem solving).",
+                "28. Pembelajaran mendorong peserta didik bekerja sama (collaboration).",
+                "29. Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).",
+                "30. Guru menciptakan suasana kelas yang kondusif...",
+                "31. Guru menerapkan prinsip disiplin positif...",
+                
+                // E. Guru memicu dan/atau memelihara keterlibatan peserta didik
+                "32. Melaksanakan pembelajaran yang berpusat pada siswa.",
+                "33. Guru memberikan perhatian dan bantuan ekstra...",
+                "34. Guru senantiasa memberikan umpan balik langsung...",
+                "35. Guru memberikan respon positif terhadap partisipasi peserta didik.",
+                "36. Guru melaksanakan praktik adaptasi pengajaran (Diferensiasi Konten).",
+                "37. Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).",
+                "38. Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).",
+                "39. Menumbuhkan keceriaan dan antusiasme peserta didik...",
+                
+                // F. Guru menggunakan bahasa yang benar dan tepat dalam pembelajaran
+                "40. Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.",
+                "41. Menggunakan pilihan kata yang mudah dipahami...",
+                "42. Menyampaikan pesan dan gaya yang sesuai."
+            ]},
+            { section: "III. KEGIATAN PENUTUP", items: [
+                "43. Membuat rangkuman dan/atau kesimpulan...",
+                "44. Melakukan refleksi pembelajaran...",
+                "45. Melaksanakan Asesmen sumatif / penilaian pembelajaran...",
+                "46. Melaksanakan tindak lanjut dengan memberikan arahan...",
+                "47. Menyampaikan rencana pembelajaran berikutnya.",
+                "48. Menutup Pembelajaran."
+            ]}
+        ];
+        
         const TOTAL_PROSES_BUTIR = 48;
         const MAX_PROSES_SKOR = TOTAL_PROSES_BUTIR * 4;
 
@@ -1314,6 +884,7 @@
         const supervisorNIP = document.getElementById('supervisorNIP');
         const adminTableBody = document.getElementById('adminTableBody');
         const instrumentTableBody = document.getElementById('instrumentTableBody');
+        const prosesTableBody = document.getElementById('prosesTableBody');
 
         // --- FUNGSI INISIALISASI ---
 
@@ -1391,6 +962,40 @@
                             <td class="px-4 py-3 text-center">
                                 <label class="custom-radio flex justify-center items-center">
                                     <input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item">
+                                    <span class="radio-checkmark"></span>
+                                </label>
+                            </td>
+                        `).join('')}
+                        <td class="px-4 py-3">
+                            <input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
+                        </td>
+                    `;
+                    itemCounter++;
+                });
+            });
+        }
+
+        // Mengisi tabel proses pembelajaran (Tab 3)
+        function populateProsesTable() {
+            let itemCounter = 1;
+            prosesItems.forEach((sectionGroup, sectionIndex) => {
+                // 1. Add Section Header Row
+                const headerRow = prosesTableBody.insertRow();
+                headerRow.className = "bg-gray-200 font-bold text-gray-800 uppercase";
+                headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${sectionGroup.section}</td>`;
+                
+                // 2. Add Item Rows
+                sectionGroup.items.forEach((itemText, itemIndex) => {
+                    const itemRow = prosesTableBody.insertRow();
+                    itemRow.className = "bg-white border-b hover:bg-gray-50";
+                    
+                    itemRow.innerHTML = `
+                        <td class="px-4 py-3 text-center font-medium text-gray-900">${itemCounter}</td>
+                        <td class="px-4 py-3 font-medium text-gray-900">${itemText}</td>
+                        ${[1, 2, 3, 4].map(value => `
+                            <td class="px-4 py-3 text-center">
+                                <label class="custom-radio flex justify-center items-center">
+                                    <input type="radio" name="proses_item_${itemCounter - 1}" value="${value}" class="proses-radio-item">
                                     <span class="radio-checkmark"></span>
                                 </label>
                             </td>
@@ -1483,7 +1088,7 @@
             let totalSkorPerolehan = 0;
             let semuaTerisi = true;
             
-            const semuaSkor = document.querySelectorAll('#proses-content .item-skor');
+            const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
             
             if (semuaSkor.length !== TOTAL_PROSES_BUTIR) {
                 showMessage(`Jumlah butir tidak sesuai! Ditemukan ${semuaSkor.length}, seharusnya ${TOTAL_PROSES_BUTIR}.`, true);
@@ -1625,6 +1230,7 @@
         // Kalkulator
         document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
         document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
+        document.getElementById('prosesTable').addEventListener('change', calculateProsesScore);
         document.getElementById('hitungProsesBtn').addEventListener('click', calculateProsesScore);
 
         // Tombol Aksi
@@ -1657,163 +1263,10 @@
         populateDropdowns();
         populateAdminTable();
         populateInstrumentTable();
+        populateProsesTable();
         calculateAdminScore(); // Jalankan sekali untuk inisialisasi
         calculateInstrumentScore(); // Jalankan sekali untuk inisialisasi
     });
     </script>
-    <!-- Supabase SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-// === SUPABASE CONFIGURATION ===
-const SUPABASE_CONFIG = {
-    url: 'https://excdhqzsnbgfckswkkma.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4Y2RocXpzbmJnZmNrc3dra21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MjQ4NTEsImV4cCI6MjA3NzAwMDg1MX0.IXldaTP77vjiEHoMQnKVu3yX7sZIDlYdF2vvckFvFFw'
-};
-
-// === SUPABASE DATABASE FUNCTIONS ===
-let supabase;
-
-// Initialize Supabase
-function initializeSupabase() {
-    try {
-        supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        console.log('✅ Supabase connected successfully');
-        showMessage('Database connected!', false);
-    } catch (error) {
-        console.error('❌ Database connection failed:', error);
-        showMessage('Database connection failed: ' + error.message, true);
-    }
-}
-
-// Save data to Supabase
-async function saveToDatabase(formData) {
-    try {
-        console.log('💾 Saving to database...', formData);
-        
-        const { data, error } = await supabase
-            .from('supervisions')
-            .insert([
-                {
-                    teacher_name: formData.teacherName,
-                    teacher_nip: formData.teacherNIP,
-                    subject: formData.subject,
-                    class_semester: formData.classSemester,
-                    supervision_date: formData.supervisionDate,
-                    supervisor_name: formData.supervisorName,
-                    supervisor_nip: formData.supervisorNIP,
-                    admin_score: formData.adminScore,
-                    admin_percentage: formData.adminPercentage,
-                    instrument_score: formData.instrumentScore,
-                    instrument_percentage: formData.instrumentPercentage,
-                    process_score: formData.processScore,
-                    process_predicate: formData.processPredicate,
-                    notes: formData.notes,
-                    recommendations: formData.recommendations
-                }
-            ])
-            .select();
-
-        if (error) throw error;
-        
-        console.log('✅ Data saved with ID:', data[0].id);
-        return data[0].id;
-
-    } catch (error) {
-        console.error('❌ Error saving data:', error);
-        throw new Error(`Gagal menyimpan: ${error.message}`);
-    }
-}
-
-// Update the print button event listener
-document.getElementById('printBtn').addEventListener('click', async (event) => {
-    event.preventDefault();
-    
-    if (!validateIdentity()) {
-        showMessage('Harap lengkapi semua data di bagian IDENTITAS SUPERVISI sebelum menyimpan!', true);
-        return;
-    }
-
-    const originalText = event.target.innerHTML;
-    event.target.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan ke Database...';
-    event.target.disabled = true;
-
-    try {
-        const formData = collectFormData();
-        console.log('Data yang akan disimpan:', formData);
-
-        // Simpan ke database
-        const recordId = await saveToDatabase(formData);
-        
-        // Siapkan print
-        preparePrintData();
-        
-        showMessage(`✅ Data berhasil disimpan! ID: ${recordId}. Mencetak...`, false);
-        
-        setTimeout(() => {
-            window.print();
-        }, 1500);
-
-    } catch (error) {
-        console.error('Error:', error);
-        showMessage(`❌ Gagal menyimpan: ${error.message}`, true);
-    } finally {
-        event.target.innerHTML = originalText;
-        event.target.disabled = false;
-    }
-});
-
-// Add collectFormData function if not exists
-function collectFormData() {
-    const adminScore = parseInt(document.getElementById('skorTotalAdmin').textContent) || 0;
-    const adminPercentage = parseFloat(document.getElementById('ketersediaanAdmin').textContent) || 0;
-    const instrumentScore = parseInt(document.getElementById('total-score-instrument').textContent) || 0;
-    const instrumentPercentage = parseFloat(document.getElementById('final-grade-instrument').textContent) || 0;
-    const processScore = parseFloat(document.getElementById('nilaiAkhirProsesEl').textContent) || 0;
-    const processPredicate = document.getElementById('predikatProsesEl').textContent || '-';
-
-    return {
-        teacherName: document.getElementById('teacherSelect').value,
-        teacherNIP: document.getElementById('teacherNIP').value,
-        subject: document.getElementById('subject').value,
-        classSemester: document.getElementById('classSemester').value,
-        supervisionDate: document.getElementById('supervisionDate').value,
-        supervisorName: document.getElementById('supervisorSelect').value,
-        supervisorNIP: document.getElementById('supervisorNIP').value,
-        adminScore: adminScore,
-        adminPercentage: adminPercentage,
-        instrumentScore: instrumentScore,
-        instrumentPercentage: instrumentPercentage,
-        processScore: processScore,
-        processPredicate: processPredicate,
-        notes: document.getElementById('catatanUmum').value,
-        recommendations: document.getElementById('rekomendasi').value
-    };
-}
-
-// Add preparePrintData function if not exists
-function preparePrintData() {
-    const selectedTeacher = teacherData.find(t => t.name === document.getElementById('teacherSelect').value);
-    const selectedSupervisor = supervisorData.find(s => s.name === document.getElementById('supervisorSelect').value);
-    const supervisionDate = new Date(document.getElementById('supervisionDate').value).toLocaleDateString('id-ID', {
-        day: 'numeric', month: 'long', year: 'numeric'
-    });
-
-    document.getElementById('print-tanggal').textContent = supervisionDate;
-    document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
-    document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
-    document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
-    document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
-    document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
-    document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
-}
-
-// Initialize Supabase when page loads
-initializeSupabase();
-</script>
 </body>
 </html>
-
-
-
-
