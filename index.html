@@ -635,7 +635,7 @@
                                 <p class="font-bold mb-8">Kepala SMK Negeri 1 Purbalingga,</p>
                                 <div class="headmaster-line mt-16 mx-auto">
                                     <p class="font-bold text-center" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
-                                    <p class="text-center">NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</span></p>
+                                    <p class="text-center">NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</p>
                                 </div>
                             </div>
                         </div>
@@ -648,8 +648,8 @@
                         <button type="button" id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all duration-300 ease-in-out">
                             <i class="fas fa-undo mr-2"></i> Reset Form
                         </button>
-                        <button type="button" id="printBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
-                            <i class="fas fa-print mr-2"></i> Simpan & Cetak Laporan
+                        <button type="button" id="saveAndPrintBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
+                            <i class="fas fa-save mr-2"></i> Simpan & Cetak Laporan
                         </button>
                     </div>
                 </section>
@@ -660,6 +660,11 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+        // --- MODIFIKASI UNTUK SHEETDB ---
+        // API ID Anda sudah dimasukkan di sini
+        const SHEETDB_API_ID = 'pr3a66fxh9upl'; 
+        const SHEETDB_URL = `https://sheetdb.io/api/v1/${SHEETDB_API_ID}`;
 
         // --- DATA MASTER ---
         const defaultTeacherData = {
@@ -1148,6 +1153,27 @@
             messageBox.classList.add('hidden');
         }
 
+        // --- FUNGSI INTEGRASI SHEETDB ---
+        async function saveToSheetDB(formData) {
+            const response = await fetch(SHEETDB_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: formData
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Gagal menyimpan data ke SheetDB.');
+            }
+            
+            return await response.json();
+        }
+
         // --- FUNGSI VALIDASI & CETAK ---
         
         const identityFields = ['teacherSelect', 'subject', 'classSemester', 'supervisionDate', 'supervisorSelect'];
@@ -1175,43 +1201,72 @@
             });
             
             if (!isValid) {
-                // Pindah ke tab identitas jika belum di sana
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
             return isValid;
         }
 
-        function handlePrint(event) {
+        function handleSaveAndPrint(event) {
             event.preventDefault();
             
             // 1. Validasi Identitas
             if (!validateIdentity()) {
-                // Ganti pesan alert dengan message box
-                const mainMessageBox = document.getElementById('messageBox');
-                mainMessageBox.className = 'p-4 mb-4 text-sm rounded-lg bg-red-100 text-red-700';
-                mainMessageBox.innerHTML = '<span class="font-medium">Validasi Gagal!</span> Harap lengkapi semua data di bagian IDENTITAS SUPERVISI sebelum mencetak.';
-                mainMessageBox.classList.remove('hidden');
-                mainMessageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                showMessage('Validasi Gagal! Harap lengkapi semua data di bagian IDENTITAS SUPERVISI.', true);
                 return;
             }
             
-            // 2. Isi data untuk cetak
+            // 2. Kumpulkan semua data dari form
             const selectedTeacher = teacherData.find(t => t.name === teacherSelect.value);
             const selectedSupervisor = supervisorData.find(s => s.name === supervisorSelect.value);
             const supervisionDate = new Date(document.getElementById('supervisionDate').value).toLocaleDateString('id-ID', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
-            document.getElementById('print-tanggal').textContent = supervisionDate;
-            document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
-            document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
-            document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
-            document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
-            document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
-            document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
+            const formData = {
+                "Nama Guru": selectedTeacher.name,
+                "NIP Guru": selectedTeacher.nip || '-',
+                "Mata Pelajaran": document.getElementById('subject').value,
+                "Kelas Semester": document.getElementById('classSemester').value,
+                "Tanggal Supervisi": supervisionDate,
+                "Nama Supervisor": selectedSupervisor.name,
+                "NIP Supervisor": selectedSupervisor.nip || '-',
+                "Skor Total Admin": document.getElementById('skorTotalAdmin').textContent,
+                "Ketersediaan Admin": document.getElementById('ketersediaanAdmin').textContent,
+                "Skor Instrumen": document.getElementById('total-score-instrument').textContent,
+                "Nilai Akhir Instrumen": document.getElementById('final-grade-instrument').textContent,
+                "Predikat Instrumen": document.getElementById('predicate-instrument').textContent,
+                "Skor Proses": document.getElementById('skorPerolehanProsesEl').textContent,
+                "Nilai Akhir Proses": document.getElementById('nilaiAkhirProsesEl').textContent,
+                "Predikat Proses": document.getElementById('predikatProsesEl').textContent,
+                "Catatan Umum": document.getElementById('catatanUmum').value,
+                "Rekomendasi": document.getElementById('rekomendasi').value,
+                "Timestamp": new Date().toISOString()
+            };
+            
+            // 3. Kirim data ke SheetDB
+            saveToSheetDB(formData)
+                .then(response => {
+                    console.log('Data berhasil disimpan:', response);
+                    showMessage('Data berhasil disimpan ke database! Sedang mempersiapkan cetakan...', false);
+                    
+                    // 4. Isi data untuk cetak
+                    document.getElementById('print-tanggal').textContent = supervisionDate;
+                    document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
+                    document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
+                    document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
+                    document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
+                    document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
+                    document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
 
-            // 3. Panggil window.print()
-            window.print();
+                    // 5. Tunggu sebentar lalu cetak
+                    setTimeout(() => {
+                        window.print();
+                    }, 1500); // Jeda 1.5 detik agar pesan sukses terbaca
+                })
+                .catch(error => {
+                    console.error('Error saat menyimpan data:', error);
+                    showMessage(`Gagal menyimpan data: ${error.message}. Silakan coba lagi atau hubungi administrator.`, true);
+                });
         }
 
         // --- EVENT LISTENERS ---
@@ -1234,18 +1289,17 @@
         document.getElementById('hitungProsesBtn').addEventListener('click', calculateProsesScore);
 
         // Tombol Aksi
-        document.getElementById('printBtn').addEventListener('click', handlePrint);
+        document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
         document.getElementById('resetBtn').addEventListener('click', () => {
-            // Ganti window.confirm
             if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
                  document.getElementById('supervisionForm').reset();
-                 // Reset hasil kalkulasi manual
                  calculateAdminScore();
                  calculateInstrumentScore();
                  document.getElementById('hasilProsesSection').classList.add('hidden');
                  document.getElementById('predikatProsesEl').textContent = '--';
                  document.getElementById('predikatProsesEl').className = 'text-4xl font-extrabold mt-2';
                  updateAchievementLevel(0);
+                 hideMessage();
                  window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
@@ -1270,4 +1324,3 @@
     </script>
 </body>
 </html>
-
