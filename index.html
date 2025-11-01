@@ -757,9 +757,26 @@
         const teacherData = Object.entries(defaultTeacherData).map(([name, nip]) => ({ name, nip }));
         teacherData.unshift({ name: "-- Pilih Guru --", nip: "" });
 
+        // --- PERUBAHAN 1: DATA SUPERVISOR BARU ---
         const supervisorData = [
             { name: "-- Pilih Supervisor --", nip: "" },
-            { name: "Tim Supervisi Internal", nip: "-" }
+            { name: "Maryono S.Pd, M.Si", nip: "196607012000121002" },
+            { name: "Satyo Nugroho, S.Kom.", nip: "197807142009031006" },
+            { name: "Dra. Sri Mularsih", nip: "196706201994122001" },
+            { name: "Wahyu Budi Susapti, S.Pd, MM.", nip: "197207291997022002" },
+            { name: "Justina Trirahaju Leksanawati, S.Pd., M.Si.", nip: "197104162003122006" },
+            { name: "Sumardi, S.Pd., S.Kom", nip: "197305272003121002" },
+            { name: "Retnowati, S.Pd", nip: "197303272005012009" },
+            { name: "Nur Romlah, S.Pd", nip: "197509082008012008" },
+            { name: "Nur Fajriyahti, S.Pd.", nip: "197005212007012014" },
+            { name: "Romidin, S.Pd", nip: "197505052008011021" },
+            { name: "Seto Eko Purwanto, S.Si", nip: "197804232010011009" },
+            { name: "Suratno, S.Pd", nip: "198409032010011012" },
+            { name: "Adi Setiawan, S.Pd.", nip: "199012292014021001" },
+            { name: "Galih Tyas Anjari, S.Pd.", nip: "199201212014022001" },
+            { name: "Deti Lestiyorini, S.Pd.", nip: "198912142014022001" },
+            { name: "Sepudin Zupri, S.Kom", nip: "197010222022211001" },
+            { name: "Menik Yuni Hartini, S.Pd.", nip: "198906292022212008" }
         ];
 
         const headmasterData = {
@@ -923,6 +940,8 @@
             targetNIP.value = selectedData ? selectedData.nip : "";
         }
 
+        // --- PERUBAHAN 2: FUNGSI POPULATE TABEL DENGAN NILAI DEFAULT TERTINGGI ---
+
         // Mengisi tabel administrasi (Tab 1)
         function populateAdminTable() {
             adminItems.forEach((item, index) => {
@@ -934,7 +953,7 @@
                     ${[0, 1, 2].map(value => `
                         <td class="px-6 py-4 text-center">
                             <label class="custom-radio flex justify-center items-center">
-                                <input type="radio" name="admin_item_${index}" value="${value}" class="admin-radio-item">
+                                <input type="radio" name="admin_item_${index}" value="${value}" class="admin-radio-item" ${value === 2 ? 'checked' : ''}>
                                 <span class="radio-checkmark"></span>
                             </label>
                         </td>
@@ -966,7 +985,7 @@
                         ${[0, 1, 2].map(value => `
                             <td class="px-4 py-3 text-center">
                                 <label class="custom-radio flex justify-center items-center">
-                                    <input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item">
+                                    <input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item" ${value === 2 ? 'checked' : ''}>
                                     <span class="radio-checkmark"></span>
                                 </label>
                             </td>
@@ -1000,7 +1019,7 @@
                         ${[1, 2, 3, 4].map(value => `
                             <td class="px-4 py-3 text-center">
                                 <label class="custom-radio flex justify-center items-center">
-                                    <input type="radio" name="proses_item_${itemCounter - 1}" value="${value}" class="proses-radio-item">
+                                    <input type="radio" name="proses_item_${itemCounter - 1}" value="${value}" class="proses-radio-item" ${value === 4 ? 'checked' : ''}>
                                     <span class="radio-checkmark"></span>
                                 </label>
                             </td>
