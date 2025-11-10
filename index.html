@@ -128,6 +128,20 @@ details[open] > summary::after {
   border-left: 4px solid #ef4444;
 }
 
+/* Progress indicator */
+.progress-indicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 /* Print-specific styles for F4 paper (21cm x 33cm) */
 @media print {
   @page {
@@ -303,10 +317,19 @@ details[open] > summary::after {
     width: 60px;
     height: 60px;
   }
+  .progress-indicator {
+    position: static;
+    margin: 10px;
+  }
 }
 </style>
 </head>
 <body class="antialiased">
+
+<!-- Progress Indicator -->
+<div class="progress-indicator no-print">
+  <span id="progressText">Proses: 0/48</span>
+</div>
 
 <div class="container mx-auto p-4 md:p-8 max-w-7xl">
 <form id="supervisionForm" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content" method="POST" action="#">
@@ -388,6 +411,9 @@ class="w-16 h-16 object-contain">
 </button>
 <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="proses">
 <i class="fas fa-chalkboard-teacher mr-2"></i> 3. Proses Pembelajaran
+</button>
+<button type="button" class="tab-button py-3 px-1 text-lg" data-tab="hasil">
+<i class="fas fa-chart-bar mr-2"></i> 4. Hasil & Rekomendasi
 </button>
 </div>
 </nav>
@@ -483,29 +509,6 @@ class="w-16 h-16 object-contain">
 </table>
 </div>
 </section>
-<section>
-<div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
-<h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-<div>
-<p class="text-3xl font-bold text-indigo-700" id="total-score-instrument">0</p>
-<p class="text-sm text-gray-600 uppercase">Skor Perolehan</p>
-</div>
-<div>
-<p class="text-3xl font-bold text-indigo-700" id="max-score-instrument">0</p>
-<p class="text-sm text-gray-600 uppercase">Skor Maksimal</p>
-</div>
-<div>
-<p class="text-3xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
-<p class="text-sm text-gray-600 uppercase">Nilai Akhir</p>
-</div>
-<div>
-<p class="text-3xl font-bold text-indigo-700" id="predicate-instrument">-</p>
-<p class="text-sm text-gray-600 uppercase">Predikat</p>
-</div>
-</div>
-</div>
-</section>
 </div>
 </div>
 
@@ -553,30 +556,109 @@ class="w-16 h-16 object-contain">
 </fieldset>
 
 <button type="button" id="hitungProsesBtn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200">
-<i class="fas fa-calculator mr-2"></i> Hitung Nilai Proses Pembelajaran
+<i class="fas fa-chart-bar mr-2"></i> Lihat Hasil di Tab 4
 </button>
-
-<div id="hasilProsesSection" class="hidden mt-6 border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
-<h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-<div class="bg-white p-4 rounded-lg shadow">
-<h3 class="text-sm font-medium text-gray-500 uppercase">Total Skor Perolehan (SP)</h3>
-<p id="skorPerolehanProsesEl" class="text-3xl font-bold text-blue-600">0 / 192</p>
-</div>
-<div class="bg-white p-4 rounded-lg shadow">
-<h3 class="text-sm font-medium text-gray-500 uppercase">Nilai Akhir</h3>
-<p id="nilaiAkhirProsesEl" class="text-3xl font-bold text-blue-600">0.00</p>
-</div>
-</div>
-<div class="bg-white p-6 rounded-lg shadow mt-4 text-center">
-<h3 class="text-lg font-medium text-gray-500 uppercase">Predikat</h3>
-<p id="predikatProsesEl" class="text-4xl font-extrabold mt-2">--</p>
-</div>
-</div>
 </section>
 </div>
 </div>
 
+<!-- TAB BARU: Hasil & Rekomendasi -->
+<div id="hasil-content" class="tab-content">
+<div class="space-y-8">
+
+<!-- Hasil Administrasi -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-folder-open mr-3 text-indigo-500"></i>Hasil Administrasi
+</h2>
+<div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-6">
+<div class="bg-indigo-50 p-4 rounded-lg">
+<p class="text-3xl font-bold text-indigo-700" id="hasil-skor-admin">0</p>
+<p class="text-sm text-gray-600 uppercase">Skor Total</p>
+</div>
+<div class="bg-indigo-50 p-4 rounded-lg">
+<p class="text-3xl font-bold text-indigo-700" id="hasil-persen-admin">0%</p>
+<p class="text-sm text-gray-600 uppercase">Ketersediaan</p>
+</div>
+<div class="bg-indigo-50 p-4 rounded-lg">
+<p class="text-3xl font-bold" id="hasil-predikat-admin">-</p>
+<p class="text-sm text-gray-600 uppercase">Tingkat</p>
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg p-4">
+<h5 class="font-bold text-gray-700 mb-2">Tingkat Ketersediaan</h5>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+<div id="hasil-level-sangat-baik" class="achievement-level bg-green-100 border border-green-200 text-green-800 p-2 rounded text-center">
+<h6 class="font-bold text-sm">SANGAT BAIK</h6><p class="text-xs">80% - 100%</p>
+</div>
+<div id="hasil-level-baik" class="achievement-level bg-blue-100 border border-blue-200 text-blue-800 p-2 rounded text-center">
+<h6 class="font-bold text-sm">BAIK</h6><p class="text-xs">60% - 79%</p>
+</div>
+<div id="hasil-level-cukup" class="achievement-level bg-yellow-100 border border-yellow-200 text-yellow-800 p-2 rounded text-center">
+<h6 class="font-bold text-sm">CUKUP</h6><p class="text-xs">40% - 59%</p>
+</div>
+<div id="hasil-level-kurang" class="achievement-level bg-red-100 border border-red-200 text-red-800 p-2 rounded text-center">
+<h6 class="font-bold text-sm">KURANG</h6><p class="text-xs">&lt; 40%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Hasil Instrumen Modul Ajar -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-tasks mr-3 text-indigo-500"></i>Hasil Instrumen Modul Ajar
+</h2>
+<div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+<h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="hasil-total-score-instrument">0</p>
+<p class="text-sm text-gray-600 uppercase">Skor Perolehan</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="hasil-max-score-instrument">0</p>
+<p class="text-sm text-gray-600 uppercase">Skor Maksimal</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="hasil-final-grade-instrument">0.00</p>
+<p class="text-sm text-gray-600 uppercase">Nilai Akhir</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="hasil-predicate-instrument">-</p>
+<p class="text-sm text-gray-600 uppercase">Predikat</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Hasil Proses Pembelajaran -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-chalkboard-teacher mr-3 text-indigo-500"></i>Hasil Proses Pembelajaran
+</h2>
+<div id="hasilProsesSection" class="border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
+<h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+<div class="bg-white p-4 rounded-lg shadow">
+<h3 class="text-sm font-medium text-gray-500 uppercase">Total Skor Perolehan (SP)</h3>
+<p id="hasil-skor-perolehan-proses" class="text-3xl font-bold text-blue-600">0 / 192</p>
+</div>
+<div class="bg-white p-4 rounded-lg shadow">
+<h3 class="text-sm font-medium text-gray-500 uppercase">Nilai Akhir</h3>
+<p id="hasil-nilai-akhir-proses" class="text-3xl font-bold text-blue-600">0.00</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow mt-4 text-center">
+<h3 class="text-lg font-medium text-gray-500 uppercase">Predikat</h3>
+<p id="hasil-predikat-proses" class="text-4xl font-extrabold mt-2">--</p>
+</div>
+</div>
+</section>
+
+<!-- Catatan dan Rekomendasi -->
 <section>
 <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
 <div class="space-y-4 mb-8">
@@ -635,6 +717,9 @@ class="w-16 h-16 object-contain">
 </button>
 </div>
 </section>
+
+</div>
+</div>
 
 </div> </form> </div> <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -994,6 +1079,9 @@ document.querySelectorAll('.tab-button').forEach(button => button.classList.remo
 
 document.getElementById(tabId + '-content').classList.add('active');
 document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
+
+// Update progress indicator
+updateProgressIndicator();
 }
 
 // --- FUNGSI PERHITUNGAN ---
@@ -1020,7 +1108,14 @@ document.getElementById('countAdaSesuai').textContent = counts[2];
 document.getElementById('skorTotalAdmin').textContent = totalScore;
 document.getElementById('ketersediaanAdmin').textContent = percentage.toFixed(2) + '%';
 
+// Update hasil di tab 4
+document.getElementById('hasil-skor-admin').textContent = totalScore;
+document.getElementById('hasil-persen-admin').textContent = percentage.toFixed(2) + '%';
+document.getElementById('hasil-predikat-admin').textContent = getPredikat(percentage).text;
+document.getElementById('hasil-predikat-admin').className = `text-3xl font-bold ${getPredikat(percentage).color}`;
+
 updateAchievementLevel(percentage);
+updateHasilAchievementLevel(percentage);
 }
 
 function updateAchievementLevel(percentage) {
@@ -1036,6 +1131,19 @@ document.getElementById('level-kurang').classList.add('highlighted');
 }
 }
 
+function updateHasilAchievementLevel(percentage) {
+document.querySelectorAll('#hasil-content .achievement-level').forEach(el => el.classList.remove('highlighted'));
+if (percentage >= 80) {
+document.getElementById('hasil-level-sangat-baik').classList.add('highlighted');
+} else if (percentage >= 60) {
+document.getElementById('hasil-level-baik').classList.add('highlighted');
+} else if (percentage >= 40) {
+document.getElementById('hasil-level-cukup').classList.add('highlighted');
+} else {
+document.getElementById('hasil-level-kurang').classList.add('highlighted');
+}
+}
+
 function calculateInstrumentScore() {
 let totalScore = 0;
 const checkedRadios = document.querySelectorAll('.instrument-radio-item:checked');
@@ -1047,14 +1155,22 @@ totalScore += parseInt(radio.value);
 const finalGrade = (totalScore / MAX_INSTRUMENT_SCORE) * 100;
 const predicate = getPredikat(finalGrade);
 
-document.getElementById('total-score-instrument').textContent = totalScore;
-document.getElementById('max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
-document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
-document.getElementById('predicate-instrument').textContent = predicate.text;
-document.getElementById('predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
+// Update hasil di tab 4
+document.getElementById('hasil-total-score-instrument').textContent = totalScore;
+document.getElementById('hasil-max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
+document.getElementById('hasil-final-grade-instrument').textContent = finalGrade.toFixed(2);
+document.getElementById('hasil-predicate-instrument').textContent = predicate.text;
+document.getElementById('hasil-predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
 }
 
-// --- PERBAIKAN: Fungsi untuk menandai butir yang belum dinilai ---
+// --- FUNGSI PROGRESS INDICATOR ---
+function updateProgressIndicator() {
+const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
+const progress = semuaSkor.length;
+document.getElementById('progressText').textContent = `Proses: ${progress}/${TOTAL_PROSES_BUTIR}`;
+}
+
+// --- FUNGSI UNTUK MENANDAI BUTIR YANG BELUM DINILAI ---
 function markUnratedItems() {
 // Hapus semua penanda sebelumnya
 document.querySelectorAll('.unrated-item').forEach(el => {
@@ -1071,8 +1187,8 @@ row.classList.add('unrated-item');
 }
 }
 
-// --- PERBAIKAN: Fungsi perhitungan proses yang dipisah ---
-function calculateProsesScore(shouldScroll = false) {
+// --- FUNGSI PERHITUNGAN PROSES ---
+function calculateProsesScore() {
 let totalSkorPerolehan = 0;
 let semuaTerisi = true;
 
@@ -1082,11 +1198,9 @@ markUnratedItems();
 const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
 
 if (semuaSkor.length < TOTAL_PROSES_BUTIR) {
-if (shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
 showMessage(`Harap isi semua ${TOTAL_PROSES_BUTIR} butir penilaian. Anda baru mengisi ${semuaSkor.length}.`, true);
-}
 document.getElementById('hasilProsesSection').classList.add('hidden');
-return;
+return false;
 }
 
 semuaSkor.forEach(item => {
@@ -1098,10 +1212,10 @@ totalSkorPerolehan += nilai;
 }
 });
 
-if (!semuaTerisi && shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
+if (!semuaTerisi) {
 showMessage('Harap isi semua butir penilaian di Tab 3.', true);
 document.getElementById('hasilProsesSection').classList.add('hidden');
-return;
+return false;
 }
 
 hideMessage();
@@ -1109,17 +1223,14 @@ hideMessage();
 const nilaiAkhir = (totalSkorPerolehan / MAX_PROSES_SKOR) * 100;
 const predikat = getPredikat(nilaiAkhir);
 
-document.getElementById('skorPerolehanProsesEl').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
-document.getElementById('nilaiAkhirProsesEl').textContent = nilaiAkhir.toFixed(2);
-document.getElementById('predikatProsesEl').textContent = predikat.text;
-document.getElementById('predikatProsesEl').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
+// Update hasil di tab 4
+document.getElementById('hasil-skor-perolehan-proses').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
+document.getElementById('hasil-nilai-akhir-proses').textContent = nilaiAkhir.toFixed(2);
+document.getElementById('hasil-predikat-proses').textContent = predikat.text;
+document.getElementById('hasil-predikat-proses').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
 
 document.getElementById('hasilProsesSection').classList.remove('hidden');
-
-// --- PERBAIKAN: Hanya scroll jika 'shouldScroll' bernilai true ---
-if (shouldScroll) {
-document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
-}
+return true;
 }
 
 function getPredikat(nilai) {
@@ -1135,7 +1246,6 @@ function showMessage(message, isError = true) {
 messageText.textContent = message;
 messageBox.className = `p-4 mb-4 text-sm rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
 messageBox.classList.remove('hidden');
-messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 function hideMessage() {
 messageBox.classList.add('hidden');
@@ -1202,10 +1312,9 @@ return;
 }
 
 // Validasi juga bahwa Tab 3 sudah dihitung
-if (document.getElementById('hasilProsesSection').classList.contains('hidden')) {
-showMessage('Harap klik tombol "Hitung Nilai Proses Pembelajaran" di Tab 3 sebelum menyimpan.', true);
+if (!calculateProsesScore()) {
+showMessage('Harap lengkapi semua penilaian di Tab 3 sebelum menyimpan.', true);
 switchTab('proses');
-document.getElementById('hitungProsesBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
 return;
 }
 
@@ -1233,14 +1342,14 @@ const formData = {
 "Tanggal Supervisi": supervisionDate,
 "Nama Supervisor": selectedSupervisor.name,
 "NIP Supervisor": selectedSupervisor.nip || '-',
-"Skor Total Admin": document.getElementById('skorTotalAdmin').textContent,
-"Ketersediaan Admin": document.getElementById('ketersediaanAdmin').textContent,
-"Skor Instrumen": document.getElementById('total-score-instrument').textContent,
-"Nilai Akhir Instrumen": document.getElementById('final-grade-instrument').textContent,
-"Predikat Instrumen": document.getElementById('predicate-instrument').textContent,
-"Skor Proses": document.getElementById('skorPerolehanProsesEl').textContent,
-"Nilai Akhir Proses": document.getElementById('nilaiAkhirProsesEl').textContent,
-"Predikat Proses": document.getElementById('predikatProsesEl').textContent,
+"Skor Total Admin": document.getElementById('hasil-skor-admin').textContent,
+"Ketersediaan Admin": document.getElementById('hasil-persen-admin').textContent,
+"Skor Instrumen": document.getElementById('hasil-total-score-instrument').textContent,
+"Nilai Akhir Instrumen": document.getElementById('hasil-final-grade-instrument').textContent,
+"Predikat Instrumen": document.getElementById('hasil-predicate-instrument').textContent,
+"Skor Proses": document.getElementById('hasil-skor-perolehan-proses').textContent,
+"Nilai Akhir Proses": document.getElementById('hasil-nilai-akhir-proses').textContent,
+"Predikat Proses": document.getElementById('hasil-predikat-proses').textContent,
 "Catatan Umum": document.getElementById('catatanUmum').value,
 "Rekomendasi": document.getElementById('rekomendasi').value,
 "Timestamp": new Date().toISOString()
@@ -1283,15 +1392,17 @@ supervisorSelect.addEventListener('change', fillNIP);
 document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
 document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
 
-// --- PERBAIKAN: Event listener untuk proses pembelajaran ---
-// Saat radio button berubah, hanya tandai butir yang belum dinilai, tidak scroll
+// Event listener untuk proses pembelajaran - TIDAK ADA SCROLL
 document.getElementById('prosesTable').addEventListener('change', () => {
 markUnratedItems();
+updateProgressIndicator();
 });
 
-// Saat tombol hitung ditekan, lakukan perhitungan dan scroll
+// Tombol di Tab 3 untuk pindah ke hasil
 document.getElementById('hitungProsesBtn').addEventListener('click', () => {
-calculateProsesScore(true);
+if (calculateProsesScore()) {
+switchTab('hasil');
+}
 });
 
 document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
@@ -1308,9 +1419,11 @@ populateProsesTable();
 calculateAdminScore();
 calculateInstrumentScore();
 document.getElementById('hasilProsesSection').classList.add('hidden');
-document.getElementById('predikatProsesEl').textContent = '--';
-document.getElementById('predikatProsesEl').className = 'text-4xl font-extrabold mt-2';
+document.getElementById('hasil-predikat-proses').textContent = '--';
+document.getElementById('hasil-predikat-proses').className = 'text-4xl font-extrabold mt-2';
 updateAchievementLevel(0);
+updateHasilAchievementLevel(0);
+updateProgressIndicator();
 hideMessage();
 window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1336,6 +1449,7 @@ populateInstrumentTable();
 populateProsesTable();
 calculateAdminScore();
 calculateInstrumentScore();
+updateProgressIndicator();
 });
 </script>
 </body>
