@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
-    <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Custom styles for a polished look and specific components */
@@ -304,11 +302,9 @@
 </head>
 <body class="antialiased">
 
-    <!-- Main Container -->
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
         <form id="supervisionForm" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content" method="POST" action="#">
             
-            <!-- Print Header (Only visible when printing) -->
             <div class="print-header no-print">
                 <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/200px-Logo_SMK_Negeri_1_Purbalingga.png" 
                      alt="Logo SMK Negeri 1 Purbalingga" 
@@ -320,7 +316,6 @@
                 </div>
             </div>
 
-            <!-- Form Header (Visible on screen) -->
             <div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200 no-print">
                 <div class="flex items-center space-x-4">
                     <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/120px-Logo_SMK_Negeri_1_Purbalingga.png" 
@@ -334,10 +329,8 @@
                 </div>
             </div>
             
-            <!-- Form Sections Wrapper -->
             <div class="p-6 sm:p-8 space-y-8">
 
-                <!-- Section: Identitas (Unified) -->
                 <section>
                     <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -379,11 +372,10 @@
                     </div>
                 </section>
 
-                <!-- Tab Navigation -->
                 <nav class="border-b border-gray-200 tab-nav no-print">
                     <div class="flex space-x-6 overflow-x-auto">
                         <button type="button" class="tab-button py-3 px-1 text-lg active" data-tab="administrasi">
-                           <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
+                            <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
                         </button>
                         <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="instrumen">
                             <i class="fas fa-tasks mr-2"></i> 2. Instrumen Modul Ajar
@@ -394,13 +386,12 @@
                     </div>
                 </nav>
 
-                <!-- Tab 1: Administrasi Pembelajaran -->
                 <div id="administrasi-content" class="tab-content active">
                     <div class="space-y-8">
                         <section>
                              <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
-                            </h2>
+                                 <i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
+                             </h2>
                             <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                                 <table class="w-full text-sm text-left text-gray-600" id="adminTable">
                                     <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
@@ -413,13 +404,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id="adminTableBody">
-                                        <!-- Rows will be injected by JavaScript -->
-                                    </tbody>
+                                        </tbody>
                                 </table>
                             </div>
                         </section>
 
-                        <!-- Summary Section for Tab 1 -->
                         <section>
                             <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                                 <table class="w-full text-sm text-left text-gray-600">
@@ -465,13 +454,12 @@
                     </div>
                 </div>
                 
-                <!-- Tab 2: Instrumen Supervisi -->
                 <div id="instrumen-content" class="tab-content">
                      <div class="space-y-8">
                         <section>
                              <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
-                            </h2>
+                                 <i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
+                             </h2>
                             <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                                 <table class="w-full text-sm text-left text-gray-600" id="instrumentTable">
                                     <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
@@ -485,8 +473,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="instrumentTableBody">
-                                        <!-- Rows will be injected by JavaScript -->
-                                    </tbody>
+                                        </tbody>
                                 </table>
                             </div>
                         </section>
@@ -516,7 +503,6 @@
                     </div>
                 </div>
 
-                <!-- Tab 3: Supervisi Proses Pembelajaran -->
                 <div id="proses-content" class="tab-content">
                     <div class="space-y-8">
                         <section>
@@ -524,16 +510,13 @@
                                 <i class="fas fa-chalkboard-teacher mr-3 text-indigo-500"></i>Instrumen Supervisi Observasi Proses Pembelajaran
                             </h2>
                             
-                            <!-- Bagian Penilaian -->
                             <fieldset class="border border-gray-300 p-4 rounded-lg">
                                 <legend class="text-xl font-semibold text-gray-700 px-2">Butir Penilaian</legend>
                                 
-                                <!-- Kotak Pesan Error -->
                                 <div id="messageBox" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert">
                                     <span class="font-medium" id="messageText"></span>
                                 </div>
 
-                                <!-- Opsi Pilihan Skor -->
                                 <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
                                     <h4 class="font-semibold text-gray-700 mb-2">Keterangan Skor:</h4>
                                     <ul class="list-disc list-inside text-sm space-y-1">
@@ -544,7 +527,6 @@
                                     </ul>
                                 </div>
 
-                                <!-- Tabel Penilaian Proses Pembelajaran -->
                                 <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                                     <table class="w-full text-sm text-left text-gray-600" id="prosesTable">
                                         <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
@@ -559,18 +541,15 @@
                                             </tr>
                                         </thead>
                                         <tbody id="prosesTableBody">
-                                            <!-- Rows will be injected by JavaScript -->
-                                        </tbody>
+                                            </tbody>
                                     </table>
                                 </div>
                             </fieldset>
 
-                            <!-- Tombol Hitung -->
                             <button type="button" id="hitungProsesBtn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200">
                                 <i class="fas fa-calculator mr-2"></i> Hitung Nilai Proses Pembelajaran
                             </button>
 
-                            <!-- Bagian Hasil (disembunyikan awalnya) -->
                             <div id="hasilProsesSection" class="hidden mt-6 border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
                                 <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
@@ -592,7 +571,6 @@
                     </div>
                 </div>
 
-                <!-- Section: Catatan Supervisi dan Tanda Tangan (Digabung) -->
                 <section>
                     <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
                     <div class="space-y-4 mb-8">
@@ -606,7 +584,6 @@
                         </div>
                     </div>
 
-                    <!-- Lembar Pengesahan -->
                     <div class="mt-8 pt-6 border-t border-gray-300">
                         <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
                         
@@ -642,7 +619,6 @@
                     </div>
                 </section>
 
-                <!-- Section: Tombol Aksi (Unified) -->
                 <section class="no-print pt-6 border-t border-gray-200">
                     <div class="flex justify-end space-x-4">
                         <button type="button" id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all duration-300 ease-in-out">
@@ -654,11 +630,7 @@
                     </div>
                 </section>
                 
-            </div> <!-- End Form Sections Wrapper -->
-        </form> <!-- End Form -->
-    </div> <!-- End Main Container -->
-
-    <script>
+            </div> </form> </div> <script>
     document.addEventListener('DOMContentLoaded', () => {
 
         // --- MODIFIKASI UNTUK SHEETDB ---
@@ -1305,7 +1277,11 @@
         // Kalkulator
         document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
         document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
-        document.getElementById('prosesTable').addEventListener('change', calculateProsesScore);
+        
+        // --- PERUBAHAN DI SINI ---
+        // Baris di bawah ini dinonaktifkan agar tidak otomatis scroll setiap klik radio
+        // document.getElementById('prosesTable').addEventListener('change', calculateProsesScore); 
+        
         document.getElementById('hitungProsesBtn').addEventListener('click', calculateProsesScore);
 
         // Tombol Aksi
@@ -1344,4 +1320,3 @@
     </script>
 </body>
 </html>
-
