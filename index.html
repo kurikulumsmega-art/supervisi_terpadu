@@ -1,1308 +1,1342 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Custom styles for a polished look and specific components */
-        :root {
-            --primary-color: #4f46e5; /* indigo-600 */
-            --secondary-color: #10b981; /* emerald-500 */
-        }
-        
-        body {
-            background-color: #f3f4f6; /* gray-100 */
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instrumen Supervisi Akademik Terpadu - SMK Negeri 1 Purbalingga</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Custom styles for a polished look and specific components */
+:root {
+  --primary-color: #4f46e5; /* indigo-600 */
+  --secondary-color: #10b981; /* emerald-500 */
+}
 
-        /* Custom styling for beautiful radio buttons */
-        .custom-radio input { display: none; }
-        .custom-radio .radio-checkmark {
-            height: 24px; width: 24px; background-color: #e5e7eb; /* gray-200 */
-            border-radius: 50%; display: inline-block; position: relative;
-            cursor: pointer; transition: all 0.3s ease;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .custom-radio input:checked + .radio-checkmark {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        .custom-radio input:checked + .radio-checkmark:after {
-            content: ''; position: absolute; display: block;
-            left: 9px; top: 5px; width: 6px; height: 12px;
-            border: solid white; border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-        }
-        .custom-radio:hover .radio-checkmark { background-color: #d1d5db; /* gray-300 */ }
+body {
+  background-color: #f3f4f6; /* gray-100 */
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        /* Tab styling */
-        .tab-button {
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
-            padding-bottom: 8px;
-        }
-        .tab-button.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            font-weight: 600;
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        /* Logo sekolah styling */
-        .school-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
+/* Custom styling for beautiful radio buttons */
+.custom-radio input { display: none; }
+.custom-radio .radio-checkmark {
+  height: 24px; width: 24px; background-color: #e5e7eb; /* gray-200 */
+  border-radius: 50%; display: inline-block; position: relative;
+  cursor: pointer; transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-radio input:checked + .radio-checkmark {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.custom-radio input:checked + .radio-checkmark:after {
+  content: ''; position: absolute; display: block;
+  left: 9px; top: 5px; width: 6px; height: 12px;
+  border: solid white; border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.custom-radio:hover .radio-checkmark { background-color: #d1d5db; /* gray-300 */ }
 
-        .print-header, .print-only {
-            display: none;
-        }
-        
-        /* Validation styles */
-        .error-message {
-            color: #ef4444; /* red-500 */
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
-        
-        .input-error {
-            border-color: #ef4444 !important;
-            box-shadow: 0 0 0 1px #ef4444 !important;
-        }
-        
-        /* Signature styles for print */
-        .signature-grid-print {
-            display: none;
-        }
-        
-        /* Style untuk dropdown agar lebih rapi */
-        select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%D%22292.4%22%20height%D%22292.4%22%3E%3Cpath%20fill%D%22%236B7280%22%20d%D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat;
-            background-position: right 0.7rem center;
-            background-size: 0.65em auto;
-            padding-right: 2.5rem;
-        }
-        
-        /* Style untuk section <details> agar rapi */
-        details > summary {
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
-        details > summary::after {
-            content: '▼';
-            float: right;
-            font-size: 0.8em;
-            transition: transform 0.2s;
-            margin-top: 4px;
-        }
-        details[open] > summary::after {
-            transform: rotate(180deg);
-        }
-        
-        /* Level Ketersediaan */
-        .achievement-level {
-            opacity: 0.5;
-            transform: scale(0.95);
-        }
-        .achievement-level.highlighted {
-            opacity: 1;
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* Print-specific styles for F4 paper (21cm x 33cm) */
-        @media print {
-            @page {
-                size: 21cm 33cm; /* F4 paper size */
-                margin: 2.5cm 1.5cm 1.5cm 1.5cm; /* Atas, Kanan, Bawah, Kiri */
-            }
-            
-            body { 
-                background-color: white; 
-                font-size: 11pt;
-                line-height: 1.3;
-                margin: 0;
-                padding: 0;
-                width: 100% !important;
-            }
-            .no-print { 
-                display: none !important; 
-            }
-            .printable-content {
-                box-shadow: none !important;
-                border: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                width: 100% !important;
-            }
-            .tab-content { 
-                display: block !important; 
-            }
-            .tab-nav { 
-                display: none !important; 
-            }
-            .print-header {
-                display: flex !important;
-                align-items: center;
-                justify-content: flex-start;
-                margin-bottom: 15px;
-                padding: 10px 0;
-                border-bottom: 3px solid #4f46e5;
-                page-break-after: avoid;
-            }
-            .school-logo {
-                width: 85px;
-                height: 85px;
-                object-fit: contain;
-                margin-right: 15px;
-            }
-            .school-info {
-                text-align: left;
-                flex-grow: 1;
-            }
-            .school-info h1 {
-                font-size: 16pt !important;
-                font-weight: bold;
-                margin: 0;
-                color: #1f2937;
-                line-height: 1.1;
-            }
-            .school-info h2 {
-                font-size: 14pt !important;
-                font-weight: bold;
-                margin: 3px 0;
-                color: #4f46e5;
-            }
-            .school-info p {
-                font-size: 10pt !important;
-                margin: 2px 0;
-                color: #6b7280;
-            }
-            
-            .print-only {
-                display: block;
-            }
-            
-            /* Show print signature grid */
-            .signature-grid-print {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                gap: 2cm;
-                margin: 2cm 0 1cm 0;
-                page-break-inside: avoid;
-            }
-            .signature-box {
-                text-align: center;
-                min-height: 3cm;
-            }
-            .signature-line {
-                margin-top: 2.5cm;
-                border-top: 1px solid #000;
-                padding-top: 0.5cm;
-            }
-            .headmaster-signature {
-                margin-top: 1.5cm;
-                text-align: center;
-                page-break-inside: avoid;
-            }
-            .headmaster-line {
-                margin-top: 2.5cm;
-                border-top: 1px solid #000;
-                padding-top: 0.5cm;
-                width: 60%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .page-break {
-                page-break-before: always;
-            }
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-            
-            /* Improve table printing */
-            table {
-                page-break-inside: auto;
-                width: 100% !important;
-                font-size: 10pt !important;
-            }
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto;
-            }
-            thead {
-                display: table-header-group;
-            }
-            tfoot {
-                display: table-footer-group;
-            }
-            
-            /* Improve form element printing */
-            input[type="text"], 
-            input[type="date"],
-            textarea,
-            select {
-                border: 1px solid #d1d5db !important;
-                background: white !important;
-                color: black !important;
-                -webkit-print-color-adjust: exact;
-                font-size: 10pt !important;
-                padding: 4px !important;
-            }
-            
-            /* Ensure radio buttons are visible when printed */
-            .custom-radio input:checked + .radio-checkmark {
-                background-color: #4f46e5 !important;
-                border-color: #4f46e5 !important;
-            }
-            
-            details {
-                page-break-inside: avoid;
-            }
-            
-            details[open] > summary::after {
-                display: none;
-            }
-            
-            /* Adjust spacing for print */
-            section {
-                margin-bottom: 20px;
-            }
-        }
-        
-        /* Responsive improvements */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0.5rem;
-            }
-            .tab-button {
-                font-size: 0.875rem;
-                padding: 0.5rem 0.25rem;
-            }
-            .school-logo {
-                width: 60px;
-                height: 60px;
-            }
-        }
-    </style>
+/* Tab styling */
+.tab-button {
+  transition: all 0.3s ease;
+  border-bottom: 4px solid transparent;
+  padding-bottom: 8px;
+}
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 600;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Logo sekolah styling */
+.school-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.print-header, .print-only {
+  display: none;
+}
+
+/* Validation styles */
+.error-message {
+  color: #ef4444; /* red-500 */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+/* Signature styles for print */
+.signature-grid-print {
+  display: none;
+}
+
+/* Style untuk dropdown agar lebih rapi */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%D%22292.4%22%20height%D%22292.4%22%3E%3Cpath%20fill%D%22%236B7280%22%20d%D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 0.65em auto;
+  padding-right: 2.5rem;
+}
+
+/* Style untuk section <details> agar rapi */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::after {
+  content: '▼';
+  float: right;
+  font-size: 0.8em;
+  transition: transform 0.2s;
+  margin-top: 4px;
+}
+details[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+/* Level Ketersediaan */
+.achievement-level {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+.achievement-level.highlighted {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Style untuk butir yang belum dinilai */
+.unrated-item {
+  background-color: #fef3f2 !important;
+  border-left: 4px solid #ef4444;
+}
+
+/* Print-specific styles for F4 paper (21cm x 33cm) */
+@media print {
+  @page {
+    size: 21cm 33cm; /* F4 paper size */
+    margin: 2.5cm 1.5cm 1.5cm 1.5cm; /* Atas, Kanan, Bawah, Kiri */
+  }
+
+  body {
+    background-color: white;
+    font-size: 11pt;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .printable-content {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .tab-content {
+    display: block !important;
+  }
+  .tab-nav {
+    display: none !important;
+  }
+  .print-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 3px solid #4f46e5;
+    page-break-after: avoid;
+  }
+  .school-logo {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    margin-right: 15px;
+  }
+  .school-info {
+    text-align: left;
+    flex-grow: 1;
+  }
+  .school-info h1 {
+    font-size: 16pt !important;
+    font-weight: bold;
+    margin: 0;
+    color: #1f2937;
+    line-height: 1.1;
+  }
+  .school-info h2 {
+    font-size: 14pt !important;
+    font-weight: bold;
+    margin: 3px 0;
+    color: #4f46e5;
+  }
+  .school-info p {
+    font-size: 10pt !important;
+    margin: 2px 0;
+    color: #6b7280;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  /* Show print signature grid */
+  .signature-grid-print {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 2cm;
+    margin: 2cm 0 1cm 0;
+    page-break-inside: avoid;
+  }
+  .signature-box {
+    text-align: center;
+    min-height: 3cm;
+  }
+  .signature-line {
+    margin-top: 2.5cm;
+    border-top: 1px solid #000;
+    padding-top: 0.5cm;
+  }
+  .headmaster-signature {
+    margin-top: 1.5cm;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .headmaster-line {
+    margin-top: 2.5cm;
+    border-top: 1px solid #000;
+    padding-top: 0.5cm;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Improve table printing */
+  table {
+    page-break-inside: auto;
+    width: 100% !important;
+    font-size: 10pt !important;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  /* Improve form element printing */
+  input[type="text"],
+  input[type="date"],
+  textarea,
+  select {
+    border: 1px solid #d1d5db !important;
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    font-size: 10pt !important;
+    padding: 4px !important;
+  }
+
+  /* Ensure radio buttons are visible when printed */
+  .custom-radio input:checked + .radio-checkmark {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+  }
+
+  details {
+    page-break-inside: avoid;
+  }
+
+  details[open] > summary::after {
+    display: none;
+  }
+
+  /* Adjust spacing for print */
+  section {
+    margin-bottom: 20px;
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+  .tab-button {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.25rem;
+  }
+  .school-logo {
+    width: 60px;
+    height: 60px;
+  }
+}
+</style>
 </head>
 <body class="antialiased">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <form id="supervisionForm" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content" method="POST" action="#">
-            
-            <div class="print-header no-print">
-                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/200px-Logo_SMK_Negeri_1_Purbalingga.png" 
-                     alt="Logo SMK Negeri 1 Purbalingga" 
-                     class="school-logo">
-                <div class="school-info">
-                    <h1>SMK NEGERI 1 PURBALINGGA</h1>
-                    <h2>INSTRUMEN SUPERVISI AKADEMIK TERPADU</h2>
-                    <p>Jl. Mayor Jend. Sungkono No.34, Selabaya, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
-                </div>
-            </div>
+<div class="container mx-auto p-4 md:p-8 max-w-7xl">
+<form id="supervisionForm" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden printable-content" method="POST" action="#">
 
-            <div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200 no-print">
-                <div class="flex items-center space-x-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/120px-Logo_SMK_Negeri_1_Purbalingga.png" 
-                         alt="Logo SMK Negeri 1 Purbalingga" 
-                         class="w-16 h-16 object-contain">
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">INSTRUMEN SUPERVISI AKADEMIK TERPADU</h1>
-                        <p class="text-gray-500">SMK Negeri 1 Purbalingga</p>
-                        <p class="text-sm text-gray-400">Jl. Mayor Jend. Sungkono No.34, Selabaya, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-6 sm:p-8 space-y-8">
+<div class="print-header no-print">
+<img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/200px-Logo_SMK_Negeri_1_Purbalingga.png"
+alt="Logo SMK Negeri 1 Purbalingga"
+class="school-logo">
+<div class="school-info">
+<h1>SMK NEGERI 1 PURBALINGGA</h1>
+<h2>INSTRUMEN SUPERVISI AKADEMIK TERPADU</h2>
+<p>Jl. Mayor Jend. Sungkono No.34, Selabaya, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
+</div>
+</div>
 
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="teacherSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Guru</label>
-                            <div class="relative">
-                                <select id="teacherSelect" name="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
-                            </div>
-                            <div id="teacherSelectError" class="error-message">Pilih guru yang akan disupervisi</div>
-                        </div>
-                        <div>
-                            <label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Guru</label>
-                            <input type="text" id="teacherNIP" name="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
-                        </div>
-                        <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
-                            <input type="text" id="subject" name="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan">
-                            <div id="subjectError" class="error-message">Masukkan mata pelajaran</div>
-                        </div>
-                        <div>
-                            <label for="classSemester" class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester</label>
-                            <input type="text" id="classSemester" name="classSemester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal">
-                            <div id="classSemesterError" class="error-message">Masukkan kelas dan semester</div>
-                        </div>
-                        <div>
-                            <label for="supervisionDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi</label>
-                            <input type="date" id="supervisionDate" name="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
-                            <div id="supervisionDateError" class="error-message">Pilih tanggal supervisi</div>
-                        </div>
-                        <div>
-                            <label for="supervisorSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor</label>
-                            <select id="supervisorSelect" name="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
-                            <div id="supervisorSelectError" class="error-message">Pilih supervisor</div>
-                        </div>
-                         <div>
-                            <label for="supervisorNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Supervisor</label>
-                            <input type="text" id="supervisorNIP" name="supervisorNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
-                        </div>
-                    </div>
-                </section>
+<div class="bg-gray-50 p-6 sm:p-8 border-b border-gray-200 no-print">
+<div class="flex items-center space-x-4">
+<img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/a4/Logo_SMK_Negeri_1_Purbalingga.png/120px-Logo_SMK_Negeri_1_Purbalingga.png"
+alt="Logo SMK Negeri 1 Purbalingga"
+class="w-16 h-16 object-contain">
+<div>
+<h1 class="text-2xl font-bold text-gray-800">INSTRUMEN SUPERVISI AKADEMIK TERPADU</h1>
+<p class="text-gray-500">SMK Negeri 1 Purbalingga</p>
+<p class="text-sm text-gray-400">Jl. Mayor Jend. Sungkono No.34, Selabaya, Kec. Kalimanah, Kabupaten Purbalingga, Jawa Tengah 53371</p>
+</div>
+</div>
+</div>
 
-                <nav class="border-b border-gray-200 tab-nav no-print">
-                    <div class="flex space-x-6 overflow-x-auto">
-                        <button type="button" class="tab-button py-3 px-1 text-lg active" data-tab="administrasi">
-                            <i class="fas fa-folder-open mr-2"></i> 1. Administrasi
-                        </button>
-                        <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="instrumen">
-                            <i class="fas fa-tasks mr-2"></i> 2. Instrumen Modul Ajar
-                        </button>
-                        <button type="button" class="tab-button py-3 px-1 text-lg" data-tab="proses">
-                            <i class="fas fa-chalkboard-teacher mr-2"></i> 3. Proses Pembelajaran
-                        </button>
-                    </div>
-                </nav>
+<div class="p-6 sm:p-8 space-y-8">
 
-                <div id="administrasi-content" class="tab-content active">
-                    <div class="space-y-8">
-                        <section>
-                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                 <i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
-                             </h2>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-600" id="adminTable">
-                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-4 w-1/12 text-center">No</th>
-                                            <th scope="col" class="px-6 py-4 w-5/12">Komponen Administrasi</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Tidak Ada (0)</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada, Tidak Sesuai (1)</th>
-                                            <th scope="col" class="px-6 py-4 w-2/12 text-center">Ada dan Sesuai (2)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="adminTableBody">
-                                        </tbody>
-                                </table>
-                            </div>
-                        </section>
+<section>
+<h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-id-card-alt mr-3"></i>IDENTITAS SUPERVISI</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="teacherSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Guru</label>
+<div class="relative">
+<select id="teacherSelect" name="teacherSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
+</div>
+<div id="teacherSelectError" class="error-message">Pilih guru yang akan disupervisi</div>
+</div>
+<div>
+<label for="teacherNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Guru</label>
+<input type="text" id="teacherNIP" name="teacherNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
+<input type="text" id="subject" name="subject" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: Dasar-dasar Kejuruan">
+<div id="subjectError" class="error-message">Masukkan mata pelajaran</div>
+</div>
+<div>
+<label for="classSemester" class="block text-sm font-medium text-gray-700 mb-1">Kelas / Semester</label>
+<input type="text" id="classSemester" name="classSemester" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Contoh: X PPLG 1 / Gasal">
+<div id="classSemesterError" class="error-message">Masukkan kelas dan semester</div>
+</div>
+<div>
+<label for="supervisionDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Supervisi</label>
+<input type="date" id="supervisionDate" name="supervisionDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition">
+<div id="supervisionDateError" class="error-message">Pilih tanggal supervisi</div>
+</div>
+<div>
+<label for="supervisorSelect" class="block text-sm font-medium text-gray-700 mb-1">Nama Supervisor</label>
+<select id="supervisorSelect" name="supervisorSelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"></select>
+<div id="supervisorSelectError" class="error-message">Pilih supervisor</div>
+</div>
+<div>
+<label for="supervisorNIP" class="block text-sm font-medium text-gray-700 mb-1">NIP Supervisor</label>
+<input type="text" id="supervisorNIP" name="supervisorNIP" class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" readonly placeholder="NIP akan terisi otomatis">
+</div>
+</div>
+</section>
 
-                        <section>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-600">
-                                    <tfoot class="font-semibold text-gray-800">
-                                        <tr class="bg-gray-50 border-t">
-                                            <td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
-                                            <td class="px-6 py-3 text-center" id="countTidakAda">0</td>
-                                            <td class="px-6 py-3 text-center" id="countAdaTidakSesuai">0</td>
-                                            <td class="px-6 py-3 text-center" id="countAdaSesuai">0</td>
-                                        </tr>
-                                        <tr class="bg-indigo-50 border-t">
-                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">SKOR TOTAL</td>
-                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="skorTotalAdmin">0</td>
-                                        </tr>
-                                        <tr class="bg-indigo-100 border-t">
-                                            <td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">KETERSEDIAAN PERANGKAT</td>
-                                            <td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="ketersediaanAdmin">0%</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </section>
+<nav class="border-b border-gray-200 tab-nav no-print">
+<div class="flex space-x-6 overflow-x-auto">
+<button type="button" class="tab-button py-3 px-1 text-lg active" data-tab="administrasi">
+<i class="fas fa-folder-open mr-2"></i> 1. Administrasi
+</button>
+<button type="button" class="tab-button py-3 px-1 text-lg" data-tab="instrumen">
+<i class="fas fa-tasks mr-2"></i> 2. Instrumen Modul Ajar
+</button>
+<button type="button" class="tab-button py-3 px-1 text-lg" data-tab="proses">
+<i class="fas fa-chalkboard-teacher mr-2"></i> 3. Proses Pembelajaran
+</button>
+</div>
+</nav>
 
-                        <section>
-                            <div class="bg-gray-50 rounded-lg p-6 border border-dashed">
-                                <h5 class="font-bold text-gray-700 mb-4 flex items-center"><i class="fas fa-trophy mr-3"></i>Tingkat Ketersediaan</h5>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div id="level-sangat-baik" class="achievement-level bg-green-100 border border-green-200 text-green-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">SANGAT BAIK</h6><p class="text-sm font-medium">80% - 100%</p>
-                                    </div>
-                                    <div id="level-baik" class="achievement-level bg-blue-100 border border-blue-200 text-blue-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">BAIK</h6><p class="text-sm font-medium">60% - 79%</p>
-                                    </div>
-                                    <div id="level-cukup" class="achievement-level bg-yellow-100 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">CUKUP</h6><p class="text-sm font-medium">40% - 59%</p>
-                                    </div>
-                                    <div id="level-kurang" class="achievement-level bg-red-100 border border-red-200 text-red-800 p-4 rounded-lg text-center transition-all duration-300">
-                                        <h6 class="font-bold">KURANG</h6><p class="text-sm font-medium">&lt; 40%</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                
-                <div id="instrumen-content" class="tab-content">
-                     <div class="space-y-8">
-                        <section>
-                             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                 <i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
-                             </h2>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-600" id="instrumentTable">
-                                    <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
-                                        <tr>
-                                            <th class="px-4 py-3 w-[5%] text-center">No</th>
-                                            <th class="px-4 py-3 w-[55%]" colspan="2">Komponen Penilaian</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">0</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">1</th>
-                                            <th class="px-4 py-3 w-[5%] text-center">2</th>
-                                            <th class="px-4 py-3 w-[25%]">Keterangan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="instrumentTableBody">
-                                        </tbody>
-                                </table>
-                            </div>
-                        </section>
-                        <section>
-                            <div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
-                                <h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                                    <div>
-                                        <p class="text-3xl font-bold text-indigo-700" id="total-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600 uppercase">Skor Perolehan</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-3xl font-bold text-indigo-700" id="max-score-instrument">0</p>
-                                        <p class="text-sm text-gray-600 uppercase">Skor Maksimal</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-3xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
-                                        <p class="text-sm text-gray-600 uppercase">Nilai Akhir</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-3xl font-bold text-indigo-700" id="predicate-instrument">-</p>
-                                        <p class="text-sm text-gray-600 uppercase">Predikat</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+<div id="administrasi-content" class="tab-content active">
+<div class="space-y-8">
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-table mr-3 text-indigo-500"></i>Tabel Penilaian Administrasi
+</h2>
+<div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+<table class="w-full text-sm text-left text-gray-600" id="adminTable">
+<thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+<tr>
+<th scope="col" class="px-6 py-4 w-1/12 text-center">No</th>
+<th scope="col" class="px-6 py-4 w-5/12">Komponen Administrasi</th>
+<th scope="col" class="px-6 py-4 w-2/12 text-center">Tidak Ada (0)</th>
+<th scope="col" class="px-6 py-4 w-2/12 text-center">Ada, Tidak Sesuai (1)</th>
+<th scope="col" class="px-6 py-4 w-2/12 text-center">Ada dan Sesuai (2)</th>
+</tr>
+</thead>
+<tbody id="adminTableBody">
+</tbody>
+</table>
+</div>
+</section>
 
-                <div id="proses-content" class="tab-content">
-                    <div class="space-y-8">
-                        <section>
-                            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-chalkboard-teacher mr-3 text-indigo-500"></i>Instrumen Supervisi Observasi Proses Pembelajaran
-                            </h2>
-                            
-                            <fieldset class="border border-gray-300 p-4 rounded-lg">
-                                <legend class="text-xl font-semibold text-gray-700 px-2">Butir Penilaian</legend>
-                                
-                                <div id="messageBox" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert">
-                                    <span class="font-medium" id="messageText"></span>
-                                </div>
+<section>
+<div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+<table class="w-full text-sm text-left text-gray-600">
+<tfoot class="font-semibold text-gray-800">
+<tr class="bg-gray-50 border-t">
+<td colspan="2" class="px-6 py-3 text-right font-bold">JUMLAH</td>
+<td class="px-6 py-3 text-center" id="countTidakAda">0</td>
+<td class="px-6 py-3 text-center" id="countAdaTidakSesuai">0</td>
+<td class="px-6 py-3 text-center" id="countAdaSesuai">0</td>
+</tr>
+<tr class="bg-indigo-50 border-t">
+<td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">SKOR TOTAL</td>
+<td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="skorTotalAdmin">0</td>
+</tr>
+<tr class="bg-indigo-100 border-t">
+<td colspan="2" class="px-6 py-4 text-right font-bold text-indigo-800">KETERSEDIAAN PERANGKAT</td>
+<td colspan="3" class="px-6 py-4 text-center text-lg font-extrabold text-indigo-800" id="ketersediaanAdmin">0%</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</section>
 
-                                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-                                    <h4 class="font-semibold text-gray-700 mb-2">Keterangan Skor:</h4>
-                                    <ul class="list-disc list-inside text-sm space-y-1">
-                                        <li><b>4:</b> Sesuai/Dilakukan dan efektif</li>
-                                        <li><b>3:</b> Sebagian besar dilakukan dengan efektif</li>
-                                        <li><b>2:</b> Sebagian besar dilakukan namun belum efektif</li>
-                                        <li><b>1:</b> Sebagian Kecil dilakukan dan tidak efektif</li>
-                                    </ul>
-                                </div>
+<section>
+<div class="bg-gray-50 rounded-lg p-6 border border-dashed">
+<h5 class="font-bold text-gray-700 mb-4 flex items-center"><i class="fas fa-trophy mr-3"></i>Tingkat Ketersediaan</h5>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+<div id="level-sangat-baik" class="achievement-level bg-green-100 border border-green-200 text-green-800 p-4 rounded-lg text-center transition-all duration-300">
+<h6 class="font-bold">SANGAT BAIK</h6><p class="text-sm font-medium">80% - 100%</p>
+</div>
+<div id="level-baik" class="achievement-level bg-blue-100 border border-blue-200 text-blue-800 p-4 rounded-lg text-center transition-all duration-300">
+<h6 class="font-bold">BAIK</h6><p class="text-sm font-medium">60% - 79%</p>
+</div>
+<div id="level-cukup" class="achievement-level bg-yellow-100 border border-yellow-200 text-yellow-800 p-4 rounded-lg text-center transition-all duration-300">
+<h6 class="font-bold">CUKUP</h6><p class="text-sm font-medium">40% - 59%</p>
+</div>
+<div id="level-kurang" class="achievement-level bg-red-100 border border-red-200 text-red-800 p-4 rounded-lg text-center transition-all duration-300">
+<h6 class="font-bold">KURANG</h6><p class="text-sm font-medium">&lt; 40%</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
 
-                                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                    <table class="w-full text-sm text-left text-gray-600" id="prosesTable">
-                                        <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
-                                            <tr>
-                                                <th scope="col" class="px-4 py-3 w-[5%] text-center">No</th>
-                                                <th scope="col" class="px-4 py-3 w-[60%]">Komponen Penilaian</th>
-                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">1</th>
-                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">2</th>
-                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">3</th>
-                                                <th scope="col" class="px-4 py-3 w-[7%] text-center">4</th>
-                                                <th scope="col" class="px-4 py-3 w-[14%]">Catatan</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="prosesTableBody">
-                                            </tbody>
-                                    </table>
-                                </div>
-                            </fieldset>
+<div id="instrumen-content" class="tab-content">
+<div class="space-y-8">
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-tasks mr-3 text-indigo-500"></i>Tabel Instrumen Penilaian Modul Ajar
+</h2>
+<div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+<table class="w-full text-sm text-left text-gray-600" id="instrumentTable">
+<thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+<tr>
+<th class="px-4 py-3 w-[5%] text-center">No</th>
+<th class="px-4 py-3 w-[55%]" colspan="2">Komponen Penilaian</th>
+<th class="px-4 py-3 w-[5%] text-center">0</th>
+<th class="px-4 py-3 w-[5%] text-center">1</th>
+<th class="px-4 py-3 w-[5%] text-center">2</th>
+<th class="px-4 py-3 w-[25%]">Keterangan</th>
+</tr>
+</thead>
+<tbody id="instrumentTableBody">
+</tbody>
+</table>
+</div>
+</section>
+<section>
+<div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+<h5 class="font-bold text-indigo-800 mb-4 flex items-center"><i class="fas fa-poll-h mr-3"></i>Hasil Akhir Supervisi Modul Ajar</h5>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="total-score-instrument">0</p>
+<p class="text-sm text-gray-600 uppercase">Skor Perolehan</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="max-score-instrument">0</p>
+<p class="text-sm text-gray-600 uppercase">Skor Maksimal</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="final-grade-instrument">0.00</p>
+<p class="text-sm text-gray-600 uppercase">Nilai Akhir</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-indigo-700" id="predicate-instrument">-</p>
+<p class="text-sm text-gray-600 uppercase">Predikat</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
 
-                            <button type="button" id="hitungProsesBtn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200">
-                                <i class="fas fa-calculator mr-2"></i> Hitung Nilai Proses Pembelajaran
-                            </button>
+<div id="proses-content" class="tab-content">
+<div class="space-y-8">
+<section>
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<i class="fas fa-chalkboard-teacher mr-3 text-indigo-500"></i>Instrumen Supervisi Observasi Proses Pembelajaran
+</h2>
 
-                            <div id="hasilProsesSection" class="hidden mt-6 border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
-                                <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                                    <div class="bg-white p-4 rounded-lg shadow">
-                                        <h3 class="text-sm font-medium text-gray-500 uppercase">Total Skor Perolehan (SP)</h3>
-                                        <p id="skorPerolehanProsesEl" class="text-3xl font-bold text-blue-600">0 / 192</p>
-                                    </div>
-                                    <div class="bg-white p-4 rounded-lg shadow">
-                                        <h3 class="text-sm font-medium text-gray-500 uppercase">Nilai Akhir</h3>
-                                        <p id="nilaiAkhirProsesEl" class="text-3xl font-bold text-blue-600">0.00</p>
-                                    </div>
-                                </div>
-                                <div class="bg-white p-6 rounded-lg shadow mt-4 text-center">
-                                    <h3 class="text-lg font-medium text-gray-500 uppercase">Predikat</h3>
-                                    <p id="predikatProsesEl" class="text-4xl font-extrabold mt-2">--</p>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+<fieldset class="border border-gray-300 p-4 rounded-lg">
+<legend class="text-xl font-semibold text-gray-700 px-2">Butir Penilaian</legend>
 
-                <section>
-                    <h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
-                    <div class="space-y-4 mb-8">
-                        <div>
-                            <label for="catatanUmum" class="block text-sm font-medium text-gray-700 mb-1">Catatan Umum / Umpan Balik</label>
-                            <textarea id="catatanUmum" name="catatanUmum" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Tuliskan catatan umum, temuan positif, dan area yang perlu perbaikan..."></textarea>
-                        </div>
-                        <div>
-                            <label for="rekomendasi" class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi / Tindak Lanjut</label>
-                            <textarea id="rekomendasi" name="rekomendasi" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Berikan rekomendasi spesifik untuk perbaikan..."></textarea>
-                        </div>
-                    </div>
+<div id="messageBox" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert">
+<span class="font-medium" id="messageText"></span>
+</div>
 
-                    <div class="mt-8 pt-6 border-t border-gray-300">
-                        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                            <div class="signature-box">
-                                <p class="mb-2">Purbalingga, <span id="print-tanggal"></span></p>
-                                <p class="font-bold mb-8">Guru yang disupervisi,</p>
-                                <div class="signature-line mt-16">
-                                    <p class="font-bold text-center" id="print-guru-nama">[Nama Guru]</p>
-                                    <p class="text-center">NIP. <span id="print-guru-nip">[NIP Guru]</span></p>
-                                </div>
-                            </div>
-                            <div class="signature-box">
-                                <p class="mb-2">&nbsp;</p>
-                                <p class="font-bold mb-8">Supervisor,</p>
-                                <div class="signature-line mt-16">
-                                    <p class="font-bold text-center" id="print-supervisor-nama">[Nama Supervisor]</p>
-                                    <p class="text-center">NIP. <span id="print-supervisor-nip">[NIP Supervisor]</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="headmaster-signature mt-12 text-center">
-                            <div class="signature-box inline-block">
-                                <p class="mb-2">Mengetahui,</p>
-                                <p class="font-bold mb-8">Kepala SMK Negeri 1 Purbalingga,</p>
-                                <div class="headmaster-line mt-16 mx-auto">
-                                    <p class="font-bold text-center" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
-                                    <p class="text-center">NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+<h4 class="font-semibold text-gray-700 mb-2">Keterangan Skor:</h4>
+<ul class="list-disc list-inside text-sm space-y-1">
+<li><b>4:</b> Sesuai/Dilakukan dan efektif</li>
+<li><b>3:</b> Sebagian besar dilakukan dengan efektif</li>
+<li><b>2:</b> Sebagian besar dilakukan namun belum efektif</li>
+<li><b>1:</b> Sebagian Kecil dilakukan dan tidak efektif</li>
+</ul>
+</div>
 
-                <section class="no-print pt-6 border-t border-gray-200">
-                    <div class="flex justify-end space-x-4">
-                        <button type="button" id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-undo mr-2"></i> Reset Form
-                        </button>
-                        <button type="button" id="saveAndPrintBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
-                            <i class="fas fa-save mr-2"></i> Simpan & Cetak Laporan
-                        </button>
-                    </div>
-                </section>
-                
-            </div> </form> </div> <script>
-    document.addEventListener('DOMContentLoaded', () => {
+<div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+<table class="w-full text-sm text-left text-gray-600" id="prosesTable">
+<thead class="bg-gray-100 text-xs text-gray-700 uppercase">
+<tr>
+<th scope="col" class="px-4 py-3 w-[5%] text-center">No</th>
+<th scope="col" class="px-4 py-3 w-[60%]">Komponen Penilaian</th>
+<th scope="col" class="px-4 py-3 w-[7%] text-center">1</th>
+<th scope="col" class="px-4 py-3 w-[7%] text-center">2</th>
+<th scope="col" class="px-4 py-3 w-[7%] text-center">3</th>
+<th scope="col" class="px-4 py-3 w-[7%] text-center">4</th>
+<th scope="col" class="px-4 py-3 w-[14%]">Catatan</th>
+</tr>
+</thead>
+<tbody id="prosesTableBody">
+</tbody>
+</table>
+</div>
+</fieldset>
 
-        // --- MODIFIKASI UNTUK SHEETDB ---
-        const SHEETDB_API_ID = 'pr3a66fxh9upl'; 
-        const SHEETDB_URL = `https://sheetdb.io/api/v1/${SHEETDB_API_ID}`;
+<button type="button" id="hitungProsesBtn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200">
+<i class="fas fa-calculator mr-2"></i> Hitung Nilai Proses Pembelajaran
+</button>
 
-        // --- DATA MASTER ---
-        const defaultTeacherData = {
-            "Maryono S.Pd, M.Si": "196607012000121002", 
-            "Satyo Nugroho, S.Kom.": "197807142009031006",
-            "Dra. Sri Mularsih": "196706201994122001", 
-            "Drs. Fiva Widiarto": "196510231996011002", 
-            "Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002", 
-            "Marwoto, S.Pd, S.Kom": "196904082000121001", 
-            "Sri Endah Swarastuti, S.Pd": "197407022003122004", 
-            "Dra. Cukat Budi Rahayu": "196901121994032010", 
-            "Dra. Diah Ayu Supriyanti": "196603261994122004", 
-            "Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006", 
-            "Sri Wahyuni, S.Pd": "197008022002122004", 
-            "Dwi Agus Tri M.M., S.Pd": "197102232002122004", 
-            "Sumardi, S.Pd., S.Kom": "197305272003121002", 
-            "Agung Pamuji, S.Pd": "197402132005011008", 
-            "Retnowati, S.Pd": "197303272005012009", 
-            "Tony Eka Martin Wibowo, S.Si.": "197912092005011004", 
-            "Nur Romlah, S.Pd": "197509082008012008", 
-            "Deddy Suwito, S.Kom": "197209022006041013", 
-            "Agus Wuryanto, S.Pd": "197503222006041002", 
-            "Tri Puji Utami, S.Kom": "198304252009032009", 
-            "Puji Pertiwi Sayekti, S.Pd": "196805102005012011", 
-            "Nur Fajriyahti, S.Pd.": "197005212007012014", 
-            "Srirahayu, S.Pd.": "197408042008012009", 
-            "Romidin, S.Pd": "197505052008011021", 
-            "Teguh Cahyono, S.Pd.": "198110232006041010", 
-            "Seto Eko Purwanto, S.Si": "197804232010011009", 
-            "Nelly Amaliyah, S.Psi": "197907032010012019", 
-            "Suratno, S.Pd": "198409032010011012", 
-            "Vektor Realita Aditopo, S.Pd": "198603312011011003", 
-            "Adi Setiawan, S.Pd.": "199012292014021001", 
-            "Galih Tyas Anjari, S.Pd.": "199201212014022001", 
-            "Deti Lestiyorini, S.Pd.": "198912142014022001", 
-            "Mahzun, S.Pd I": "197601072008011009", 
-            "Sugeng Pitoyo, S.Pd.": "197311032008011002", 
-            "Asriyatun, S.Pd": "199208262020122009", 
-            "Nur Laeli, S.Pd": "199704112020122011", 
-            "Sepudin Zupri, S.Kom": "197010222022211001", 
-            "Arif Nurokhman, S.Pd": "198010172022211002", 
-            "Elis Sugiarti, S.Pd.": "198503072022212028", 
-            "Sudiyarti, S.Pd": "198511182022212012", 
-            "Otiah, S.Pd.": "198802242022212013", 
-            "Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004", 
-            "Menik Yuni Hartini, S.Pd.": "198906292022212008", 
-            "Baiq Nur Aisyah, S.Pd.": "198909222022212005", 
-            "Sulistiono, S.Pd.": "199112202022211007", 
-            "Isria Rizqona Firdausyi, S.Pd.": "199201312022212011", 
-            "Hindun Fatmawati, S.Pd.": "199210042022212007", 
-            "Ana Nurlatifah, S.Pd.": "199304032022212014", 
-            "Dwi Inayah Rahmawati, M.Pd.": "199311282022212011", 
-            "Danu Dwi Jatmiko, S.Pd.": "199401192022211003", 
-            "Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009", 
-            "Nining Setiani, S.Pd.": "199610102022212008", 
-            "Kukuh Pribadi, S.Pd.": "198610232022211006", 
-            "Yekti Apriyoni, S.Pd.": "197804272023212002", 
-            "Novita Adhimurti, S.Pd.": "197811142023212001", 
-            "Khamsyatun Yudiana, S.Pd.I.": "198207132023212011", 
-            "Nanang Cahyana, S.Pd.Ing.": "198603172023211003", 
-            "Waskito Ismu Hastomo, S.Pd.": "198606092023211007", 
-            "Lely Erawati, S.Pd.": "198708212023212018", 
-            "Septian Endro Laksono, S.Pd.": "199009052023211004", 
-            "Firmanika Rozaqi, S.Pd.": "199104242023212024", 
-            "Devi Artati, S.Pd.": "199210112023212020", 
-            "Soviatun Khasanah, S.Pd.": "199606302023212006", 
-            "Miftah Iskandar, S.Pd.": "198512112023211006", 
-            "Dista Puspitasari Adi, S.Pd.": "198603182024212004", 
-            "Rita Wijiarti, S.Pd.": "199410172024212021", 
-            "Safa Aulia Astri, S.Sos": "199607212024212021", 
-            "Slamet Suparman, S.Pd.": "-", 
-            "Devi Dwi Wahyuni, S.Pd.": "-", 
-            "Agus Sutono, S.Pd.": "197406182025211007",
-            "Yanti Karadina, S.Pd.": "197512172025212006",
-            "Widia Sukaesih, S.E.": "197810082025212008",
-            "Triyanto, S.Pd.": "198411252025211021",
-            "Inayatul Munawaroh, S.Pd.": "199301062025212023",
-            "Danu Setio Aji, S.Pd.": "199310162025211021",
-            "Hera Dwi Suryandari, S.Pd.": "199312262025212012",
-            "Rindhi Rezqi Hertindha, M.Pd.": "-",
-            "Seli Fadriyah, S.Pd.": "-",
-            "Nurhidayah, S.S., M.Pd.": "-",
-            "Prana Prakasita, S.Pd.": "-",
-            "Rita Puspitasari, S.Pd.": "-",
-            "Ullil Hykmah, S.Pd.": "-",
-            "Muhammad Idris Afandi, S.S., M.Pd.": "-",
-        };
+<div id="hasilProsesSection" class="hidden mt-6 border-t-2 border-blue-500 pt-6 bg-gray-50 p-6 rounded-lg shadow-inner">
+<h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Penilaian Proses Pembelajaran</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+<div class="bg-white p-4 rounded-lg shadow">
+<h3 class="text-sm font-medium text-gray-500 uppercase">Total Skor Perolehan (SP)</h3>
+<p id="skorPerolehanProsesEl" class="text-3xl font-bold text-blue-600">0 / 192</p>
+</div>
+<div class="bg-white p-4 rounded-lg shadow">
+<h3 class="text-sm font-medium text-gray-500 uppercase">Nilai Akhir</h3>
+<p id="nilaiAkhirProsesEl" class="text-3xl font-bold text-blue-600">0.00</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow mt-4 text-center">
+<h3 class="text-lg font-medium text-gray-500 uppercase">Predikat</h3>
+<p id="predikatProsesEl" class="text-4xl font-extrabold mt-2">--</p>
+</div>
+</div>
+</section>
+</div>
+</div>
 
-        const teacherData = Object.entries(defaultTeacherData).map(([name, nip]) => ({ name, nip }));
-        teacherData.unshift({ name: "-- Pilih Guru --", nip: "" });
+<section>
+<h2 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><i class="fas fa-file-alt mr-3"></i>CATATAN DAN REKOMENDASI</h2>
+<div class="space-y-4 mb-8">
+<div>
+<label for="catatanUmum" class="block text-sm font-medium text-gray-700 mb-1">Catatan Umum / Umpan Balik</label>
+<textarea id="catatanUmum" name="catatanUmum" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Tuliskan catatan umum, temuan positif, dan area yang perlu perbaikan..."></textarea>
+</div>
+<div>
+<label for="rekomendasi" class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi / Tindak Lanjut</label>
+<textarea id="rekomendasi" name="rekomendasi" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Berikan rekomendasi spesifik untuk perbaikan..."></textarea>
+</div>
+</div>
 
-        const supervisorData = [
-            { name: "-- Pilih Supervisor --", nip: "" },
-            { name: "Maryono S.Pd, M.Si", nip: "196607012000121002" },
-            { name: "Satyo Nugroho, S.Kom.", nip: "197807142009031006" },
-            { name: "Dra. Sri Mularsih", nip: "196706201994122001" },
-            { name: "Wahyu Budi Susapti, S.Pd, MM.", nip: "197207291997022002" },
-            { name: "Justina Trirahaju Leksanawati, S.Pd., M.Si.", nip: "197104162003122006" },
-            { name: "Sumardi, S.Pd., S.Kom", nip: "197305272003121002" },
-            { name: "Retnowati, S.Pd", nip: "197303272005012009" },
-            { name: "Nur Romlah, S.Pd", nip: "197509082008012008" },
-            { name: "Nur Fajriyahti, S.Pd.", nip: "197005212007012014" },
-            { name: "Romidin, S.Pd", nip: "197505052008011021" },
-            { name: "Seto Eko Purwanto, S.Si", nip: "197804232010011009" },
-            { name: "Suratno, S.Pd", nip: "198409032010011012" },
-            { name: "Adi Setiawan, S.Pd.", nip: "199012292014021001" },
-            { name: "Galih Tyas Anjari, S.Pd.", nip: "199201212014022001" },
-            { name: "Deti Lestiyorini, S.Pd.", nip: "198912142014022001" },
-            { name: "Sepudin Zupri, S.Kom", nip: "197010222022211001" },
-            { name: "Sri Endah Swarastuti, S.Pd", nip: "197407022003122004"},
-            { name: "Menik Yuni Hartini, S.Pd.", nip: "198906292022212008" }
-        ];
+<div class="mt-8 pt-6 border-t border-gray-300">
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
 
-        const headmasterData = {
-            name: "Maryono S.Pd, M.Si",
-            nip: "196607012000121002"
-        };
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+<div class="signature-box">
+<p class="mb-2">Purbalingga, <span id="print-tanggal"></span></p>
+<p class="font-bold mb-8">Guru yang disupervisi,</p>
+<div class="signature-line mt-16">
+<p class="font-bold text-center" id="print-guru-nama">[Nama Guru]</p>
+<p class="text-center">NIP. <span id="print-guru-nip">[NIP Guru]</span></p>
+</div>
+</div>
+<div class="signature-box">
+<p class="mb-2">&nbsp;</p>
+<p class="font-bold mb-8">Supervisor,</p>
+<div class="signature-line mt-16">
+<p class="font-bold text-center" id="print-supervisor-nama">[Nama Supervisor]</p>
+<p class="text-center">NIP. <span id="print-supervisor-nip">[NIP Supervisor]</span></p>
+</div>
+</div>
+</div>
 
-        const adminItems = [
-            "Program Tahunan (Prota)", 
-            "Program Semester (Promes)", 
-            "Capaian Pembelajaran (CP)",
-            "Alur Tujuan Pembelajaran (ATP)", 
-            "Modul Ajar / RPM", 
-            "KKTP / KKM", 
-            "Jurnal / Agenda Guru",
-            "Daftar Hadir Siswa", 
-            "Daftar Nilai Siswa", 
-            "Analisis Penilaian", 
-            "Program Remedial & Pengayaan",
-            "Buku Teks / Sumber Belajar"
-        ];
-        const TOTAL_ADMIN_ITEMS = adminItems.length;
-        const MAX_ADMIN_SCORE = TOTAL_ADMIN_ITEMS * 2;
+<div class="headmaster-signature mt-12 text-center">
+<div class="signature-box inline-block">
+<p class="mb-2">Mengetahui,</p>
+<p class="font-bold mb-8">Kepala SMK Negeri 1 Purbalingga,</p>
+<div class="headmaster-line mt-16 mx-auto">
+<p class="font-bold text-center" id="print-kepsek-nama">[Nama Kepala Sekolah]</p>
+<p class="text-center">NIP. <span id="print-kepsek-nip">[NIP Kepala Sekolah]</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        const instrumentItems = [
-             { aspect: "IDENTITAS MODUL", items: ["1. Nama Sekolah", "2. Nama Guru", "3. Nama Mata Pelajaran", "4. Elemen", "5. Fase/Kelas / Semester", "6. Alokasi Waktu", "7. Tahun Pelajaran"] },
-             { aspect: "IDENTIFIKASI MURID", items: ["Mencantumkan Kondisi Kemampuan Murid Sebelum Kegiatan Pembelajaran", "Mencantumkan Bahwa Murid Mengetahui Materi Prasyarat"] },
-             { aspect: "IDENTIFIKASI MATERI", items: ["Mencantumkan Karakteristik Materi"] },
-             { aspect: "DIMENSI PROFIL LULUSAN", items: ["Mencantumkan Dimensi Profil Lulusa n"] },
-             { aspect: "CAPAIAN PEMBELAJARAN", items: ["Mencantumkan Capaian Pembelajaran di akhir Fase"] },
-             { aspect: "LINTAS DISIPLIN ILMU", items: ["Mencantumkan mata pelajaran yang terkait dengan materi."] },
-             { aspect: "TUJUAN PEMBELAJARAN", items: ["Mencantumkan Tujuan yang Akan Dicapai saat Pembelajaran"] },
-             { aspect: "TOPIK PEMBELAJARAN", items: ["Mencantumkan Topik Pembelajaran"] },
-             { aspect: "PRAKTIK PEDAGOGIS", items: ["Menggambarkan model pembelajaran.", "Mencantumkan strategi pembelajaran.", "Mencantumkan Metode Pembelajaran."] },
-             { aspect: "KEMITRAAN PEMBELAJARAN", items: ["Kemitraan yang dilibatkan dalam kegiatan pembelajaran"] },
-             { aspect: "LINGKUNGAN PEMBELAJARAN", items: ["Mencantumkan ruang yang digunakan dalam kegiatan pembelajaran."] },
-             { aspect: "PEMANFAATAN DIGITAL", items: ["Media digital yang digunakan dalam kegiatan pembelajaran"] },
-             { aspect: "LANGKAH PEMBELAJARAN", items: ["Mencantumkan 3 prinsip pembelajaran mendalam ( berkesadaran, bermakna dan menyenangkan)", "Mencantumkan 3 pengalaman belajar murid (memahami, mengaplikasi dan merefleksi)"] },
-             { aspect: "REFLEKSI PESERTA DIDIK", items: ["Mencantumkan Refleksi Peserta didik"] },
-             { aspect: "REFLEKSI GURU", items: ["Mencantumkan refleksi Guru"] },
-             { aspect: "LEMBAR KERJA", items: ["Mencantumkan Lembar Kerja"] },
-             { aspect: "ASESMEN AWAL PEMBELAJARAN", items: ["Mencantumkan Penilaian sebelum pembelajaran (sikap / afektif dan atau kemampuan awal)."] },
-             { aspect: "ASESMEN FORMATIF", items: ["Mencantumkan Penilaian selama proses pembelajaran"] },
-             { aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
-        ];
-        
-        const TOTAL_INSTRUMENT_ITEMS = instrumentItems.reduce((acc, aspectGroup) => acc + aspectGroup.items.length, 0);
-        const MAX_INSTRUMENT_SCORE = TOTAL_INSTRUMENT_ITEMS * 2;
+<section class="no-print pt-6 border-t border-gray-200">
+<div class="flex justify-end space-x-4">
+<button type="button" id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all duration-300 ease-in-out">
+<i class="fas fa-undo mr-2"></i> Reset Form
+</button>
+<button type="button" id="saveAndPrintBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/50">
+<i class="fas fa-save mr-2"></i> Simpan & Cetak Laporan
+</button>
+</div>
+</section>
 
-        const prosesItems = [
-            { section: "I. KEGIATAN PENDAHULUAN", items: [
-                "Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...",
-                "Guru menyampaikan dan mengingatkan keyakinan kelas...",
-                "Guru mengajukan pertanyaan sebagai asesmen formatif di awal...",
-                "Memberikan apersepsi dengan cara menghubungkan materi...",
-                "Menyampaikan tujuan pembelajaran, dan kompetensi yang akan dicapai...",
-                "Menyampaikan manfaat pembelajaran.",
-                "Menyampaikan langkah-langkah kegiatan pembelajaran...",
-                "Guru mengelola kesadaran sosial dan emosional (KSE) siswa..."
-            ]},
-            { section: "II. KEGIATAN INTI", items: [
-                "Kemampuan menyesuaikan materi dengan tujuan pembelajaran.",
-                "Kemampuan mengaitkan materi dengan pengetahuan lain...",
-                "Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...",
-                "Memotivasi peserta didik untuk berpartisipasi aktif...",
-                "Guru menyajikan materi secara sistematis...",
-                "Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.",
-                "Guru melaksanakan pembelajaran sesuai dengan kompetensi...",
-                "Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).",
-                "Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengemukakan pendapat).",
-                "Menguasai pengelolaan kelas dengan baik.",
-                "Melaksanakan asesmen formatif dalam Proses Pembelajaran.",
-                "Melaksanakan umpan balik pelaksanaan proses pembelajaran.",
-                "Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.",
-                "Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...",
-                "Melaksanakan pembelajaran sesuai dengan alokasi waktu...",
-                "Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...",
-                "Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.",
-                "Pembelajaran bersifat interaktif (communication).",
-                "Pembelajaran menantang (critical thinking and problem solving).",
-                "Pembelajaran mendorong peserta didik bekerja sama (collaboration).",
-                "Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).",
-                "Guru menciptakan suasana kelas yang kondusif...",
-                "Guru menerapkan prinsip disiplin positif...",
-                "Melaksanakan pembelajaran yang berpusat pada siswa.",
-                "Guru memberikan perhatian dan bantuan ekstra...",
-                "Guru senantiasa memberikan umpan balik langsung...",
-                "Guru memberikan respon positif terhadap partisipasi peserta didik.",
-                "Guru melaksanakan praktik adaptasi pengajaran (Diferensiasi Konten).",
-                "Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).",
-                "Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).",
-                "Menumbuhkan keceriaan dan antusiasme peserta didik...",
-                "Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.",
-                "Menggunakan pilihan kata yang mudah dipahami...",
-                "Menyampaikan pesan dan gaya yang sesuai."
-            ]},
-            { section: "III. KEGIATAN PENUTUP", items: [
-                "Membuat rangkuman dan/atau kesimpulan...",
-                "Melakukan refleksi pembelajaran...",
-                "Melaksanakan Asesmen sumatif / penilaian pembelajaran...",
-                "Melaksanakan tindak lanjut dengan memberikan arahan...",
-                "Menyampaikan rencana pembelajaran berikutnya.",
-                "Menutup Pembelajaran."
-            ]}
-        ];
-        
-        const TOTAL_PROSES_BUTIR = 48;
-        const MAX_PROSES_SKOR = TOTAL_PROSES_BUTIR * 4;
+</div> </form> </div> <script>
+document.addEventListener('DOMContentLoaded', () => {
 
-        // --- ELEMEN DOM ---
-        const teacherSelect = document.getElementById('teacherSelect');
-        const teacherNIP = document.getElementById('teacherNIP');
-        const supervisorSelect = document.getElementById('supervisorSelect');
-        const supervisorNIP = document.getElementById('supervisorNIP');
-        const adminTableBody = document.getElementById('adminTableBody');
-        const instrumentTableBody = document.getElementById('instrumentTableBody');
-        const prosesTableBody = document.getElementById('prosesTableBody');
+// --- MODIFIKASI UNTUK SHEETDB ---
+const SHEETDB_API_ID = 'pr3a66fxh9upl';
+const SHEETDB_URL = `https://sheetdb.io/api/v1/${SHEETDB_API_ID}`;
 
-        // --- FUNGSI INISIALISASI ---
+// --- DATA MASTER ---
+const defaultTeacherData = {
+"Maryono S.Pd, M.Si": "196607012000121002",
+"Satyo Nugroho, S.Kom.": "197807142009031006",
+"Dra. Sri Mularsih": "196706201994122001",
+"Drs. Fiva Widiarto": "196510231996011002",
+"Wahyu Budi Susapti, S.Pd, MM.": "197207291997022002",
+"Marwoto, S.Pd, S.Kom": "196904082000121001",
+"Sri Endah Swarastuti, S.Pd": "197407022003122004",
+"Dra. Cukat Budi Rahayu": "196901121994032010",
+"Dra. Diah Ayu Supriyanti": "196603261994122004",
+"Justina Trirahaju Leksanawati, S.Pd., M.Si.": "197104162003122006",
+"Sri Wahyuni, S.Pd": "197008022002122004",
+"Dwi Agus Tri M.M., S.Pd": "197102232002122004",
+"Sumardi, S.Pd., S.Kom": "197305272003121002",
+"Agung Pamuji, S.Pd": "197402132005011008",
+"Retnowati, S.Pd": "197303272005012009",
+"Tony Eka Martin Wibowo, S.Si.": "197912092005011004",
+"Nur Romlah, S.Pd": "197509082008012008",
+"Deddy Suwito, S.Kom": "197209022006041013",
+"Agus Wuryanto, S.Pd": "197503222006041002",
+"Tri Puji Utami, S.Kom": "198304252009032009",
+"Puji Pertiwi Sayekti, S.Pd": "196805102005012011",
+"Nur Fajriyahti, S.Pd.": "197005212007012014",
+"Srirahayu, S.Pd.": "197408042008012009",
+"Romidin, S.Pd": "197505052008011021",
+"Teguh Cahyono, S.Pd.": "198110232006041010",
+"Seto Eko Purwanto, S.Si": "197804232010011009",
+"Nelly Amaliyah, S.Psi": "197907032010012019",
+"Suratno, S.Pd": "198409032010011012",
+"Vektor Realita Aditopo, S.Pd": "198603312011011003",
+"Adi Setiawan, S.Pd.": "199012292014021001",
+"Galih Tyas Anjari, S.Pd.": "199201212014022001",
+"Deti Lestiyorini, S.Pd.": "198912142014022001",
+"Mahzun, S.Pd I": "197601072008011009",
+"Sugeng Pitoyo, S.Pd.": "197311032008011002",
+"Asriyatun, S.Pd": "199208262020122009",
+"Nur Laeli, S.Pd": "199704112020122011",
+"Sepudin Zupri, S.Kom": "197010222022211001",
+"Arif Nurokhman, S.Pd": "198010172022211002",
+"Elis Sugiarti, S.Pd.": "198503072022212028",
+"Sudiyarti, S.Pd": "198511182022212012",
+"Otiah, S.Pd.": "198802242022212013",
+"Novaristya Widyasmara Pamungkas, S.Pd": "198811042022211004",
+"Menik Yuni Hartini, S.Pd.": "198906292022212008",
+"Baiq Nur Aisyah, S.Pd.": "198909222022212005",
+"Sulistiono, S.Pd.": "199112202022211007",
+"Isria Rizqona Firdausyi, S.Pd.": "199201312022212011",
+"Hindun Fatmawati, S.Pd.": "199210042022212007",
+"Ana Nurlatifah, S.Pd.": "199304032022212014",
+"Dwi Inayah Rahmawati, M.Pd.": "199311282022212011",
+"Danu Dwi Jatmiko, S.Pd.": "199401192022211003",
+"Restu Afri Widhi Hastutiningsih, S.Pd.": "199604032022212009",
+"Nining Setiani, S.Pd.": "199610102022212008",
+"Kukuh Pribadi, S.Pd.": "198610232022211006",
+"Yekti Apriyoni, S.Pd.": "197804272023212002",
+"Novita Adhimurti, S.Pd.": "197811142023212001",
+"Khamsyatun Yudiana, S.Pd.I.": "198207132023212011",
+"Nanang Cahyana, S.Pd.Ing.": "198603172023211003",
+"Waskito Ismu Hastomo, S.Pd.": "198606092023211007",
+"Lely Erawati, S.Pd.": "198708212023212018",
+"Septian Endro Laksono, S.Pd.": "199009052023211004",
+"Firmanika Rozaqi, S.Pd.": "199104242023212024",
+"Devi Artati, S.Pd.": "199210112023212020",
+"Soviatun Khasanah, S.Pd.": "199606302023212006",
+"Miftah Iskandar, S.Pd.": "198512112023211006",
+"Dista Puspitasari Adi, S.Pd.": "198603182024212004",
+"Rita Wijiarti, S.Pd.": "199410172024212021",
+"Safa Aulia Astri, S.Sos": "199607212024212021",
+"Slamet Suparman, S.Pd.": "-",
+"Devi Dwi Wahyuni, S.Pd.": "-",
+"Agus Sutono, S.Pd.": "197406182025211007",
+"Yanti Karadina, S.Pd.": "197512172025212006",
+"Widia Sukaesih, S.E.": "197810082025212008",
+"Triyanto, S.Pd.": "198411252025211021",
+"Inayatul Munawaroh, S.Pd.": "199301062025212023",
+"Danu Setio Aji, S.Pd.": "199310162025211021",
+"Hera Dwi Suryandari, S.Pd.": "199312262025212012",
+"Rindhi Rezqi Hertindha, M.Pd.": "-",
+"Seli Fadriyah, S.Pd.": "-",
+"Nurhidayah, S.S., M.Pd.": "-",
+"Prana Prakasita, S.Pd.": "-",
+"Rita Puspitasari, S.Pd.": "-",
+"Ullil Hykmah, S.Pd.": "-",
+"Muhammad Idris Afandi, S.S., M.Pd.": "-",
+};
 
-        function populateDropdowns() {
-            teacherData.forEach(teacher => {
-                const option = new Option(teacher.name, teacher.name);
-                teacherSelect.add(option);
-            });
-            supervisorData.forEach(supervisor => {
-                const option = new Option(supervisor.name, supervisor.name);
-                supervisorSelect.add(option);
-            });
-        }
+const teacherData = Object.entries(defaultTeacherData).map(([name, nip]) => ({ name, nip }));
+teacherData.unshift({ name: "-- Pilih Guru --", nip: "" });
 
-        function fillNIP(event) {
-            const select = event.currentTarget;
-            const selectedName = select.value;
-            let data, targetNIP;
+const supervisorData = [
+{ name: "-- Pilih Supervisor --", nip: "" },
+{ name: "Maryono S.Pd, M.Si", nip: "196607012000121002" },
+{ name: "Satyo Nugroho, S.Kom.", nip: "197807142009031006" },
+{ name: "Dra. Sri Mularsih", nip: "196706201994122001" },
+{ name: "Wahyu Budi Susapti, S.Pd, MM.", nip: "197207291997022002" },
+{ name: "Justina Trirahaju Leksanawati, S.Pd., M.Si.", nip: "197104162003122006" },
+{ name: "Sumardi, S.Pd., S.Kom", nip: "197305272003121002" },
+{ name: "Retnowati, S.Pd", nip: "197303272005012009" },
+{ name: "Nur Romlah, S.Pd", nip: "197509082008012008" },
+{ name: "Nur Fajriyahti, S.Pd.", nip: "197005212007012014" },
+{ name: "Romidin, S.Pd", nip: "197505052008011021" },
+{ name: "Seto Eko Purwanto, S.Si", nip: "197804232010011009" },
+{ name: "Suratno, S.Pd", nip: "198409032010011012" },
+{ name: "Adi Setiawan, S.Pd.", nip: "199012292014021001" },
+{ name: "Galih Tyas Anjari, S.Pd.", nip: "199201212014022001" },
+{ name: "Deti Lestiyorini, S.Pd.", nip: "198912142014022001" },
+{ name: "Sepudin Zupri, S.Kom", nip: "197010222022211001" },
+{ name: "Sri Endah Swarastuti, S.Pd", nip: "197407022003122004"},
+{ name: "Menik Yuni Hartini, S.Pd.", nip: "198906292022212008" }
+];
 
-            if (select.id === 'teacherSelect') {
-                data = teacherData;
-                targetNIP = teacherNIP;
-            } else { // supervisorSelect
-                data = supervisorData;
-                targetNIP = supervisorNIP;
-            }
-            
-            const selectedData = data.find(item => item.name === selectedName);
-            targetNIP.value = selectedData ? selectedData.nip : "";
-        }
+const headmasterData = {
+name: "Maryono S.Pd, M.Si",
+nip: "196607012000121002"
+};
 
-        function populateAdminTable() {
-            adminTableBody.innerHTML = ''; // Kosongkan dulu
-            adminItems.forEach((item, index) => {
-                const row = adminTableBody.insertRow();
-                row.className = "bg-white border-b hover:bg-gray-50";
-                row.innerHTML = `
-                    <td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
-                    <td class="px-6 py-4 font-medium text-gray-900">${item}</td>
-                    ${[0, 1, 2].map(value => `
-                        <td class="px-6 py-4 text-center">
-                            <label class="custom-radio flex justify-center items-center">
-                                <input type="radio" name="admin_item_${index}" value="${value}" class="admin-radio-item" ${value === 2 ? 'checked' : ''}>
-                                <span class="radio-checkmark"></span>
-                            </label>
-                        </td>
-                    `).join('')}
-                `;
-            });
-        }
+const adminItems = [
+"Program Tahunan (Prota)",
+"Program Semester (Promes)",
+"Capaian Pembelajaran (CP)",
+"Alur Tujuan Pembelajaran (ATP)",
+"Modul Ajar / RPM",
+"KKTP / KKM",
+"Jurnal / Agenda Guru",
+"Daftar Hadir Siswa",
+"Daftar Nilai Siswa",
+"Analisis Penilaian",
+"Program Remedial & Pengayaan",
+"Buku Teks / Sumber Belajar"
+];
+const TOTAL_ADMIN_ITEMS = adminItems.length;
+const MAX_ADMIN_SCORE = TOTAL_ADMIN_ITEMS * 2;
 
-        function populateInstrumentTable() {
-            instrumentTableBody.innerHTML = ''; // Kosongkan dulu
-            let itemCounter = 1;
-            instrumentItems.forEach((aspectGroup, aspectIndex) => {
-                const headerRow = instrumentTableBody.insertRow();
-                headerRow.className = "bg-gray-100 font-semibold text-gray-700 uppercase";
-                headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${aspectGroup.aspect}</td>`;
-                
-                aspectGroup.items.forEach((itemText, itemIndex) => {
-                    const itemRow = instrumentTableBody.insertRow();
-                    itemRow.className = "bg-white border-b hover:bg-gray-50";
-                    const cleanItemText = itemText.replace(/^[0-9]+\.\s*/, '');
-                    
-                    itemRow.innerHTML = `
-                        <td class="px-4 py-3 text-center">${itemCounter}</td>
-                        <td class="px-4 py-3" colspan="2">${cleanItemText}</td>
-                        ${[0, 1, 2].map(value => `
-                            <td class="px-4 py-3 text-center">
-                                <label class="custom-radio flex justify-center items-center">
-                                    <input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item" ${value === 2 ? 'checked' : ''}>
-                                    <span class="radio-checkmark"></span>
-                                </label>
-                            </td>
-                        `).join('')}
-                        <td class="px-4 py-3">
-                            <input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
-                        </td>
-                    `;
-                    itemCounter++;
-                });
-            });
-        }
+const instrumentItems = [
+{ aspect: "IDENTITAS MODUL", items: ["1. Nama Sekolah", "2. Nama Guru", "3. Nama Mata Pelajaran", "4. Elemen", "5. Fase/Kelas / Semester", "6. Alokasi Waktu", "7. Tahun Pelajaran"] },
+{ aspect: "IDENTIFIKASI MURID", items: ["Mencantumkan Kondisi Kemampuan Murid Sebelum Kegiatan Pembelajaran", "Mencantumkan Bahwa Murid Mengetahui Materi Prasyarat"] },
+{ aspect: "IDENTIFIKASI MATERI", items: ["Mencantumkan Karakteristik Materi"] },
+{ aspect: "DIMENSI PROFIL LULUSAN", items: ["Mencantumkan Dimensi Profil Lulusa n"] },
+{ aspect: "CAPAIAN PEMBELAJARAN", items: ["Mencantumkan Capaian Pembelajaran di akhir Fase"] },
+{ aspect: "LINTAS DISIPLIN ILMU", items: ["Mencantumkan mata pelajaran yang terkait dengan materi."] },
+{ aspect: "TUJUAN PEMBELAJARAN", items: ["Mencantumkan Tujuan yang Akan Dicapai saat Pembelajaran"] },
+{ aspect: "TOPIK PEMBELAJARAN", items: ["Mencantumkan Topik Pembelajaran"] },
+{ aspect: "PRAKTIK PEDAGOGIS", items: ["Menggambarkan model pembelajaran.", "Mencantumkan strategi pembelajaran.", "Mencantumkan Metode Pembelajaran."] },
+{ aspect: "KEMITRAAN PEMBELAJARAN", items: ["Kemitraan yang dilibatkan dalam kegiatan pembelajaran"] },
+{ aspect: "LINGKUNGAN PEMBELAJARAN", items: ["Mencantumkan ruang yang digunakan dalam kegiatan pembelajaran."] },
+{ aspect: "PEMANFAATAN DIGITAL", items: ["Media digital yang digunakan dalam kegiatan pembelajaran"] },
+{ aspect: "LANGKAH PEMBELAJARAN", items: ["Mencantumkan 3 prinsip pembelajaran mendalam ( berkesadaran, bermakna dan menyenangkan)", "Mencantumkan 3 pengalaman belajar murid (memahami, mengaplikasi dan merefleksi)"] },
+{ aspect: "REFLEKSI PESERTA DIDIK", items: ["Mencantumkan Refleksi Peserta didik"] },
+{ aspect: "REFLEKSI GURU", items: ["Mencantumkan refleksi Guru"] },
+{ aspect: "LEMBAR KERJA", items: ["Mencantumkan Lembar Kerja"] },
+{ aspect: "ASESMEN AWAL PEMBELAJARAN", items: ["Mencantumkan Penilaian sebelum pembelajaran (sikap / afektif dan atau kemampuan awal)."] },
+{ aspect: "ASESMEN FORMATIF", items: ["Mencantumkan Penilaian selama proses pembelajaran"] },
+{ aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
+];
 
-        function populateProsesTable() {
-            prosesTableBody.innerHTML = ''; // Kosongkan dulu
-            let itemCounter = 1;
-            prosesItems.forEach((sectionGroup, sectionIndex) => {
-                const headerRow = prosesTableBody.insertRow();
-                headerRow.className = "bg-gray-200 font-bold text-gray-800 uppercase";
-                headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${sectionGroup.section}</td>`;
-                
-                sectionGroup.items.forEach((itemText, itemIndex) => {
-                    const itemRow = prosesTableBody.insertRow();
-                    itemRow.className = "bg-white border-b hover:bg-gray-50";
-                    
-                    itemRow.innerHTML = `
-                        <td class="px-4 py-3 text-center font-medium text-gray-900">${itemCounter}</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">${itemText}</td>
-                        ${[1, 2, 3, 4].map(value => `
-                            <td class="px-4 py-3 text-center">
-                                <label class="custom-radio flex justify-center items-center">
-                                    <input type="radio" name="proses_item_${itemCounter - 1}" value="${value}" class="proses-radio-item" ${value === 4 ? 'checked' : ''}>
-                                    <span class="radio-checkmark"></span>
-                                </label>
-                            </td>
-                        `).join('')}
-                        <td class="px-4 py-3">
-                            <input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
-                        </td>
-                    `;
-                    itemCounter++;
-                });
-            });
-        }
+const TOTAL_INSTRUMENT_ITEMS = instrumentItems.reduce((acc, aspectGroup) => acc + aspectGroup.items.length, 0);
+const MAX_INSTRUMENT_SCORE = TOTAL_INSTRUMENT_ITEMS * 2;
 
-        // --- FUNGSI NAVIGASI TAB ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-            
-            document.getElementById(tabId + '-content').classList.add('active');
-            document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
-        }
+const prosesItems = [
+{ section: "I. KEGIATAN PENDAHULUAN", items: [
+"Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...",
+"Guru menyampaikan dan mengingatkan keyakinan kelas...",
+"Guru mengajukan pertanyaan sebagai asesmen formatif di awal...",
+"Memberikan apersepsi dengan cara menghubungkan materi...",
+"Menyampaikan tujuan pembelajaran, dan kompetensi yang akan dicapai...",
+"Menyampaikan manfaat pembelajaran.",
+"Menyampaikan langkah-langkah kegiatan pembelajaran...",
+"Guru mengelola kesadaran sosial dan emosional (KSE) siswa..."
+]},
+{ section: "II. KEGIATAN INTI", items: [
+"Kemampuan menyesuaikan materi dengan tujuan pembelajaran.",
+"Kemampuan mengaitkan materi dengan pengetahuan lain...",
+"Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...",
+"Memotivasi peserta didik untuk berpartisipasi aktif...",
+"Guru menyajikan materi secara sistematis...",
+"Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.",
+"Guru melaksanakan pembelajaran sesuai dengan kompetensi...",
+"Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).",
+"Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengemukakan pendapat).",
+"Menguasai pengelolaan kelas dengan baik.",
+"Melaksanakan asesmen formatif dalam Proses Pembelajaran.",
+"Melaksanakan umpan balik pelaksanaan proses pembelajaran.",
+"Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.",
+"Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...",
+"Melaksanakan pembelajaran sesuai dengan alokasi waktu...",
+"Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...",
+"Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.",
+"Pembelajaran bersifat interaktif (communication).",
+"Pembelajaran menantang (critical thinking and problem solving).",
+"Pembelajaran mendorong peserta didik bekerja sama (collaboration).",
+"Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).",
+"Guru menciptakan suasana kelas yang kondusif...",
+"Guru menerapkan prinsip disiplin positif...",
+"Melaksanakan pembelajaran yang berpusat pada siswa.",
+"Guru memberikan perhatian dan bantuan ekstra...",
+"Guru senantiasa memberikan umpan balik langsung...",
+"Guru memberikan respon positif terhadap partisipasi peserta didik.",
+"Guru melaksanakan praktik adaptasi pengajaran (Diferensiasi Konten).",
+"Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).",
+"Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).",
+"Menumbuhkan keceriaan dan antusiasme peserta didik...",
+"Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.",
+"Menggunakan pilihan kata yang mudah dipahami...",
+"Menyampaikan pesan dan gaya yang sesuai."
+]},
+{ section: "III. KEGIATAN PENUTUP", items: [
+"Membuat rangkuman dan/atau kesimpulan...",
+"Melakukan refleksi pembelajaran...",
+"Melaksanakan Asesmen sumatif / penilaian pembelajaran...",
+"Melaksanakan tindak lanjut dengan memberikan arahan...",
+"Menyampaikan rencana pembelajaran berikutnya.",
+"Menutup Pembelajaran."
+]}
+];
 
-        // --- FUNGSI PERHITUNGAN ---
+const TOTAL_PROSES_BUTIR = 48;
+const MAX_PROSES_SKOR = TOTAL_PROSES_BUTIR * 4;
 
-        function calculateAdminScore() {
-            let totalScore = 0;
-            let counts = { 0: 0, 1: 0, 2: 0 };
-            const checkedRadios = document.querySelectorAll('.admin-radio-item:checked');
-            
-            checkedRadios.forEach(radio => {
-                const value = parseInt(radio.value);
-                totalScore += value;
-                counts[value]++;
-            });
-            
-            const uncheckedCount = TOTAL_ADMIN_ITEMS - checkedRadios.length;
-            counts[0] += uncheckedCount;
+// --- ELEMEN DOM ---
+const teacherSelect = document.getElementById('teacherSelect');
+const teacherNIP = document.getElementById('teacherNIP');
+const supervisorSelect = document.getElementById('supervisorSelect');
+const supervisorNIP = document.getElementById('supervisorNIP');
+const adminTableBody = document.getElementById('adminTableBody');
+const instrumentTableBody = document.getElementById('instrumentTableBody');
+const prosesTableBody = document.getElementById('prosesTableBody');
 
-            const percentage = (totalScore / MAX_ADMIN_SCORE) * 100;
+// --- FUNGSI INISIALISASI ---
 
-            document.getElementById('countTidakAda').textContent = counts[0];
-            document.getElementById('countAdaTidakSesuai').textContent = counts[1];
-            document.getElementById('countAdaSesuai').textContent = counts[2];
-            document.getElementById('skorTotalAdmin').textContent = totalScore;
-            document.getElementById('ketersediaanAdmin').textContent = percentage.toFixed(2) + '%';
-            
-            updateAchievementLevel(percentage);
-        }
+function populateDropdowns() {
+teacherData.forEach(teacher => {
+const option = new Option(teacher.name, teacher.name);
+teacherSelect.add(option);
+});
+supervisorData.forEach(supervisor => {
+const option = new Option(supervisor.name, supervisor.name);
+supervisorSelect.add(option);
+});
+}
 
-        function updateAchievementLevel(percentage) {
-            document.querySelectorAll('.achievement-level').forEach(el => el.classList.remove('highlighted'));
-            if (percentage >= 80) {
-                document.getElementById('level-sangat-baik').classList.add('highlighted');
-            } else if (percentage >= 60) {
-                document.getElementById('level-baik').classList.add('highlighted');
-            } else if (percentage >= 40) {
-                document.getElementById('level-cukup').classList.add('highlighted');
-            } else {
-                document.getElementById('level-kurang').classList.add('highlighted');
-            }
-        }
+function fillNIP(event) {
+const select = event.currentTarget;
+const selectedName = select.value;
+let data, targetNIP;
 
-        function calculateInstrumentScore() {
-            let totalScore = 0;
-            const checkedRadios = document.querySelectorAll('.instrument-radio-item:checked');
-            
-            checkedRadios.forEach(radio => {
-                totalScore += parseInt(radio.value);
-            });
-            
-            const finalGrade = (totalScore / MAX_INSTRUMENT_SCORE) * 100;
-            const predicate = getPredikat(finalGrade);
-            
-            document.getElementById('total-score-instrument').textContent = totalScore;
-            document.getElementById('max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
-            document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
-            document.getElementById('predicate-instrument').textContent = predicate.text;
-            document.getElementById('predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
-        }
+if (select.id === 'teacherSelect') {
+data = teacherData;
+targetNIP = teacherNIP;
+} else { // supervisorSelect
+data = supervisorData;
+targetNIP = supervisorNIP;
+}
 
-        // --- PERBAIKAN 1: Tambahkan parameter 'shouldScroll' ---
-        function calculateProsesScore(shouldScroll = false) {
-            let totalSkorPerolehan = 0;
-            let semuaTerisi = true;
-            
-            const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
-            
-            if (semuaSkor.length < TOTAL_PROSES_BUTIR) {
-                if (shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
-                    showMessage(`Harap isi semua ${TOTAL_PROSES_BUTIR} butir penilaian. Anda baru mengisi ${semuaSkor.length}.`, true);
-                }
-                document.getElementById('hasilProsesSection').classList.add('hidden');
-                return;
-            }
-            
-            semuaSkor.forEach(item => {
-                const nilai = parseInt(item.value);
-                if (nilai === 0 || isNaN(nilai)) {
-                    semuaTerisi = false;
-                } else {
-                    totalSkorPerolehan += nilai;
-                }
-            });
+const selectedData = data.find(item => item.name === selectedName);
+targetNIP.value = selectedData ? selectedData.nip : "";
+}
 
-            if (!semuaTerisi && shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
-                showMessage('Harap isi semua butir penilaian di Tab 3.', true);
-                document.getElementById('hasilProsesSection').classList.add('hidden');
-                return;
-            }
-            
-            hideMessage();
-            
-            const nilaiAkhir = (totalSkorPerolehan / MAX_PROSES_SKOR) * 100;
-            const predikat = getPredikat(nilaiAkhir);
-            
-            document.getElementById('skorPerolehanProsesEl').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
-            document.getElementById('nilaiAkhirProsesEl').textContent = nilaiAkhir.toFixed(2);
-            document.getElementById('predikatProsesEl').textContent = predikat.text;
-            document.getElementById('predikatProsesEl').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
-            
-            document.getElementById('hasilProsesSection').classList.remove('hidden');
-            
-            // --- PERBAIKAN 2: Hanya scroll jika 'shouldScroll' bernilai true ---
-            if (shouldScroll) {
-                document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-        
-        function getPredikat(nilai) {
-            if (nilai >= 86) return { text: 'Sangat Baik', color: 'text-green-600' };
-            if (nilai >= 70) return { text: 'Baik', color: 'text-blue-600' };
-            if (nilai >= 55) return { text: 'Cukup', color: 'text-yellow-600' };
-            return { text: 'Kurang', color: 'text-red-600' };
-        }
-        
-        const messageBox = document.getElementById('messageBox');
-        const messageText = document.getElementById('messageText');
-        function showMessage(message, isError = true) {
-            messageText.textContent = message;
-            messageBox.className = `p-4 mb-4 text-sm rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
-            messageBox.classList.remove('hidden');
-            messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        function hideMessage() {
-            messageBox.classList.add('hidden');
-        }
+function populateAdminTable() {
+adminTableBody.innerHTML = ''; // Kosongkan dulu
+adminItems.forEach((item, index) => {
+const row = adminTableBody.insertRow();
+row.className = "bg-white border-b hover:bg-gray-50";
+row.innerHTML = `
+<td class="px-6 py-4 text-center font-medium text-gray-900">${index + 1}</td>
+<td class="px-6 py-4 font-medium text-gray-900">${item}</td>
+${[0, 1, 2].map(value => `
+<td class="px-6 py-4 text-center">
+<label class="custom-radio flex justify-center items-center">
+<input type="radio" name="admin_item_${index}" value="${value}" class="admin-radio-item" ${value === 2 ? 'checked' : ''}>
+<span class="radio-checkmark"></span>
+</label>
+</td>
+`).join('')}
+`;
+});
+}
 
-        async function saveToSheetDB(formData) {
-            const response = await fetch(SHEETDB_URL, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: formData
-                })
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Gagal menyimpan data ke SheetDB.');
-            }
-            
-            return await response.json();
-        }
+function populateInstrumentTable() {
+instrumentTableBody.innerHTML = ''; // Kosongkan dulu
+let itemCounter = 1;
+instrumentItems.forEach((aspectGroup, aspectIndex) => {
+const headerRow = instrumentTableBody.insertRow();
+headerRow.className = "bg-gray-100 font-semibold text-gray-700 uppercase";
+headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${aspectGroup.aspect}</td>`;
 
-        const identityFields = ['teacherSelect', 'subject', 'classSemester', 'supervisionDate', 'supervisorSelect'];
-        
-        function validateIdentity() {
-            let isValid = true;
-            identityFields.forEach(id => {
-                const field = document.getElementById(id);
-                const errorEl = document.getElementById(id + 'Error');
-                
-                let value = field.value.trim();
-                
-                if (field.tagName === 'SELECT' && (value === '-- Pilih Guru --' || value === '-- Pilih Supervisor --')) {
-                    value = ""; 
-                }
+aspectGroup.items.forEach((itemText, itemIndex) => {
+const itemRow = instrumentTableBody.insertRow();
+itemRow.className = "bg-white border-b hover:bg-gray-50";
+const cleanItemText = itemText.replace(/^[0-9]+\.\s*/, '');
 
-                if (!value) {
-                    isValid = false;
-                    field.classList.add('input-error');
-                    if (errorEl) errorEl.style.display = 'block';
-                } else {
-                    field.classList.remove('input-error');
-                    if (errorEl) errorEl.style.display = 'none';
-                }
-            });
-            
-            if (!isValid) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            return isValid;
-        }
+itemRow.innerHTML = `
+<td class="px-4 py-3 text-center">${itemCounter}</td>
+<td class="px-4 py-3" colspan="2">${cleanItemText}</td>
+${[0, 1, 2].map(value => `
+<td class="px-4 py-3 text-center">
+<label class="custom-radio flex justify-center items-center">
+<input type="radio" name="instr_item_${itemCounter - 1}" value="${value}" class="instrument-radio-item" ${value === 2 ? 'checked' : ''}>
+<span class="radio-checkmark"></span>
+</label>
+</td>
+`).join('')}
+<td class="px-4 py-3">
+<input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
+</td>
+`;
+itemCounter++;
+});
+});
+}
 
-        function handleSaveAndPrint(event) {
-            event.preventDefault();
-            
-            if (!validateIdentity()) {
-                showMessage('Validasi Gagal! Harap lengkapi semua data di bagian IDENTITAS SUPERVISI.', true);
-                switchTab('administrasi'); 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
+function populateProsesTable() {
+prosesTableBody.innerHTML = ''; // Kosongkan dulu
+let itemCounter = 1;
+prosesItems.forEach((sectionGroup, sectionIndex) => {
+const headerRow = prosesTableBody.insertRow();
+headerRow.className = "bg-gray-200 font-bold text-gray-800 uppercase";
+headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${sectionGroup.section}</td>`;
 
-            // Validasi juga bahwa Tab 3 sudah dihitung
-            if (document.getElementById('hasilProsesSection').classList.contains('hidden')) {
-                showMessage('Harap klik tombol "Hitung Nilai Proses Pembelajaran" di Tab 3 sebelum menyimpan.', true);
-                switchTab('proses');
-                document.getElementById('hitungProsesBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
-            }
-            
-            const selectedTeacher = teacherData.find(t => t.name === teacherSelect.value);
-            const selectedSupervisor = supervisorData.find(s => s.name === supervisorSelect.value);
-            const supervisionDateInput = document.getElementById('supervisionDate').value;
+sectionGroup.items.forEach((itemText, itemIndex) => {
+const itemRow = prosesTableBody.insertRow();
+itemRow.className = "bg-white border-b hover:bg-gray-50";
+itemRow.id = `proses-item-${itemCounter}`;
 
-            if (!supervisionDateInput) {
-                 showMessage('Tanggal Supervisi wajib diisi.', true);
-                 switchTab('administrasi');
-                 document.getElementById('supervisionDate').classList.add('input-error');
-                 document.getElementById('supervisionDateError').style.display = 'block';
-                 return;
-            }
+itemRow.innerHTML = `
+<td class="px-4 py-3 text-center font-medium text-gray-900">${itemCounter}</td>
+<td class="px-4 py-3 font-medium text-gray-900">${itemText}</td>
+${[1, 2, 3, 4].map(value => `
+<td class="px-4 py-3 text-center">
+<label class="custom-radio flex justify-center items-center">
+<input type="radio" name="proses_item_${itemCounter - 1}" value="${value}" class="proses-radio-item" ${value === 4 ? 'checked' : ''}>
+<span class="radio-checkmark"></span>
+</label>
+</td>
+`).join('')}
+<td class="px-4 py-3">
+<input type="text" class="w-full border-gray-200 rounded-md text-xs p-1" placeholder="Catatan...">
+</td>
+`;
+itemCounter++;
+});
+});
+}
 
-            const supervisionDate = new Date(supervisionDateInput).toLocaleDateString('id-ID', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
+// --- FUNGSI NAVIGASI TAB ---
+function switchTab(tabId) {
+document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
 
-            const formData = {
-                "Nama Guru": selectedTeacher.name,
-                "NIP Guru": selectedTeacher.nip || '-',
-                "Mata Pelajaran": document.getElementById('subject').value,
-                "Kelas Semester": document.getElementById('classSemester').value,
-                "Tanggal Supervisi": supervisionDate,
-                "Nama Supervisor": selectedSupervisor.name,
-                "NIP Supervisor": selectedSupervisor.nip || '-',
-                "Skor Total Admin": document.getElementById('skorTotalAdmin').textContent,
-                "Ketersediaan Admin": document.getElementById('ketersediaanAdmin').textContent,
-                "Skor Instrumen": document.getElementById('total-score-instrument').textContent,
-                "Nilai Akhir Instrumen": document.getElementById('final-grade-instrument').textContent,
-                "Predikat Instrumen": document.getElementById('predicate-instrument').textContent,
-                "Skor Proses": document.getElementById('skorPerolehanProsesEl').textContent,
-                "Nilai Akhir Proses": document.getElementById('nilaiAkhirProsesEl').textContent,
-                "Predikat Proses": document.getElementById('predikatProsesEl').textContent,
-                "Catatan Umum": document.getElementById('catatanUmum').value,
-                "Rekomendasi": document.getElementById('rekomendasi').value,
-                "Timestamp": new Date().toISOString()
-            };
-            
-            saveToSheetDB(formData)
-                .then(response => {
-                    console.log('Data berhasil disimpan:', response);
-                    showMessage('Data berhasil disimpan ke database! Sedang mempersiapkan cetakan...', false);
-                    
-                    document.getElementById('print-tanggal').textContent = supervisionDate;
-                    document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
-                    document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
-                    document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
-                    document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
-                    document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
-                    document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
+document.getElementById(tabId + '-content').classList.add('active');
+document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
+}
 
-                    setTimeout(() => {
-                        window.print();
-                    }, 1500); 
-                })
-                .catch(error => {
-                    console.error('Error saat menyimpan data:', error);
-                    showMessage(`Gagal menyimpan data: ${error.message}. Silakan coba lagi atau hubungi administrator.`, true);
-                });
-        }
+// --- FUNGSI PERHITUNGAN ---
 
-        // --- EVENT LISTENERS ---
-        
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                switchTab(e.currentTarget.dataset.tab);
-            });
-        });
+function calculateAdminScore() {
+let totalScore = 0;
+let counts = { 0: 0, 1: 0, 2: 0 };
+const checkedRadios = document.querySelectorAll('.admin-radio-item:checked');
 
-        teacherSelect.addEventListener('change', fillNIP);
-        supervisorSelect.addEventListener('change', fillNIP);
-        
-        document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
-        document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
-        
-        // --- PERBAIKAN 3: Modifikasi Event Listener ---
-        document.getElementById('prosesTable').addEventListener('change', () => calculateProsesScore(false)); 
-        document.getElementById('hitungProsesBtn').addEventListener('click', () => calculateProsesScore(true));
+checkedRadios.forEach(radio => {
+const value = parseInt(radio.value);
+totalScore += value;
+counts[value]++;
+});
 
-        document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
-                 document.getElementById('supervisionForm').reset();
-                 teacherSelect.value = "-- Pilih Guru --";
-                 supervisorSelect.value = "-- Pilih Supervisor --";
-                 // Perbaikan: Panggil fungsi populate ulang untuk mengembalikan radio button ke default 'checked'
-                 populateAdminTable();
-                 populateInstrumentTable();
-                 populateProsesTable();
-                 // Hitung ulang semua
-                 calculateAdminScore();
-                 calculateInstrumentScore();
-                 document.getElementById('hasilProsesSection').classList.add('hidden');
-                 document.getElementById('predikatProsesEl').textContent = '--';
-                 document.getElementById('predikatProsesEl').className = 'text-4xl font-extrabold mt-2';
-                 updateAchievementLevel(0);
-                 hideMessage();
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-        
-        identityFields.forEach(id => {
-            document.getElementById(id).addEventListener('input', () => {
-                document.getElementById(id).classList.remove('input-error');
-                const errorEl = document.getElementById(id + 'Error');
-                if (errorEl) errorEl.style.display = 'none';
-            });
-             document.getElementById(id).addEventListener('change', () => {
-                document.getElementById(id).classList.remove('input-error');
-                const errorEl = document.getElementById(id + 'Error');
-                if (errorEl) errorEl.style.display = 'none';
-            });
-        });
+const uncheckedCount = TOTAL_ADMIN_ITEMS - checkedRadios.length;
+counts[0] += uncheckedCount;
 
-        // --- INISIALISASI ---
-        populateDropdowns();
-        populateAdminTable();
-        populateInstrumentTable();
-        populateProsesTable();
-        calculateAdminScore(); 
-        calculateInstrumentScore(); 
-    });
-    </script>
+const percentage = (totalScore / MAX_ADMIN_SCORE) * 100;
+
+document.getElementById('countTidakAda').textContent = counts[0];
+document.getElementById('countAdaTidakSesuai').textContent = counts[1];
+document.getElementById('countAdaSesuai').textContent = counts[2];
+document.getElementById('skorTotalAdmin').textContent = totalScore;
+document.getElementById('ketersediaanAdmin').textContent = percentage.toFixed(2) + '%';
+
+updateAchievementLevel(percentage);
+}
+
+function updateAchievementLevel(percentage) {
+document.querySelectorAll('.achievement-level').forEach(el => el.classList.remove('highlighted'));
+if (percentage >= 80) {
+document.getElementById('level-sangat-baik').classList.add('highlighted');
+} else if (percentage >= 60) {
+document.getElementById('level-baik').classList.add('highlighted');
+} else if (percentage >= 40) {
+document.getElementById('level-cukup').classList.add('highlighted');
+} else {
+document.getElementById('level-kurang').classList.add('highlighted');
+}
+}
+
+function calculateInstrumentScore() {
+let totalScore = 0;
+const checkedRadios = document.querySelectorAll('.instrument-radio-item:checked');
+
+checkedRadios.forEach(radio => {
+totalScore += parseInt(radio.value);
+});
+
+const finalGrade = (totalScore / MAX_INSTRUMENT_SCORE) * 100;
+const predicate = getPredikat(finalGrade);
+
+document.getElementById('total-score-instrument').textContent = totalScore;
+document.getElementById('max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
+document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
+document.getElementById('predicate-instrument').textContent = predicate.text;
+document.getElementById('predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
+}
+
+// --- PERBAIKAN: Fungsi untuk menandai butir yang belum dinilai ---
+function markUnratedItems() {
+// Hapus semua penanda sebelumnya
+document.querySelectorAll('.unrated-item').forEach(el => {
+el.classList.remove('unrated-item');
+});
+
+// Tandai butir yang belum dinilai
+for (let i = 0; i < TOTAL_PROSES_BUTIR; i++) {
+const radios = document.querySelectorAll(`input[name="proses_item_${i}"]:checked`);
+const row = document.getElementById(`proses-item-${i+1}`);
+if (radios.length === 0 && row) {
+row.classList.add('unrated-item');
+}
+}
+}
+
+// --- PERBAIKAN: Fungsi perhitungan proses yang dipisah ---
+function calculateProsesScore(shouldScroll = false) {
+let totalSkorPerolehan = 0;
+let semuaTerisi = true;
+
+// Tandai butir yang belum dinilai
+markUnratedItems();
+
+const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
+
+if (semuaSkor.length < TOTAL_PROSES_BUTIR) {
+if (shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
+showMessage(`Harap isi semua ${TOTAL_PROSES_BUTIR} butir penilaian. Anda baru mengisi ${semuaSkor.length}.`, true);
+}
+document.getElementById('hasilProsesSection').classList.add('hidden');
+return;
+}
+
+semuaSkor.forEach(item => {
+const nilai = parseInt(item.value);
+if (nilai === 0 || isNaN(nilai)) {
+semuaTerisi = false;
+} else {
+totalSkorPerolehan += nilai;
+}
+});
+
+if (!semuaTerisi && shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
+showMessage('Harap isi semua butir penilaian di Tab 3.', true);
+document.getElementById('hasilProsesSection').classList.add('hidden');
+return;
+}
+
+hideMessage();
+
+const nilaiAkhir = (totalSkorPerolehan / MAX_PROSES_SKOR) * 100;
+const predikat = getPredikat(nilaiAkhir);
+
+document.getElementById('skorPerolehanProsesEl').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
+document.getElementById('nilaiAkhirProsesEl').textContent = nilaiAkhir.toFixed(2);
+document.getElementById('predikatProsesEl').textContent = predikat.text;
+document.getElementById('predikatProsesEl').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
+
+document.getElementById('hasilProsesSection').classList.remove('hidden');
+
+// --- PERBAIKAN: Hanya scroll jika 'shouldScroll' bernilai true ---
+if (shouldScroll) {
+document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
+}
+}
+
+function getPredikat(nilai) {
+if (nilai >= 86) return { text: 'Sangat Baik', color: 'text-green-600' };
+if (nilai >= 70) return { text: 'Baik', color: 'text-blue-600' };
+if (nilai >= 55) return { text: 'Cukup', color: 'text-yellow-600' };
+return { text: 'Kurang', color: 'text-red-600' };
+}
+
+const messageBox = document.getElementById('messageBox');
+const messageText = document.getElementById('messageText');
+function showMessage(message, isError = true) {
+messageText.textContent = message;
+messageBox.className = `p-4 mb-4 text-sm rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
+messageBox.classList.remove('hidden');
+messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function hideMessage() {
+messageBox.classList.add('hidden');
+}
+
+async function saveToSheetDB(formData) {
+const response = await fetch(SHEETDB_URL, {
+method: 'POST',
+headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({
+data: formData
+})
+});
+
+if (!response.ok) {
+const errorData = await response.json();
+throw new Error(errorData.message || 'Gagal menyimpan data ke SheetDB.');
+}
+
+return await response.json();
+}
+
+const identityFields = ['teacherSelect', 'subject', 'classSemester', 'supervisionDate', 'supervisorSelect'];
+
+function validateIdentity() {
+let isValid = true;
+identityFields.forEach(id => {
+const field = document.getElementById(id);
+const errorEl = document.getElementById(id + 'Error');
+
+let value = field.value.trim();
+
+if (field.tagName === 'SELECT' && (value === '-- Pilih Guru --' || value === '-- Pilih Supervisor --')) {
+value = "";
+}
+
+if (!value) {
+isValid = false;
+field.classList.add('input-error');
+if (errorEl) errorEl.style.display = 'block';
+} else {
+field.classList.remove('input-error');
+if (errorEl) errorEl.style.display = 'none';
+}
+});
+
+if (!isValid) {
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+return isValid;
+}
+
+function handleSaveAndPrint(event) {
+event.preventDefault();
+
+if (!validateIdentity()) {
+showMessage('Validasi Gagal! Harap lengkapi semua data di bagian IDENTITAS SUPERVISI.', true);
+switchTab('administrasi');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+return;
+}
+
+// Validasi juga bahwa Tab 3 sudah dihitung
+if (document.getElementById('hasilProsesSection').classList.contains('hidden')) {
+showMessage('Harap klik tombol "Hitung Nilai Proses Pembelajaran" di Tab 3 sebelum menyimpan.', true);
+switchTab('proses');
+document.getElementById('hitungProsesBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+return;
+}
+
+const selectedTeacher = teacherData.find(t => t.name === teacherSelect.value);
+const selectedSupervisor = supervisorData.find(s => s.name === supervisorSelect.value);
+const supervisionDateInput = document.getElementById('supervisionDate').value;
+
+if (!supervisionDateInput) {
+showMessage('Tanggal Supervisi wajib diisi.', true);
+switchTab('administrasi');
+document.getElementById('supervisionDate').classList.add('input-error');
+document.getElementById('supervisionDateError').style.display = 'block';
+return;
+}
+
+const supervisionDate = new Date(supervisionDateInput).toLocaleDateString('id-ID', {
+day: 'numeric', month: 'long', year: 'numeric'
+});
+
+const formData = {
+"Nama Guru": selectedTeacher.name,
+"NIP Guru": selectedTeacher.nip || '-',
+"Mata Pelajaran": document.getElementById('subject').value,
+"Kelas Semester": document.getElementById('classSemester').value,
+"Tanggal Supervisi": supervisionDate,
+"Nama Supervisor": selectedSupervisor.name,
+"NIP Supervisor": selectedSupervisor.nip || '-',
+"Skor Total Admin": document.getElementById('skorTotalAdmin').textContent,
+"Ketersediaan Admin": document.getElementById('ketersediaanAdmin').textContent,
+"Skor Instrumen": document.getElementById('total-score-instrument').textContent,
+"Nilai Akhir Instrumen": document.getElementById('final-grade-instrument').textContent,
+"Predikat Instrumen": document.getElementById('predicate-instrument').textContent,
+"Skor Proses": document.getElementById('skorPerolehanProsesEl').textContent,
+"Nilai Akhir Proses": document.getElementById('nilaiAkhirProsesEl').textContent,
+"Predikat Proses": document.getElementById('predikatProsesEl').textContent,
+"Catatan Umum": document.getElementById('catatanUmum').value,
+"Rekomendasi": document.getElementById('rekomendasi').value,
+"Timestamp": new Date().toISOString()
+};
+
+saveToSheetDB(formData)
+.then(response => {
+console.log('Data berhasil disimpan:', response);
+showMessage('Data berhasil disimpan ke database! Sedang mempersiapkan cetakan...', false);
+
+document.getElementById('print-tanggal').textContent = supervisionDate;
+document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
+document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
+document.getElementById('print-supervisor-nama').textContent = selectedSupervisor.name;
+document.getElementById('print-supervisor-nip').textContent = selectedSupervisor.nip || '-';
+document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
+document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
+
+setTimeout(() => {
+window.print();
+}, 1500);
+})
+.catch(error => {
+console.error('Error saat menyimpan data:', error);
+showMessage(`Gagal menyimpan data: ${error.message}. Silakan coba lagi atau hubungi administrator.`, true);
+});
+}
+
+// --- EVENT LISTENERS ---
+
+document.querySelectorAll('.tab-button').forEach(button => {
+button.addEventListener('click', (e) => {
+switchTab(e.currentTarget.dataset.tab);
+});
+});
+
+teacherSelect.addEventListener('change', fillNIP);
+supervisorSelect.addEventListener('change', fillNIP);
+
+document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
+document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
+
+// --- PERBAIKAN: Event listener untuk proses pembelajaran ---
+// Saat radio button berubah, hanya tandai butir yang belum dinilai, tidak scroll
+document.getElementById('prosesTable').addEventListener('change', () => {
+markUnratedItems();
+});
+
+// Saat tombol hitung ditekan, lakukan perhitungan dan scroll
+document.getElementById('hitungProsesBtn').addEventListener('click', () => {
+calculateProsesScore(true);
+});
+
+document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
+document.getElementById('resetBtn').addEventListener('click', () => {
+if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
+document.getElementById('supervisionForm').reset();
+teacherSelect.value = "-- Pilih Guru --";
+supervisorSelect.value = "-- Pilih Supervisor --";
+// Perbaikan: Panggil fungsi populate ulang untuk mengembalikan radio button ke default 'checked'
+populateAdminTable();
+populateInstrumentTable();
+populateProsesTable();
+// Hitung ulang semua
+calculateAdminScore();
+calculateInstrumentScore();
+document.getElementById('hasilProsesSection').classList.add('hidden');
+document.getElementById('predikatProsesEl').textContent = '--';
+document.getElementById('predikatProsesEl').className = 'text-4xl font-extrabold mt-2';
+updateAchievementLevel(0);
+hideMessage();
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+});
+
+identityFields.forEach(id => {
+document.getElementById(id).addEventListener('input', () => {
+document.getElementById(id).classList.remove('input-error');
+const errorEl = document.getElementById(id + 'Error');
+if (errorEl) errorEl.style.display = 'none';
+});
+document.getElementById(id).addEventListener('change', () => {
+document.getElementById(id).classList.remove('input-error');
+const errorEl = document.getElementById(id + 'Error');
+if (errorEl) errorEl.style.display = 'none';
+});
+});
+
+// --- INISIALISASI ---
+populateDropdowns();
+populateAdminTable();
+populateInstrumentTable();
+populateProsesTable();
+calculateAdminScore();
+calculateInstrumentScore();
+});
+</script>
 </body>
 </html>
