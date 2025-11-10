@@ -634,7 +634,6 @@
     document.addEventListener('DOMContentLoaded', () => {
 
         // --- MODIFIKASI UNTUK SHEETDB ---
-        // API ID Anda sudah dimasukkan di sini
         const SHEETDB_API_ID = 'pr3a66fxh9upl'; 
         const SHEETDB_URL = `https://sheetdb.io/api/v1/${SHEETDB_API_ID}`;
 
@@ -725,11 +724,9 @@
             "Muhammad Idris Afandi, S.S., M.Pd.": "-",
         };
 
-        // Konversi ke format array untuk kompatibilitas dengan kode yang ada
         const teacherData = Object.entries(defaultTeacherData).map(([name, nip]) => ({ name, nip }));
         teacherData.unshift({ name: "-- Pilih Guru --", nip: "" });
 
-        // --- PERUBAHAN 1: DATA SUPERVISOR BARU ---
         const supervisorData = [
             { name: "-- Pilih Supervisor --", nip: "" },
             { name: "Maryono S.Pd, M.Si", nip: "196607012000121002" },
@@ -796,11 +793,9 @@
              { aspect: "ASESMEN SUMATIF", items: ["Mencantumkan Penilaian akhir pembelajaran"] }
         ];
         
-        // Calculate total items from the new structure
         const TOTAL_INSTRUMENT_ITEMS = instrumentItems.reduce((acc, aspectGroup) => acc + aspectGroup.items.length, 0);
         const MAX_INSTRUMENT_SCORE = TOTAL_INSTRUMENT_ITEMS * 2;
 
-        // Data untuk Tab 3: Proses Pembelajaran
         const prosesItems = [
             { section: "I. KEGIATAN PENDAHULUAN", items: [
                 "Menyampaikan salam dan menyiapkan fisik dan psikis peserta didik...",
@@ -813,14 +808,11 @@
                 "Guru mengelola kesadaran sosial dan emosional (KSE) siswa..."
             ]},
             { section: "II. KEGIATAN INTI", items: [
-                // A. Guru menguasai materi yang diajarkan
                 "Kemampuan menyesuaikan materi dengan tujuan pembelajaran.",
                 "Kemampuan mengaitkan materi dengan pengetahuan lain...",
                 "Menggunakan pertanyaan terbuka yang menstimulasi pemikiran...",
                 "Memotivasi peserta didik untuk berpartisipasi aktif...",
                 "Guru menyajikan materi secara sistematis...",
-                
-                // B. Guru menerapkan strategi pembelajaran yang mendidik
                 "Melaksanakan pembelajaran mengikuti kerangka Alur Tujuan Pembelajaran.",
                 "Guru melaksanakan pembelajaran sesuai dengan kompetensi...",
                 "Guru melaksanakan pembelajaran yang menumbuhkan partisipasi aktif murid (mengajukan pertanyaan).",
@@ -831,20 +823,14 @@
                 "Pembelajaran yang dilaksanakan menumbuhkan kemampuan berliterasi dan numerasi.",
                 "Guru melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan dan sikap positif...",
                 "Melaksanakan pembelajaran sesuai dengan alokasi waktu...",
-                
-                // C. Guru memanfaatkan sumber belajar / media dalam pembelajaran
                 "Menunjukkan keterampilan dalam menggunakan sumber dan media pembelajaran...",
                 "Melibatkan peserta didik dalam pemanfaatan media dan sumber pembelajaran.",
-                
-                // D. Implementasi Keterampilan Pembelajaran Abad 21
                 "Pembelajaran bersifat interaktif (communication).",
                 "Pembelajaran menantang (critical thinking and problem solving).",
                 "Pembelajaran mendorong peserta didik bekerja sama (collaboration).",
                 "Pendidik memberikan ruang bagi prakarsa, kreativitas... (creativity and innovation).",
                 "Guru menciptakan suasana kelas yang kondusif...",
                 "Guru menerapkan prinsip disiplin positif...",
-                
-                // E. Guru memicu dan/atau memelihara keterlibatan peserta didik
                 "Melaksanakan pembelajaran yang berpusat pada siswa.",
                 "Guru memberikan perhatian dan bantuan ekstra...",
                 "Guru senantiasa memberikan umpan balik langsung...",
@@ -853,8 +839,6 @@
                 "Guru memberi penjelasan dalam kelompok yang berbeda (Diferensiasi Proses).",
                 "Guru melaksanakan Penilaian Produk melalui Projek/Hasil... (Diferensiasi Produk).",
                 "Menumbuhkan keceriaan dan antusiasme peserta didik...",
-                
-                // F. Guru menggunakan bahasa yang benar dan tepat dalam pembelajaran
                 "Menggunakan bahasa Indonesia yang baik, benar, dan kontekstual.",
                 "Menggunakan pilihan kata yang mudah dipahami...",
                 "Menyampaikan pesan dan gaya yang sesuai."
@@ -883,7 +867,6 @@
 
         // --- FUNGSI INISIALISASI ---
 
-        // Mengisi dropdown guru dan supervisor
         function populateDropdowns() {
             teacherData.forEach(teacher => {
                 const option = new Option(teacher.name, teacher.name);
@@ -895,7 +878,6 @@
             });
         }
 
-        // Mengisi NIP otomatis
         function fillNIP(event) {
             const select = event.currentTarget;
             const selectedName = select.value;
@@ -913,10 +895,8 @@
             targetNIP.value = selectedData ? selectedData.nip : "";
         }
 
-        // --- PERUBAHAN 2: FUNGSI POPULATE TABEL DENGAN NILAI DEFAULT TERTINGGI ---
-
-        // Mengisi tabel administrasi (Tab 1)
         function populateAdminTable() {
+            adminTableBody.innerHTML = ''; // Kosongkan dulu
             adminItems.forEach((item, index) => {
                 const row = adminTableBody.insertRow();
                 row.className = "bg-white border-b hover:bg-gray-50";
@@ -935,21 +915,17 @@
             });
         }
 
-        // Mengisi tabel instrumen (Tab 2)
         function populateInstrumentTable() {
+            instrumentTableBody.innerHTML = ''; // Kosongkan dulu
             let itemCounter = 1;
             instrumentItems.forEach((aspectGroup, aspectIndex) => {
-                // 1. Add Aspect Header Row
                 const headerRow = instrumentTableBody.insertRow();
                 headerRow.className = "bg-gray-100 font-semibold text-gray-700 uppercase";
                 headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${aspectGroup.aspect}</td>`;
                 
-                // 2. Add Item Rows
                 aspectGroup.items.forEach((itemText, itemIndex) => {
                     const itemRow = instrumentTableBody.insertRow();
                     itemRow.className = "bg-white border-b hover:bg-gray-50";
-                    
-                    // Remove number from itemText if present (e.g., "1. Nama Sekolah")
                     const cleanItemText = itemText.replace(/^[0-9]+\.\s*/, '');
                     
                     itemRow.innerHTML = `
@@ -972,16 +948,14 @@
             });
         }
 
-        // Mengisi tabel proses pembelajaran (Tab 3)
         function populateProsesTable() {
+            prosesTableBody.innerHTML = ''; // Kosongkan dulu
             let itemCounter = 1;
             prosesItems.forEach((sectionGroup, sectionIndex) => {
-                // 1. Add Section Header Row
                 const headerRow = prosesTableBody.insertRow();
                 headerRow.className = "bg-gray-200 font-bold text-gray-800 uppercase";
                 headerRow.innerHTML = `<td class="px-4 py-3" colspan="7">${sectionGroup.section}</td>`;
                 
-                // 2. Add Item Rows
                 sectionGroup.items.forEach((itemText, itemIndex) => {
                     const itemRow = prosesTableBody.insertRow();
                     itemRow.className = "bg-white border-b hover:bg-gray-50";
@@ -1017,11 +991,9 @@
 
         // --- FUNGSI PERHITUNGAN ---
 
-        // Perhitungan Tab 1: Administrasi
         function calculateAdminScore() {
             let totalScore = 0;
             let counts = { 0: 0, 1: 0, 2: 0 };
-            
             const checkedRadios = document.querySelectorAll('.admin-radio-item:checked');
             
             checkedRadios.forEach(radio => {
@@ -1030,20 +1002,17 @@
                 counts[value]++;
             });
             
-            // Hitung item yang belum diisi
             const uncheckedCount = TOTAL_ADMIN_ITEMS - checkedRadios.length;
             counts[0] += uncheckedCount;
 
             const percentage = (totalScore / MAX_ADMIN_SCORE) * 100;
 
-            // Update DOM
             document.getElementById('countTidakAda').textContent = counts[0];
             document.getElementById('countAdaTidakSesuai').textContent = counts[1];
             document.getElementById('countAdaSesuai').textContent = counts[2];
             document.getElementById('skorTotalAdmin').textContent = totalScore;
             document.getElementById('ketersediaanAdmin').textContent = percentage.toFixed(2) + '%';
             
-            // Update Achievement Level
             updateAchievementLevel(percentage);
         }
 
@@ -1060,7 +1029,6 @@
             }
         }
 
-        // Perhitungan Tab 2: Instrumen Modul Ajar
         function calculateInstrumentScore() {
             let totalScore = 0;
             const checkedRadios = document.querySelectorAll('.instrument-radio-item:checked');
@@ -1072,7 +1040,6 @@
             const finalGrade = (totalScore / MAX_INSTRUMENT_SCORE) * 100;
             const predicate = getPredikat(finalGrade);
             
-            // Update DOM
             document.getElementById('total-score-instrument').textContent = totalScore;
             document.getElementById('max-score-instrument').textContent = MAX_INSTRUMENT_SCORE;
             document.getElementById('final-grade-instrument').textContent = finalGrade.toFixed(2);
@@ -1080,15 +1047,18 @@
             document.getElementById('predicate-instrument').className = `text-3xl font-bold ${predicate.color}`;
         }
 
-        // Perhitungan Tab 3: Proses Pembelajaran
-        function calculateProsesScore() {
+        // --- PERBAIKAN 1: Tambahkan parameter 'shouldScroll' ---
+        function calculateProsesScore(shouldScroll = false) {
             let totalSkorPerolehan = 0;
             let semuaTerisi = true;
             
             const semuaSkor = document.querySelectorAll('.proses-radio-item:checked');
             
-            if (semuaSkor.length !== TOTAL_PROSES_BUTIR) {
-                showMessage(`Jumlah butir tidak sesuai! Ditemukan ${semuaSkor.length}, seharusnya ${TOTAL_PROSES_BUTIR}.`, true);
+            if (semuaSkor.length < TOTAL_PROSES_BUTIR) {
+                if (shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
+                    showMessage(`Harap isi semua ${TOTAL_PROSES_BUTIR} butir penilaian. Anda baru mengisi ${semuaSkor.length}.`, true);
+                }
+                document.getElementById('hasilProsesSection').classList.add('hidden');
                 return;
             }
             
@@ -1096,15 +1066,13 @@
                 const nilai = parseInt(item.value);
                 if (nilai === 0 || isNaN(nilai)) {
                     semuaTerisi = false;
-                    item.classList.add('border-red-500', 'ring-red-500');
                 } else {
-                    item.classList.remove('border-red-500', 'ring-red-500');
                     totalSkorPerolehan += nilai;
                 }
             });
 
-            if (!semuaTerisi) {
-                showMessage('Harap isi semua butir penilaian di Tab 3 (nilai tidak boleh "-- Pilih Nilai --").', true);
+            if (!semuaTerisi && shouldScroll) { // Hanya tampilkan error jika tombol 'Hitung' ditekan
+                showMessage('Harap isi semua butir penilaian di Tab 3.', true);
                 document.getElementById('hasilProsesSection').classList.add('hidden');
                 return;
             }
@@ -1114,17 +1082,19 @@
             const nilaiAkhir = (totalSkorPerolehan / MAX_PROSES_SKOR) * 100;
             const predikat = getPredikat(nilaiAkhir);
             
-            // Update DOM
             document.getElementById('skorPerolehanProsesEl').textContent = `${totalSkorPerolehan} / ${MAX_PROSES_SKOR}`;
             document.getElementById('nilaiAkhirProsesEl').textContent = nilaiAkhir.toFixed(2);
             document.getElementById('predikatProsesEl').textContent = predikat.text;
             document.getElementById('predikatProsesEl').className = `text-4xl font-extrabold mt-2 ${predikat.color}`;
             
             document.getElementById('hasilProsesSection').classList.remove('hidden');
-            document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
+            
+            // --- PERBAIKAN 2: Hanya scroll jika 'shouldScroll' bernilai true ---
+            if (shouldScroll) {
+                document.getElementById('hasilProsesSection').scrollIntoView({ behavior: 'smooth' });
+            }
         }
         
-        // Helper Predikat
         function getPredikat(nilai) {
             if (nilai >= 86) return { text: 'Sangat Baik', color: 'text-green-600' };
             if (nilai >= 70) return { text: 'Baik', color: 'text-blue-600' };
@@ -1132,7 +1102,6 @@
             return { text: 'Kurang', color: 'text-red-600' };
         }
         
-        // Helper Pesan
         const messageBox = document.getElementById('messageBox');
         const messageText = document.getElementById('messageText');
         function showMessage(message, isError = true) {
@@ -1145,7 +1114,6 @@
             messageBox.classList.add('hidden');
         }
 
-        // --- FUNGSI INTEGRASI SHEETDB ---
         async function saveToSheetDB(formData) {
             const response = await fetch(SHEETDB_URL, {
                 method: 'POST',
@@ -1166,8 +1134,6 @@
             return await response.json();
         }
 
-        // --- FUNGSI VALIDASI & CETAK ---
-        
         const identityFields = ['teacherSelect', 'subject', 'classSemester', 'supervisionDate', 'supervisorSelect'];
         
         function validateIdentity() {
@@ -1179,7 +1145,7 @@
                 let value = field.value.trim();
                 
                 if (field.tagName === 'SELECT' && (value === '-- Pilih Guru --' || value === '-- Pilih Supervisor --')) {
-                    value = ""; // Anggap kosong jika masih default
+                    value = ""; 
                 }
 
                 if (!value) {
@@ -1201,16 +1167,34 @@
         function handleSaveAndPrint(event) {
             event.preventDefault();
             
-            // 1. Validasi Identitas
             if (!validateIdentity()) {
                 showMessage('Validasi Gagal! Harap lengkapi semua data di bagian IDENTITAS SUPERVISI.', true);
+                switchTab('administrasi'); 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Validasi juga bahwa Tab 3 sudah dihitung
+            if (document.getElementById('hasilProsesSection').classList.contains('hidden')) {
+                showMessage('Harap klik tombol "Hitung Nilai Proses Pembelajaran" di Tab 3 sebelum menyimpan.', true);
+                switchTab('proses');
+                document.getElementById('hitungProsesBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             
-            // 2. Kumpulkan semua data dari form
             const selectedTeacher = teacherData.find(t => t.name === teacherSelect.value);
             const selectedSupervisor = supervisorData.find(s => s.name === supervisorSelect.value);
-            const supervisionDate = new Date(document.getElementById('supervisionDate').value).toLocaleDateString('id-ID', {
+            const supervisionDateInput = document.getElementById('supervisionDate').value;
+
+            if (!supervisionDateInput) {
+                 showMessage('Tanggal Supervisi wajib diisi.', true);
+                 switchTab('administrasi');
+                 document.getElementById('supervisionDate').classList.add('input-error');
+                 document.getElementById('supervisionDateError').style.display = 'block';
+                 return;
+            }
+
+            const supervisionDate = new Date(supervisionDateInput).toLocaleDateString('id-ID', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
@@ -1235,13 +1219,11 @@
                 "Timestamp": new Date().toISOString()
             };
             
-            // 3. Kirim data ke SheetDB
             saveToSheetDB(formData)
                 .then(response => {
                     console.log('Data berhasil disimpan:', response);
                     showMessage('Data berhasil disimpan ke database! Sedang mempersiapkan cetakan...', false);
                     
-                    // 4. Isi data untuk cetak
                     document.getElementById('print-tanggal').textContent = supervisionDate;
                     document.getElementById('print-guru-nama').textContent = selectedTeacher.name;
                     document.getElementById('print-guru-nip').textContent = selectedTeacher.nip || '-';
@@ -1250,10 +1232,9 @@
                     document.getElementById('print-kepsek-nama').textContent = headmasterData.name;
                     document.getElementById('print-kepsek-nip').textContent = headmasterData.nip;
 
-                    // 5. Tunggu sebentar lalu cetak
                     setTimeout(() => {
                         window.print();
-                    }, 1500); // Jeda 1.5 detik agar pesan sukses terbaca
+                    }, 1500); 
                 })
                 .catch(error => {
                     console.error('Error saat menyimpan data:', error);
@@ -1263,32 +1244,33 @@
 
         // --- EVENT LISTENERS ---
         
-        // Navigasi Tab
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 switchTab(e.currentTarget.dataset.tab);
             });
         });
 
-        // Pengisi NIP
         teacherSelect.addEventListener('change', fillNIP);
         supervisorSelect.addEventListener('change', fillNIP);
         
-        // Kalkulator
         document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
         document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
         
-        // --- PERUBAHAN DI SINI ---
-        // Baris di bawah ini dinonaktifkan agar tidak otomatis scroll setiap klik radio
-        // document.getElementById('prosesTable').addEventListener('change', calculateProsesScore); 
-        
-        document.getElementById('hitungProsesBtn').addEventListener('click', calculateProsesScore);
+        // --- PERBAIKAN 3: Modifikasi Event Listener ---
+        document.getElementById('prosesTable').addEventListener('change', () => calculateProsesScore(false)); 
+        document.getElementById('hitungProsesBtn').addEventListener('click', () => calculateProsesScore(true));
 
-        // Tombol Aksi
         document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
         document.getElementById('resetBtn').addEventListener('click', () => {
             if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
                  document.getElementById('supervisionForm').reset();
+                 teacherSelect.value = "-- Pilih Guru --";
+                 supervisorSelect.value = "-- Pilih Supervisor --";
+                 // Perbaikan: Panggil fungsi populate ulang untuk mengembalikan radio button ke default 'checked'
+                 populateAdminTable();
+                 populateInstrumentTable();
+                 populateProsesTable();
+                 // Hitung ulang semua
                  calculateAdminScore();
                  calculateInstrumentScore();
                  document.getElementById('hasilProsesSection').classList.add('hidden');
@@ -1300,9 +1282,13 @@
             }
         });
         
-        // Hapus error saat diketik
         identityFields.forEach(id => {
             document.getElementById(id).addEventListener('input', () => {
+                document.getElementById(id).classList.remove('input-error');
+                const errorEl = document.getElementById(id + 'Error');
+                if (errorEl) errorEl.style.display = 'none';
+            });
+             document.getElementById(id).addEventListener('change', () => {
                 document.getElementById(id).classList.remove('input-error');
                 const errorEl = document.getElementById(id + 'Error');
                 if (errorEl) errorEl.style.display = 'none';
@@ -1314,8 +1300,8 @@
         populateAdminTable();
         populateInstrumentTable();
         populateProsesTable();
-        calculateAdminScore(); // Jalankan sekali untuk inisialisasi
-        calculateInstrumentScore(); // Jalankan sekali untuk inisialisasi
+        calculateAdminScore(); 
+        calculateInstrumentScore(); 
     });
     </script>
 </body>
