@@ -1381,65 +1381,50 @@ showMessage(`Gagal menyimpan data: ${error.message}. Silakan coba lagi atau hubu
 // --- EVENT LISTENERS ---
 
 document.querySelectorAll('.tab-button').forEach(button => {
-button.addEventListener('click', (e) => {
-switchTab(e.currentTarget.dataset.tab);
-});
+    button.addEventListener('click', (e) => {
+        switchTab(e.currentTarget.dataset.tab);
+    });
 });
 
 teacherSelect.addEventListener('change', fillNIP);
 supervisorSelect.addEventListener('change', fillNIP);
 
+// --- PERHITUNGAN OTOMATIS SAAT RADIO BUTTON BERUBAH ---
 document.getElementById('adminTable').addEventListener('change', calculateAdminScore);
 document.getElementById('instrumentTable').addEventListener('change', calculateInstrumentScore);
-
-// Event listener untuk proses pembelajaran - TIDAK ADA SCROLL
-document.getElementById('prosesTable').addEventListener('change', () => {
-markUnratedItems();
-updateProgressIndicator();
+document.getElementById('prosesTable').addEventListener('change', function() {
+    markUnratedItems();
+    updateProgressIndicator();
+    calculateProsesScore(); // Ini yang bikin nilai otomatis berubah
 });
 
 // Tombol di Tab 3 untuk pindah ke hasil
 document.getElementById('hitungProsesBtn').addEventListener('click', () => {
-if (calculateProsesScore()) {
-switchTab('hasil');
-}
+    if (calculateProsesScore()) {
+        switchTab('hasil');
+    }
 });
 
 document.getElementById('saveAndPrintBtn').addEventListener('click', handleSaveAndPrint);
 document.getElementById('resetBtn').addEventListener('click', () => {
-if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
-document.getElementById('supervisionForm').reset();
-teacherSelect.value = "-- Pilih Guru --";
-supervisorSelect.value = "-- Pilih Supervisor --";
-// Perbaikan: Panggil fungsi populate ulang untuk mengembalikan radio button ke default 'checked'
-populateAdminTable();
-populateInstrumentTable();
-populateProsesTable();
-// Hitung ulang semua
-calculateAdminScore();
-calculateInstrumentScore();
-document.getElementById('hasilProsesSection').classList.add('hidden');
-document.getElementById('hasil-predikat-proses').textContent = '--';
-document.getElementById('hasil-predikat-proses').className = 'text-4xl font-extrabold mt-2';
-updateAchievementLevel(0);
-updateHasilAchievementLevel(0);
-updateProgressIndicator();
-hideMessage();
-window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-});
-
-identityFields.forEach(id => {
-document.getElementById(id).addEventListener('input', () => {
-document.getElementById(id).classList.remove('input-error');
-const errorEl = document.getElementById(id + 'Error');
-if (errorEl) errorEl.style.display = 'none';
-});
-document.getElementById(id).addEventListener('change', () => {
-document.getElementById(id).classList.remove('input-error');
-const errorEl = document.getElementById(id + 'Error');
-if (errorEl) errorEl.style.display = 'none';
-});
+    if (confirm("Apakah Anda yakin ingin mereset seluruh isian form?")) {
+        document.getElementById('supervisionForm').reset();
+        teacherSelect.value = "-- Pilih Guru --";
+        supervisorSelect.value = "-- Pilih Supervisor --";
+        populateAdminTable();
+        populateInstrumentTable();
+        populateProsesTable();
+        calculateAdminScore();
+        calculateInstrumentScore();
+        document.getElementById('hasilProsesSection').classList.add('hidden');
+        document.getElementById('hasil-predikat-proses').textContent = '--';
+        document.getElementById('hasil-predikat-proses').className = 'text-4xl font-extrabold mt-2';
+        updateAchievementLevel(0);
+        updateHasilAchievementLevel(0);
+        updateProgressIndicator();
+        hideMessage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 });
 
 // --- INISIALISASI ---
@@ -1453,4 +1438,5 @@ updateProgressIndicator();
 });
 </script>
 </body>
+
 </html>
