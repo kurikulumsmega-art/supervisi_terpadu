@@ -142,6 +142,43 @@ details[open] > summary::after {
   font-weight: bold;
 }
 
+/* PERBAIKAN: Tanda tangan sejajar ke samping */
+.signature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.signature-box {
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+}
+
+.signature-line {
+  margin-top: 4rem;
+  border-top: 1px solid #000;
+  padding-top: 0.5rem;
+}
+
+.headmaster-signature {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.headmaster-line {
+  margin-top: 4rem;
+  border-top: 1px solid #000;
+  padding-top: 0.5rem;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Print-specific styles for F4 paper (21cm x 33cm) */
 @media print {
   @page {
@@ -215,28 +252,34 @@ details[open] > summary::after {
     display: block;
   }
 
-  /* Show print signature grid */
-  .signature-grid-print {
+  /* PERBAIKAN: Tanda tangan sejajar ke samping saat dicetak */
+  .signature-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 2cm;
     margin: 2cm 0 1cm 0;
     page-break-inside: avoid;
   }
+  
   .signature-box {
     text-align: center;
     min-height: 3cm;
+    border: none;
+    background-color: transparent;
   }
+  
   .signature-line {
     margin-top: 2.5cm;
     border-top: 1px solid #000;
     padding-top: 0.5cm;
   }
+  
   .headmaster-signature {
     margin-top: 1.5cm;
     text-align: center;
     page-break-inside: avoid;
   }
+  
   .headmaster-line {
     margin-top: 2.5cm;
     border-top: 1px solid #000;
@@ -320,6 +363,12 @@ details[open] > summary::after {
   .progress-indicator {
     position: static;
     margin: 10px;
+  }
+  
+  /* PERBAIKAN: Tanda tangan vertikal di perangkat kecil */
+  .signature-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 </style>
@@ -675,7 +724,8 @@ class="w-16 h-16 object-contain">
 <div class="mt-8 pt-6 border-t border-gray-300">
 <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-signature mr-3"></i>LEMBAR PENGESAHAN</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+<!-- PERBAIKAN: Tanda tangan sejajar ke samping -->
+<div class="signature-grid">
 <div class="signature-box">
 <p class="mb-2">Purbalingga, <span id="print-tanggal"></span></p>
 <p class="font-bold mb-8">Guru yang disupervisi,</p>
@@ -1438,5 +1488,4 @@ updateProgressIndicator();
 });
 </script>
 </body>
-
 </html>
